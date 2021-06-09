@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heroicons/heroicons.dart';
 
 void main() {
   runApp(AppWrapper());
@@ -30,13 +31,23 @@ class _MenuWrapperState extends State<MenuWrapper>
   int _selectedIndex = 0;
   bool _extended = false;
 
-  List<NavigationRailDestination> _destinations = [
-    NavigationRailDestination(
-        icon: Icon(Icons.computer_rounded), label: Text("Flash Device")),
-    NavigationRailDestination(
-        icon: Icon(Icons.computer_rounded), label: Text("Flash Device")),
-    NavigationRailDestination(
-        icon: Icon(Icons.computer_rounded), label: Text("Flash Device")),
+  List<Widget> _destinations = [
+    IconButton(
+      onPressed: () {},
+      icon: HeroIcon(HeroIcons.chip),
+    ),
+    IconButton(
+      onPressed: () {},
+      icon: HeroIcon(HeroIcons.plusCircle),
+    ),
+    IconButton(
+      onPressed: () {},
+      icon: HeroIcon(HeroIcons.puzzle),
+    ),
+    IconButton(
+      onPressed: () {},
+      icon: HeroIcon(HeroIcons.fire),
+    ),
   ];
 
   late AnimationController _animationController;
@@ -60,25 +71,10 @@ class _MenuWrapperState extends State<MenuWrapper>
     return Scaffold(
       body: Row(
         children: [
-          NavigationRail(
-            destinations: _destinations,
-            selectedIndex: _selectedIndex,
-            trailing: IconButton(
-              icon: AnimatedIcon(
-                icon: AnimatedIcons.list_view,
-                progress: _animationController,
-              ),
-              onPressed: () {
-                _extended = !_extended;
-                if (_extended) {
-                  _animationController.forward();
-                } else {
-                  _animationController.reverse();
-                }
-                setState(() {});
-              },
-            ),
-            extended: _extended,
+          Column(
+            children: [
+              ..._destinations,
+            ],
           ),
         ],
       ),
