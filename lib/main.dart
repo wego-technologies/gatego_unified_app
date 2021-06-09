@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gatego_unified_app/components/menu.dart';
 import 'package:heroicons/heroicons.dart';
 
 void main() {
@@ -28,55 +29,27 @@ class MenuWrapper extends StatefulWidget {
 
 class _MenuWrapperState extends State<MenuWrapper>
     with TickerProviderStateMixin {
-  int _selectedIndex = 0;
+  String _selectedItemKey = "Flash Device";
   bool _extended = false;
 
-  List<Widget> _destinations = [
-    IconButton(
-      onPressed: () {},
-      icon: HeroIcon(HeroIcons.chip),
-    ),
-    IconButton(
-      onPressed: () {},
-      icon: HeroIcon(HeroIcons.plusCircle),
-    ),
-    IconButton(
-      onPressed: () {},
-      icon: HeroIcon(HeroIcons.puzzle),
-    ),
-    IconButton(
-      onPressed: () {},
-      icon: HeroIcon(HeroIcons.fire),
-    ),
-  ];
-
-  late AnimationController _animationController;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
+  Map<String, Widget> _destinations = {
+    "Flash Device": HeroIcon(HeroIcons.chip),
+    "Register Device": HeroIcon(HeroIcons.plusCircle),
+    "Test Device": HeroIcon(HeroIcons.shieldCheck),
+    "Factory Reset": HeroIcon(HeroIcons.fire),
+  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: [
-          Column(
-            children: [
-              ..._destinations,
-            ],
-          ),
-        ],
+      body: Menu(
+        selectedItemKey: _selectedItemKey,
+        menuItems: _destinations,
+        leading: FlutterLogo(),
+        onItemPressed: (item) {
+          print(item);
+        },
+        trailing: FlutterLogo(),
       ),
     );
   }

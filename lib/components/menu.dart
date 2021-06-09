@@ -6,6 +6,7 @@ class Menu extends StatelessWidget {
   final Widget? leading;
   final Widget? trailing;
   final bool expanded;
+  final Function onItemPressed;
 
   const Menu({
     required this.selectedItemKey,
@@ -13,21 +14,37 @@ class Menu extends StatelessWidget {
     this.leading,
     this.trailing,
     this.expanded = false,
+    required this.onItemPressed,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (!expanded) {
-      return Row(
+      return Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          leading ?? const SizedBox(),
+          Expanded(
+            child: Column(
+              children: [
+                ...menuItems.entries.map((item) {
+                  return item.value;
+                }).toList(),
+              ],
+            ),
+          ),
+          trailing ?? const SizedBox(),
+        ],
+      );
+    } else {
+      return Column(
         children: [
           ...menuItems.entries.map((item) {
             return item.value;
           }).toList()
         ],
       );
-    } else {
-      return Container();
     }
   }
 }
