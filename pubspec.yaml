@@ -44,6 +44,11 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - assets/Gatego Logo.png
+    - assets/Gatego Dark Background.png
+    - assets/Blue Icon Circle.png
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

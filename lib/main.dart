@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/components/menu.dart';
+import 'package:gatego_unified_app/molecules/UserCard.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -49,23 +50,31 @@ class _MenuWrapperState extends State<MenuWrapper>
       body: Row(
         children: [
           Container(
-            width: _extended ? 200 : null,
+            width: _extended ? 232 : null,
             child: Menu(
-              onExpandedToggle: () {
-                _extended = !_extended;
-                setState(() {});
-              },
-              selectedItemKey: _selectedItemKey,
-              menuItems: _destinations,
-              leading: FlutterLogo(),
-              expanded: _extended,
-              onItemPressed: (item) {
-                print(item);
-                _selectedItemKey = item;
-                setState(() {});
-              },
-              trailing: CircleAvatar(),
-            ),
+                onExpandedToggle: () {
+                  _extended = !_extended;
+                  setState(() {});
+                },
+                selectedItemKey: _selectedItemKey,
+                menuItems: _destinations,
+                leading: _extended
+                    ? Image.asset(
+                        "assets/Gatego logo.png",
+                        height: 50,
+                        //fit: BoxFit.,
+                      )
+                    : Image.asset(
+                        "assets/Blue Icon Circle.png",
+                        height: 50,
+                      ),
+                expanded: _extended,
+                onItemPressed: (item) {
+                  print(item);
+                  _selectedItemKey = item;
+                  setState(() {});
+                },
+                trailing: UserCard(expanded: _extended)),
           ),
         ],
       ),

@@ -47,7 +47,8 @@ class Menu extends StatelessWidget {
                     ? menuItems.entries.map((item) {
                         bool _itemSelcted = item.key == selectedItemKey;
                         return Container(
-                          margin: EdgeInsets.symmetric(vertical: 5),
+                          margin:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 3),
                           child: IconButton(
                             onPressed: () {
                               onItemPressed(item.key);
@@ -76,10 +77,8 @@ class Menu extends StatelessWidget {
                     : menuItems.entries.map((item) {
                         bool _itemSelcted = item.key == selectedItemKey;
                         return Container(
-                          constraints:
-                              const BoxConstraints(minWidth: double.infinity),
-                          margin:
-                              EdgeInsets.symmetric(vertical: 13, horizontal: 8),
+                          constraints: const BoxConstraints(minWidth: 200),
+                          margin: EdgeInsets.symmetric(vertical: 13),
                           child: InkWell(
                             borderRadius: BorderRadius.circular(5000),
                             onTap: () {
@@ -96,8 +95,7 @@ class Menu extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(5000),
                               ),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   HeroIcon(
                                     item.value,
@@ -107,11 +105,11 @@ class Menu extends StatelessWidget {
                                         : Theme.of(context).iconTheme.color,
                                   ),
                                   SizedBox(
-                                    width: 10,
+                                    width: 15,
                                   ),
                                   Text(
                                     item.key,
-                                    textAlign: TextAlign.end,
+                                    textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 15,
@@ -164,7 +162,7 @@ class Menu extends StatelessWidget {
                       if (expanded)
                         Text(
                           "Minimize Menu",
-                          textAlign: TextAlign.end,
+                          textAlign: TextAlign.start,
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 15,
