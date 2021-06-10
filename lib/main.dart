@@ -44,22 +44,25 @@ class _MenuWrapperState extends State<MenuWrapper>
     return Scaffold(
       body: Row(
         children: [
-          Menu(
-            selectedItemKey: _selectedItemKey,
-            menuItems: _destinations,
-            leading: FlutterLogo(),
-            expanded: _extended,
-            onItemPressed: (item) {
-              print(item);
-              _selectedItemKey = item;
-              setState(() {});
-            },
-            trailing: IconButton(
-              icon: HeroIcon(HeroIcons.chevronRight),
-              onPressed: () {
-                _extended = !_extended;
+          Container(
+            width: 200,
+            child: Menu(
+              selectedItemKey: _selectedItemKey,
+              menuItems: _destinations,
+              leading: FlutterLogo(),
+              expanded: _extended,
+              onItemPressed: (item) {
+                print(item);
+                _selectedItemKey = item;
                 setState(() {});
               },
+              trailing: IconButton(
+                icon: HeroIcon(HeroIcons.chevronRight),
+                onPressed: () {
+                  _extended = !_extended;
+                  setState(() {});
+                },
+              ),
             ),
           ),
         ],

@@ -65,41 +65,55 @@ class Menu extends StatelessWidget {
                   : menuItems.entries.map((item) {
                       bool _itemSelcted = item.key == selectedItemKey;
                       return Container(
-                        margin: EdgeInsets.symmetric(vertical: 11),
-                        constraints: BoxConstraints(minWidth: 170),
-                        child: TextButton.icon(
-                          onPressed: () {
+                        constraints:
+                            const BoxConstraints(minWidth: double.infinity),
+                        margin:
+                            EdgeInsets.symmetric(vertical: 13, horizontal: 8),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(5000),
+                          onTap: () {
                             onItemPressed(item.key);
                           },
-                          icon: HeroIcon(
-                            item.value,
-                            size: 30,
-                            color: _itemSelcted
-                                ? Theme.of(context).primaryColor
-                                : Theme.of(context).iconTheme.color,
-                          ),
-                          label: Text(
-                            item.key,
-                            style: TextStyle(
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            //margin: EdgeInsets.all(10),
+                            width: 170,
+                            decoration: BoxDecoration(
                               color: _itemSelcted
                                   ? Theme.of(context).primaryColor
-                                  : Theme.of(context).iconTheme.color,
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(5000),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                HeroIcon(
+                                  item.value,
+                                  size: 30,
+                                  color: _itemSelcted
+                                      ? Theme.of(context).canvasColor
+                                      : Theme.of(context).iconTheme.color,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  item.key,
+                                  textAlign: TextAlign.end,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15,
+                                    color: _itemSelcted
+                                        ? Colors.white
+                                        : Theme.of(context).iconTheme.color,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                              ],
                             ),
                           ),
-                          style: ButtonStyle(
-                            alignment: Alignment.centerLeft,
-                            padding: MaterialStateProperty.resolveWith(
-                              (states) => EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 25,
-                              ),
-                            ),
-                          ),
-                          //iconSize: 30,
-                          //splashRadius: 30,
-                          //color: _itemSelcted
-                          //? Theme.of(context).primaryColor
-                          //: Theme.of(context).iconTheme.color,
                         ),
                       );
                     }).toList(),
