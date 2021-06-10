@@ -13,11 +13,17 @@ class UserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     if (expanded) {
       return Container(
+        padding: EdgeInsets.only(left: 4),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.white,
             boxShadow: [
-              BoxShadow(blurRadius: 10, spreadRadius: -5, offset: Offset(0, 0))
+              BoxShadow(
+                blurRadius: 6,
+                spreadRadius: 0,
+                color: Theme.of(context).shadowColor.withAlpha(50),
+                offset: Offset(0, 0),
+              )
             ]),
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
@@ -59,7 +65,7 @@ class UserCard extends StatelessWidget {
       );
     }
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.only(bottom: 12),
       child: InkWell(
         onTap: () {},
         borderRadius: BorderRadius.circular(50000),
