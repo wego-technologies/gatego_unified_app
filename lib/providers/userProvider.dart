@@ -53,6 +53,14 @@ Future<String?> refreshJWT(String jwt) async {
   }
 }
 
-final authProvider = Provider.autoDispose<Account>((ref) {
-  return Account(isAuth: false);
+Future<Account?> getAccount() async {
+  return null;
+}
+
+//Account getAccount(String jwt) {}
+
+final jwtProvider = StateProvider.autoDispose<String?>((ref) {
+  return "";
 });
+
+final accountProvider = StateProvider.autoDispose<Account?>((ref) {});
