@@ -3,6 +3,7 @@ import 'package:gatego_unified_app/components/menu.dart';
 import 'package:gatego_unified_app/molecules/UserCard.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
   runApp(AppWrapper());
@@ -11,16 +12,18 @@ void main() {
 class AppWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Gatego Autonomous+ Tools',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        primaryColor: Color(0xFF00ADE2),
-        textTheme: GoogleFonts.robotoTextTheme(
-          Theme.of(context).textTheme,
+    return ProviderScope(
+      child: MaterialApp(
+        title: 'Gatego Autonomous+ Tools',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          primaryColor: Color(0xFF00ADE2),
+          textTheme: GoogleFonts.robotoTextTheme(
+            Theme.of(context).textTheme,
+          ),
         ),
+        home: MenuWrapper(),
       ),
-      home: MenuWrapper(),
     );
   }
 }
