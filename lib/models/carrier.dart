@@ -14,14 +14,14 @@ class Carrier with ChangeNotifier {
   List<YardCarrier> yards;
 
   Carrier({
-    @required this.createdAt,
-    @required this.createdBy,
-    @required this.fleetId,
-    @required this.lastModifiedAt,
-    @required this.lastModifiedBy,
-    @required this.name,
-    @required this.scac,
-    @required this.yards,
-    @required this.id,
+    required this.createdAt,
+    required this.createdBy,
+    required this.fleetId,
+    required this.lastModifiedAt,
+    required this.lastModifiedBy,
+    required this.name,
+    required this.scac,
+    required this.yards,
+    required this.id,
   });
 }
