@@ -8,6 +8,7 @@ class Menu extends StatelessWidget {
   final Widget? trailing;
   final bool expanded;
   final Function onItemPressed;
+  final Function onExpandedToggle;
 
   const Menu({
     required this.selectedItemKey,
@@ -16,16 +17,24 @@ class Menu extends StatelessWidget {
     this.trailing,
     this.expanded = false,
     required this.onItemPressed,
+    required this.onExpandedToggle,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [BoxShadow(blurRadius: 5, spreadRadius: -2)],
+        color: Theme.of(context).canvasColor,
+      ),
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
+          SizedBox(
+            height: 20,
+          ),
           leading ?? const SizedBox(),
           SizedBox(
             height: 10,
@@ -120,6 +129,54 @@ class Menu extends StatelessWidget {
             ),
           ),
           trailing ?? SizedBox(),
+          Container(
+            //constraints: const BoxConstraints(minWidth: double.infinity),
+            margin: EdgeInsets.symmetric(vertical: 13, horizontal: 8),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(5000),
+              onTap: () {
+                onExpandedToggle();
+              },
+              child: Container(
+                padding: EdgeInsets.all(10),
+                //margin: EdgeInsets.all(10),
+                //width: 170,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5000),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    HeroIcon(
+                      !expanded
+                          ? HeroIcons.chevronRight
+                          : HeroIcons.chevronLeft,
+                      size: 30,
+                      color: Theme.of(context).iconTheme.color,
+                    ),
+                    if (expanded)
+                      SizedBox(
+                        width: 10,
+                      ),
+                    if (expanded)
+                      Text(
+                        "Contract Menu",
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                          color: Theme.of(context).iconTheme.color,
+                        ),
+                      ),
+                    if (expanded)
+                      SizedBox(
+                        width: 5,
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
