@@ -21,116 +21,93 @@ class Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!expanded) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            leading ?? const SizedBox(),
-            SizedBox(
-              height: 10,
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  ...menuItems.entries.map((item) {
-                    bool _itemSelcted = item.key == selectedItemKey;
-                    return Container(
-                      margin: EdgeInsets.symmetric(vertical: 5),
-                      child: IconButton(
-                        onPressed: () {
-                          onItemPressed(item.key);
-                        },
-                        icon: Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: _itemSelcted
-                                ? Theme.of(context).primaryColor
-                                : Colors.transparent,
-                            shape: BoxShape.circle,
-                          ),
-                          child: HeroIcon(
-                            item.value,
-                            size: 30,
-                            color: _itemSelcted
-                                ? Theme.of(context).canvasColor
-                                : Theme.of(context).iconTheme.color,
-                          ),
-                        ),
-                        iconSize: 50,
-                        splashRadius: 30,
-                      ),
-                    );
-                  }).toList(),
-                ],
-              ),
-            ),
-            trailing ?? const SizedBox(),
-          ],
-        ),
-      );
-    } else {
-      return Column(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
           leading ?? const SizedBox(),
           SizedBox(
             height: 10,
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ...menuItems.entries.map((item) {
-                    bool _itemSelcted = item.key == selectedItemKey;
-                    return Container(
-                      margin: EdgeInsets.symmetric(vertical: 11),
-                      constraints: BoxConstraints(minWidth: 170),
-                      child: TextButton.icon(
-                        onPressed: () {
-                          onItemPressed(item.key);
-                        },
-                        icon: HeroIcon(
-                          item.value,
-                          size: 30,
-                          color: _itemSelcted
-                              ? Theme.of(context).primaryColor
-                              : Theme.of(context).iconTheme.color,
+            child: Column(
+              children: !expanded
+                  ? menuItems.entries.map((item) {
+                      bool _itemSelcted = item.key == selectedItemKey;
+                      return Container(
+                        margin: EdgeInsets.symmetric(vertical: 5),
+                        child: IconButton(
+                          onPressed: () {
+                            onItemPressed(item.key);
+                          },
+                          icon: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: _itemSelcted
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.transparent,
+                              shape: BoxShape.circle,
+                            ),
+                            child: HeroIcon(
+                              item.value,
+                              size: 30,
+                              color: _itemSelcted
+                                  ? Theme.of(context).canvasColor
+                                  : Theme.of(context).iconTheme.color,
+                            ),
+                          ),
+                          iconSize: 50,
+                          splashRadius: 30,
                         ),
-                        label: Text(
-                          item.key,
-                          style: TextStyle(
+                      );
+                    }).toList()
+                  : menuItems.entries.map((item) {
+                      bool _itemSelcted = item.key == selectedItemKey;
+                      return Container(
+                        margin: EdgeInsets.symmetric(vertical: 11),
+                        constraints: BoxConstraints(minWidth: 170),
+                        child: TextButton.icon(
+                          onPressed: () {
+                            onItemPressed(item.key);
+                          },
+                          icon: HeroIcon(
+                            item.value,
+                            size: 30,
                             color: _itemSelcted
                                 ? Theme.of(context).primaryColor
                                 : Theme.of(context).iconTheme.color,
                           ),
-                        ),
-                        style: ButtonStyle(
-                          alignment: Alignment.centerLeft,
-                          padding: MaterialStateProperty.resolveWith(
-                            (states) => EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 25,
+                          label: Text(
+                            item.key,
+                            style: TextStyle(
+                              color: _itemSelcted
+                                  ? Theme.of(context).primaryColor
+                                  : Theme.of(context).iconTheme.color,
                             ),
                           ),
+                          style: ButtonStyle(
+                            alignment: Alignment.centerLeft,
+                            padding: MaterialStateProperty.resolveWith(
+                              (states) => EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 25,
+                              ),
+                            ),
+                          ),
+                          //iconSize: 30,
+                          //splashRadius: 30,
+                          //color: _itemSelcted
+                          //? Theme.of(context).primaryColor
+                          //: Theme.of(context).iconTheme.color,
                         ),
-                        //iconSize: 30,
-                        //splashRadius: 30,
-                        //color: _itemSelcted
-                        //? Theme.of(context).primaryColor
-                        //: Theme.of(context).iconTheme.color,
-                      ),
-                    );
-                  }).toList(),
-                ],
-              ),
+                      );
+                    }).toList(),
             ),
           ),
-          trailing ?? const SizedBox(),
+          trailing ?? SizedBox(),
         ],
-      );
-    }
+      ),
+    );
   }
 }
