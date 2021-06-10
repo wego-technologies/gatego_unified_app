@@ -29,7 +29,16 @@ class Menu extends StatelessWidget {
             child: Column(
               children: [
                 ...menuItems.entries.map((item) {
-                  return item.value;
+                  bool _itemSelcted = item.key == selectedItemKey;
+                  return IconButton(
+                    onPressed: () {
+                      onItemPressed(item.key);
+                    },
+                    icon: item.value,
+                    color: _itemSelcted
+                        ? Theme.of(context).primaryColor
+                        : Theme.of(context).iconTheme.color,
+                  );
                 }).toList(),
               ],
             ),

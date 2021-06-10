@@ -48,6 +48,8 @@ class _MenuWrapperState extends State<MenuWrapper>
         leading: FlutterLogo(),
         onItemPressed: (item) {
           print(item);
+          _selectedItemKey = item;
+          setState(() {});
         },
         trailing: FlutterLogo(),
       ),
