@@ -45,7 +45,7 @@ class _MenuWrapperState extends State<MenuWrapper>
       body: Row(
         children: [
           Container(
-            width: 200,
+            width: _extended ? 200 : null,
             child: Menu(
               selectedItemKey: _selectedItemKey,
               menuItems: _destinations,
@@ -56,12 +56,54 @@ class _MenuWrapperState extends State<MenuWrapper>
                 _selectedItemKey = item;
                 setState(() {});
               },
-              trailing: IconButton(
-                icon: HeroIcon(HeroIcons.chevronRight),
-                onPressed: () {
-                  _extended = !_extended;
-                  setState(() {});
-                },
+              trailing: Container(
+                //constraints: const BoxConstraints(minWidth: double.infinity),
+                margin: EdgeInsets.symmetric(vertical: 13, horizontal: 8),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(5000),
+                  onTap: () {
+                    _extended = !_extended;
+                    setState(() {});
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    //margin: EdgeInsets.all(10),
+                    //width: 170,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5000),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        HeroIcon(
+                          !_extended
+                              ? HeroIcons.chevronRight
+                              : HeroIcons.chevronLeft,
+                          size: 30,
+                          color: Theme.of(context).iconTheme.color,
+                        ),
+                        if (_extended)
+                          SizedBox(
+                            width: 10,
+                          ),
+                        if (_extended)
+                          Text(
+                            "Contract Menu",
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                              color: Theme.of(context).iconTheme.color,
+                            ),
+                          ),
+                        if (_extended)
+                          SizedBox(
+                            width: 5,
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
