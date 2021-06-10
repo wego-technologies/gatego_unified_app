@@ -32,26 +32,37 @@ class _MenuWrapperState extends State<MenuWrapper>
   String _selectedItemKey = "Flash Device";
   bool _extended = false;
 
-  Map<String, Widget> _destinations = {
-    "Flash Device": HeroIcon(HeroIcons.chip),
-    "Register Device": HeroIcon(HeroIcons.plusCircle),
-    "Test Device": HeroIcon(HeroIcons.shieldCheck),
-    "Factory Reset": HeroIcon(HeroIcons.fire),
+  Map<String, HeroIcons> _destinations = {
+    "Flash Device": HeroIcons.chip,
+    "Register Device": HeroIcons.plusCircle,
+    "Test Device": HeroIcons.shieldCheck,
+    "Factory Reset": HeroIcons.fire,
   };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Menu(
-        selectedItemKey: _selectedItemKey,
-        menuItems: _destinations,
-        leading: FlutterLogo(),
-        onItemPressed: (item) {
-          print(item);
-          _selectedItemKey = item;
-          setState(() {});
-        },
-        trailing: FlutterLogo(),
+      body: Row(
+        children: [
+          Menu(
+            selectedItemKey: _selectedItemKey,
+            menuItems: _destinations,
+            leading: FlutterLogo(),
+            expanded: _extended,
+            onItemPressed: (item) {
+              print(item);
+              _selectedItemKey = item;
+              setState(() {});
+            },
+            trailing: IconButton(
+              icon: HeroIcon(HeroIcons.chevronRight),
+              onPressed: () {
+                _extended = !_extended;
+                setState(() {});
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

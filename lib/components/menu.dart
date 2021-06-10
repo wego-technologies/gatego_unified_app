@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:heroicons/heroicons.dart';
 
 class Menu extends StatelessWidget {
   final String selectedItemKey;
-  final Map<String, Widget> menuItems;
+  final Map<String, HeroIcons> menuItems;
   final Widget? leading;
   final Widget? trailing;
   final bool expanded;
@@ -21,37 +22,113 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!expanded) {
-      return Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          leading ?? const SizedBox(),
-          Expanded(
-            child: Column(
-              children: [
-                ...menuItems.entries.map((item) {
-                  bool _itemSelcted = item.key == selectedItemKey;
-                  return IconButton(
-                    onPressed: () {
-                      onItemPressed(item.key);
-                    },
-                    icon: item.value,
-                    color: _itemSelcted
-                        ? Theme.of(context).primaryColor
-                        : Theme.of(context).iconTheme.color,
-                  );
-                }).toList(),
-              ],
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            leading ?? const SizedBox(),
+            SizedBox(
+              height: 10,
             ),
-          ),
-          trailing ?? const SizedBox(),
-        ],
+            Expanded(
+              child: Column(
+                children: [
+                  ...menuItems.entries.map((item) {
+                    bool _itemSelcted = item.key == selectedItemKey;
+                    return Container(
+                      margin: EdgeInsets.symmetric(vertical: 5),
+                      child: IconButton(
+                        onPressed: () {
+                          onItemPressed(item.key);
+                        },
+                        icon: Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: _itemSelcted
+                                ? Theme.of(context).primaryColor
+                                : Colors.transparent,
+                            shape: BoxShape.circle,
+                          ),
+                          child: HeroIcon(
+                            item.value,
+                            size: 30,
+                            color: _itemSelcted
+                                ? Theme.of(context).canvasColor
+                                : Theme.of(context).iconTheme.color,
+                          ),
+                        ),
+                        iconSize: 50,
+                        splashRadius: 30,
+                      ),
+                    );
+                  }).toList(),
+                ],
+              ),
+            ),
+            trailing ?? const SizedBox(),
+          ],
+        ),
       );
     } else {
       return Column(
         children: [
-          ...menuItems.entries.map((item) {
-            return item.value;
-          }).toList()
+          leading ?? const SizedBox(),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ...menuItems.entries.map((item) {
+                    bool _itemSelcted = item.key == selectedItemKey;
+                    return Container(
+                      margin: EdgeInsets.symmetric(vertical: 11),
+                      constraints: BoxConstraints(minWidth: 170),
+                      child: TextButton.icon(
+                        onPressed: () {
+                          onItemPressed(item.key);
+                        },
+                        icon: HeroIcon(
+                          item.value,
+                          size: 30,
+                          color: _itemSelcted
+                              ? Theme.of(context).primaryColor
+                              : Theme.of(context).iconTheme.color,
+                        ),
+                        label: Text(
+                          item.key,
+                          style: TextStyle(
+                            color: _itemSelcted
+                                ? Theme.of(context).primaryColor
+                                : Theme.of(context).iconTheme.color,
+                          ),
+                        ),
+                        style: ButtonStyle(
+                          alignment: Alignment.centerLeft,
+                          padding: MaterialStateProperty.resolveWith(
+                            (states) => EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 25,
+                            ),
+                          ),
+                        ),
+                        //iconSize: 30,
+                        //splashRadius: 30,
+                        //color: _itemSelcted
+                        //? Theme.of(context).primaryColor
+                        //: Theme.of(context).iconTheme.color,
+                      ),
+                    );
+                  }).toList(),
+                ],
+              ),
+            ),
+          ),
+          trailing ?? const SizedBox(),
         ],
       );
     }
