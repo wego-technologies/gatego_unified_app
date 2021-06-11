@@ -53,8 +53,32 @@ Future<String?> refreshJWT(String jwt) async {
   }
 }
 
-Future<Account?> getAccount() async {
-  return null;
+Future<Account?> getAccount(ScopedReader watch) async {
+  String? jwt = watch(jwtProvider).state;
+
+  if (jwt == null) {
+    return null;
+  }
+
+  var res = await http.post(
+      Uri(
+        host: "api.gatego.io",
+        scheme: "https",
+        path: "api/me",
+      ),
+      headers: {
+        "Accept": "application/json",
+        "content-type": "application/json",
+        "Authorization": "Bearer " + jwt,
+      });
+
+  if (res.statusCode == 200) {
+    var json = jsonDecode(res.body) as Map<String, dynamic>;
+    return Account.fromJson(json);
+  } else {
+    print(res);
+    return null;
+  }
 }
 
 //Account getAccount(String jwt) {}
@@ -63,4 +87,6 @@ final jwtProvider = StateProvider.autoDispose<String?>((ref) {
   return "";
 });
 
-final accountProvider = StateProvider.autoDispose<Account?>((ref) {});
+final accountProvider = StateProvider.autoDispose<Account?>((ref) {
+  return null;
+});
