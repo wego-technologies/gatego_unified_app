@@ -83,7 +83,7 @@ Future<Account?> getAccount(ScopedReader watch) async {
 
 //Account getAccount(String jwt) {}
 
-final jwtProvider = StateProvider.autoDispose<String?>((ref) {
+final jwtProvider = StateProvider.autoDispose<String>((ref) {
   return "";
 });
 

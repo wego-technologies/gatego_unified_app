@@ -32,6 +32,7 @@ dependencies:
   hooks_riverpod: ^0.14.0+4
   http: ^0.13.3
   beamer: ^0.14.0
+  loading_indicator: ^2.1.1
 
 dev_dependencies:
   flutter_test:

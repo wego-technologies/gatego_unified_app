@@ -27,9 +27,9 @@ class Menu extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final jwtState = watch(jwtProvider).state;
     if (jwtState == "") {
-      getJWT("admin", "vfiKkusWvNfHLzqqRDntaeXUFrGicD").then((value) {
-        context.read(jwtProvider).state = value;
-      });
+      //getJWT("admin", "vfiKkusWvNfHLzqqRDntaeXUFrGicD").then((value) {
+      //context.read(jwtProvider).state = value;
+      //});
     }
 
     return Container(
