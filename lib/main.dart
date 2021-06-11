@@ -1,6 +1,8 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/components/menu.dart';
 import 'package:gatego_unified_app/molecules/UserCard.dart';
+import 'package:gatego_unified_app/pages/login.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,10 +12,20 @@ void main() {
 }
 
 class AppWrapper extends StatelessWidget {
+  final routerDelegate = BeamerDelegate(
+    locationBuilder: SimpleLocationBuilder(
+      routes: {
+        // Return either Widgets or BeamPages if more customization is needed
+        '/': (context, state) => MenuWrapper(),
+        '/login': (context, state) => LoginPage(),
+      },
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: 'Gatego Autonomous+ Tools',
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -22,7 +34,8 @@ class AppWrapper extends StatelessWidget {
             Theme.of(context).textTheme,
           ),
         ),
-        home: MenuWrapper(),
+        routeInformationParser: BeamerParser(),
+        routerDelegate: routerDelegate,
       ),
     );
   }
