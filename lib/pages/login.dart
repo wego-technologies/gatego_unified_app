@@ -26,6 +26,17 @@ class _LoginPageState extends State<LoginPage> {
   bool inP = false;
 
   @override
+  void dispose() {
+    userFn.dispose();
+    userC.dispose();
+
+    passC.dispose();
+    userFn.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
