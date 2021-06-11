@@ -72,7 +72,6 @@ class _LoginPageState extends State<LoginPage> {
                   builder: (context, watch, widget) {
                     String? jwt = watch(jwtProvider).state;
                     if (jwt.isNotEmpty) {
-                      print(jwt);
                       Beamer.of(context).popRoute();
                       return SizedBox();
                     }
@@ -100,12 +99,27 @@ class _LoginPageState extends State<LoginPage> {
                           height: 30,
                         ),
                         TextInput(
+                          obscureText: true,
                           setData: (data) => user,
                           icon: Icons.vpn_key_outlined,
                           text: "Password",
                           c: passC,
                           fn: passFn,
-                          nextFocus: passFn.requestFocus,
+                          nextFocus: !inP
+                              ? () {
+                                  if (userC.text != "" && passC.text != "") {
+                                    getJWT(userC.text, passC.text).then((jwt) {
+                                      if (jwt != null) {
+                                        inP = false;
+                                        watch(jwtProvider).state = jwt;
+                                      }
+                                    });
+                                    setState(() {
+                                      inP = true;
+                                    });
+                                  }
+                                }
+                              : () {},
                         ),
                         SizedBox(
                           height: 30,
@@ -140,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                                   }
                                 }
                               : null,
-                          icon: !inP
+                          label: !inP
                               ? Icon(Icons.arrow_forward)
                               : SizedBox(
                                   height: 25,
@@ -150,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                                     color: Colors.white,
                                   ),
                                 ),
-                          label: !inP
+                          icon: !inP
                               ? Text("Continue")
                               : Text(
                                   "Loading",

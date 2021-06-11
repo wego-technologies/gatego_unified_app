@@ -56,19 +56,18 @@ Future<String?> refreshJWT(String jwt) async {
 Future<Account?> getAccount(ScopedReader watch) async {
   String? jwt = watch(jwtProvider).state;
 
-  if (jwt == null) {
+  if (jwt == "") {
     return null;
   }
 
-  var res = await http.post(
+  var res = await http.get(
       Uri(
         host: "api.gatego.io",
         scheme: "https",
-        path: "api/me",
+        path: "api/account/me",
       ),
       headers: {
-        "Accept": "application/json",
-        "content-type": "application/json",
+        "Accept": "*/*",
         "Authorization": "Bearer " + jwt,
       });
 
@@ -76,7 +75,7 @@ Future<Account?> getAccount(ScopedReader watch) async {
     var json = jsonDecode(res.body) as Map<String, dynamic>;
     return Account.fromJson(json);
   } else {
-    print(res);
+    print(res.body);
     return null;
   }
 }
