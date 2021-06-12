@@ -2,6 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/components/menu.dart';
 import 'package:gatego_unified_app/molecules/UserCard.dart';
+import 'package:gatego_unified_app/pages/flash.dart';
 import 'package:gatego_unified_app/pages/login.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -60,6 +61,13 @@ class _MenuWrapperState extends State<MenuWrapper>
     "Factory Reset": HeroIcons.fire,
   };
 
+  Map<String, Widget> _pages = {
+    "Flash Device": FlashPage(),
+    "Register Device": LoginPage(),
+    "Test Device": LoginPage(),
+    "Factory Reset": LoginPage(),
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,6 +101,7 @@ class _MenuWrapperState extends State<MenuWrapper>
               trailing: UserCard(expanded: _extended),
             ),
           ),
+          _pages[_selectedItemKey] ?? SizedBox(),
         ],
       ),
     );
