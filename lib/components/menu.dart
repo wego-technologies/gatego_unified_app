@@ -55,31 +55,34 @@ class Menu extends ConsumerWidget {
                 children: !expanded
                     ? menuItems.entries.map((item) {
                         bool _itemSelcted = item.key == selectedItemKey;
-                        return Container(
-                          margin:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 3),
-                          child: IconButton(
-                            onPressed: () {
-                              onItemPressed(item.key);
-                            },
-                            icon: Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: _itemSelcted
-                                    ? Theme.of(context).primaryColor
-                                    : Colors.transparent,
-                                shape: BoxShape.circle,
+                        return Tooltip(
+                          message: item.key,
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 3),
+                            child: IconButton(
+                              onPressed: () {
+                                onItemPressed(item.key);
+                              },
+                              icon: Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: _itemSelcted
+                                      ? Theme.of(context).primaryColor
+                                      : Colors.transparent,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: HeroIcon(
+                                  item.value,
+                                  size: 30,
+                                  color: _itemSelcted
+                                      ? Theme.of(context).canvasColor
+                                      : Theme.of(context).iconTheme.color,
+                                ),
                               ),
-                              child: HeroIcon(
-                                item.value,
-                                size: 30,
-                                color: _itemSelcted
-                                    ? Theme.of(context).canvasColor
-                                    : Theme.of(context).iconTheme.color,
-                              ),
+                              iconSize: 50,
+                              splashRadius: 30,
                             ),
-                            iconSize: 50,
-                            splashRadius: 30,
                           ),
                         );
                       }).toList()

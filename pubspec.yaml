@@ -33,6 +33,7 @@ dependencies:
   http: ^0.13.3
   beamer: ^0.14.0
   loading_indicator: ^2.1.1
+  flutter_libserialport: ^0.2.1
 
 dev_dependencies:
   flutter_test:
