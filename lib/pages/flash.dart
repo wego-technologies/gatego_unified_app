@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart';
 import 'package:heroicons/heroicons.dart';
 
@@ -55,14 +56,18 @@ class _FlashPageState extends State<FlashPage> {
                             color: portSelected == null
                                 ? Colors.transparent
                                 : Color(0xff00B633),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xff00B633),
-                                blurRadius: 10,
-                                spreadRadius: 1.5,
-                              ),
-                            ]),
-                        padding: EdgeInsets.all(10),
+                            boxShadow: portSelected != null
+                                ? [
+                                    BoxShadow(
+                                      color: Color(0xff00B633),
+                                      blurRadius: 10,
+                                      spreadRadius: 1.5,
+                                    ),
+                                  ]
+                                : null),
+                        padding: portSelected == null
+                            ? EdgeInsets.zero
+                            : EdgeInsets.all(10),
                         width: 100,
                         height: 100,
                         child: HeroIcon(
@@ -127,12 +132,33 @@ class _FlashPageState extends State<FlashPage> {
                                     )
                                   ],
                                 )
-                              : Text(
-                                  "Ready to Flash",
-                                  style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                              : Row(
+                                  children: [
+                                    Text(
+                                      "Ready to Flash",
+                                      style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Tooltip(
+                                      message: "Disconnect",
+                                      child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              portSelected = null;
+                                            });
+                                          },
+                                          splashRadius: 20,
+                                          icon: Icon(
+                                            Icons.usb_off,
+                                            color: Color(0xff353535),
+                                          )),
+                                    )
+                                  ],
                                 ),
                         ],
                       ),

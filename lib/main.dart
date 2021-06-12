@@ -33,6 +33,9 @@ class AppWrapper extends StatelessWidget {
           primaryColor: Color(0xFF00ADE2),
           textTheme: GoogleFonts.robotoTextTheme(
             Theme.of(context).textTheme,
+          ).apply(
+            bodyColor: Color(0xff353535),
+            displayColor: Color(0xff353535),
           ),
         ),
         routeInformationParser: BeamerParser(),
