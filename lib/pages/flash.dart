@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart';
+import 'package:heroicons/heroicons.dart';
 
 class FlashPage extends StatefulWidget {
   const FlashPage({Key? key}) : super(key: key);
@@ -9,7 +10,9 @@ class FlashPage extends StatefulWidget {
 }
 
 class _FlashPageState extends State<FlashPage> {
-  var availablePorts = [];
+  List<String> availablePorts = ["COM4"];
+
+  var portSelected;
 
   @override
   void initState() {
@@ -23,34 +26,128 @@ class _FlashPageState extends State<FlashPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (!availablePorts.contains(portSelected)) {
+      portSelected = null;
+    }
     return Expanded(
-      child: Scrollbar(
-        child: ListView(
-          children: [
-            TextButton(onPressed: initPorts, child: Text("Refresh")),
-            for (final address in availablePorts)
-              Builder(builder: (context) {
-                final port = SerialPort(address);
-                return ExpansionTile(
-                  title: Text(address),
-                  children: [
-                    CardListTile('Description', port.description),
-                    CardListTile('Transport', port.transport.toString()),
-                    CardListTile('USB Bus', port.busNumber?.toString()),
-                    CardListTile('USB Device', port.deviceNumber?.toString()),
-                    CardListTile('Vendor ID', port.vendorId?.toString()),
-                    CardListTile('Product ID', port.productId?.toString()),
-                    CardListTile('Manufacturer', port.manufacturer),
-                    CardListTile('Product Name', port.productName),
-                    CardListTile('Serial Number', port.serialNumber),
-                    CardListTile('MAC Address', port.macAddress),
-                  ],
-                );
-              }),
-          ],
-        ),
-      ),
-    );
+        child: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                  //constraints: BoxConstraints(maxHeight: 150),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: portSelected == null
+                                ? Colors.transparent
+                                : Color(0xff00B633),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0xff00B633),
+                                blurRadius: 10,
+                                spreadRadius: 1.5,
+                              ),
+                            ]),
+                        padding: EdgeInsets.all(10),
+                        width: 100,
+                        height: 100,
+                        child: HeroIcon(
+                          portSelected == null
+                              ? HeroIcons.questionMarkCircle
+                              : HeroIcons.check,
+                          size: 100,
+                          color: portSelected == null
+                              ? Theme.of(context).iconTheme.color
+                              : Colors.white,
+                          solid: true,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            portSelected == null
+                                ? "No Port Selected"
+                                : "Connected to $portSelected",
+                            style: TextStyle(
+                              fontSize: 35,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.start,
+                          ),
+                          portSelected == null
+                              ? Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    DropdownButton(
+                                      onChanged: (value) {
+                                        setState(() {
+                                          portSelected = value;
+                                        });
+                                      },
+                                      value: portSelected,
+                                      items: [
+                                        ...availablePorts.map((e) {
+                                          final port = SerialPort(e);
+                                          return DropdownMenuItem(
+                                            value: e,
+                                            child: Text(
+                                                port.description.toString()),
+                                          );
+                                        }).toList()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    IconButton(
+                                      onPressed: initPorts,
+                                      icon: Icon(Icons.refresh_rounded),
+                                      color: Theme.of(context).primaryColor,
+                                      splashRadius: 20,
+                                    )
+                                  ],
+                                )
+                              : Text(
+                                  "Ready to Flash",
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        )
+      ],
+    ));
   }
 }
 
