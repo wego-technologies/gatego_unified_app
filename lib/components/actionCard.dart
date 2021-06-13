@@ -86,11 +86,7 @@ class _ActionCardState extends State<ActionCard> {
                             state: prog,
                             icon: HeroIcon(
                               e.icon,
-                              color: prog != ProgressCardState.inProgress
-                                  ? Theme.of(context)
-                                      .disabledColor
-                                      .withAlpha(150)
-                                  : Color(0xff353535),
+                              color: Color(0xff353535),
                             ),
                             text: e.title,
                           );

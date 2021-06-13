@@ -8,7 +8,7 @@ enum ProgressCardState {
   done,
 }
 
-class ProgressCard extends StatelessWidget {
+class ProgressCard extends StatefulWidget {
   final String text;
   final Widget icon;
   final ProgressCardState state;
@@ -23,11 +23,43 @@ class ProgressCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _ProgressCardState createState() => _ProgressCardState();
+}
+
+class _ProgressCardState extends State<ProgressCard> {
+  late BoxDecoration boxDecor;
+  @override
   Widget build(BuildContext context) {
     Widget? trailing;
 
-    if (showTrailing) {
-      switch (state) {
+    if (widget.state == ProgressCardState.inProgress) {
+      setState(() {
+        boxDecor = BoxDecoration(
+          color: widget.state != ProgressCardState.inProgress
+              ? Colors.transparent
+              : Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: widget.state == ProgressCardState.inProgress
+              ? [
+                  BoxShadow(
+                    blurRadius: 10,
+                    spreadRadius: 0,
+                    color: Theme.of(context).shadowColor.withAlpha(50),
+                    offset: Offset(0, 0),
+                  ),
+                ]
+              : [],
+        );
+      });
+    } else {
+      boxDecor = BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(5),
+      );
+    }
+
+    if (widget.showTrailing) {
+      switch (widget.state) {
         case ProgressCardState.done:
           {
             trailing = HeroIcon(
@@ -54,51 +86,33 @@ class ProgressCard extends StatelessWidget {
             trailing = HeroIcon(
               HeroIcons.clock,
               size: 20,
-              color: state != ProgressCardState.inProgress
-                  ? Theme.of(context).disabledColor.withAlpha(150)
-                  : Color(0xff353535),
+              color: Color(0xff353535),
             );
           }
           break;
       }
     }
 
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 200),
       height: 65,
       padding: EdgeInsets.all(15),
       margin: EdgeInsets.symmetric(vertical: 5),
-      decoration: BoxDecoration(
-        color: state != ProgressCardState.inProgress
-            ? Colors.transparent
-            : Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(5),
-        boxShadow: state == ProgressCardState.inProgress
-            ? [
-                BoxShadow(
-                  blurRadius: 15,
-                  spreadRadius: 0,
-                  color: Theme.of(context).shadowColor.withAlpha(50),
-                  offset: Offset(0, 0),
-                ),
-              ]
-            : [],
-      ),
+      decoration: boxDecor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              icon,
+              widget.icon,
               SizedBox(
                 width: 15,
               ),
               Text(
-                text,
+                widget.text,
                 style: TextStyle(
                   fontSize: 20,
-                  color: state != ProgressCardState.inProgress
-                      ? Theme.of(context).disabledColor.withAlpha(150)
-                      : Color(0xff353535),
+                  color: Color(0xff353535),
                 ),
               ),
             ],

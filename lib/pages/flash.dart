@@ -44,6 +44,7 @@ class FlashPage extends StatelessWidget {
               actions: [
                 ActionItem(
                   doOnAction: () async {
+                    await Future.delayed(Duration(seconds: 2));
                     return true;
                   },
                   icon: HeroIcons.download,
@@ -51,6 +52,7 @@ class FlashPage extends StatelessWidget {
                 ),
                 ActionItem(
                   doOnAction: () async {
+                    await Future.delayed(Duration(seconds: 2));
                     return true;
                   },
                   icon: HeroIcons.folderDownload,
@@ -58,6 +60,7 @@ class FlashPage extends StatelessWidget {
                 ),
                 ActionItem(
                   doOnAction: () async {
+                    await Future.delayed(Duration(seconds: 2));
                     return true;
                   },
                   icon: HeroIcons.trash,
@@ -65,6 +68,7 @@ class FlashPage extends StatelessWidget {
                 ),
                 ActionItem(
                   doOnAction: () async {
+                    await Future.delayed(Duration(seconds: 2));
                     return true;
                   },
                   icon: HeroIcons.upload,
