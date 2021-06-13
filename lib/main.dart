@@ -64,15 +64,15 @@ class _MenuWrapperState extends State<MenuWrapper>
     "Factory Reset": HeroIcons.fire,
   };
 
-  Map<String, Widget> _pages = {
-    "Flash Device": FlashPage(),
-    "Register Device": LoginPage(),
-    "Test Device": LoginPage(),
-    "Factory Reset": LoginPage(),
-  };
-
   @override
   Widget build(BuildContext context) {
+    Map<String, Widget> _pages = {
+      "Flash Device": FlashPage(_extended),
+      "Register Device": LoginPage(),
+      "Test Device": LoginPage(),
+      "Factory Reset": LoginPage(),
+    };
+
     return Scaffold(
       body: Row(
         children: [
