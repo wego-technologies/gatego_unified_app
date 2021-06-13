@@ -1,7 +1,0 @@
-enum Role {
-  ADMIN,
-  ORG_ADMIN,
-  DRIVER,
-  GUARD,
-  CARRIER_ADMIN,
-}
