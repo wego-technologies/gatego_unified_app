@@ -62,73 +62,76 @@ class FlashPage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            children: [
-                              Text(
-                                "Progress",
-                                style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: ListView(
+                              children: [
+                                Text(
+                                  "Progress",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              ProgressCard(
-                                state: ProgressCardState.pending,
-                                icon: HeroIcons.save,
-                                text: "Download Files",
-                              ),
-                              ProgressCard(
-                                state: ProgressCardState.pending,
-                                icon: HeroIcons.saveAs,
-                                text: "Download Tools",
-                              ),
-                              ProgressCard(
-                                state: ProgressCardState.pending,
-                                icon: HeroIcons.upload,
-                                text: "Install Firmware",
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(15),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Color(0xff00B633),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Color(0xff00B633),
-                                              blurRadius: 10,
-                                              spreadRadius: 1.5,
-                                            ),
-                                          ]),
-                                      padding: EdgeInsets.all(2),
-                                      width: 20,
-                                      height: 20,
-                                      child: HeroIcon(
-                                        HeroIcons.check,
-                                        color: Colors.white,
-                                        solid: false,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 15,
-                                    ),
-                                    Text(
-                                      "Complete",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Theme.of(context)
-                                            .disabledColor
-                                            .withAlpha(150),
-                                      ),
-                                    ),
-                                  ],
+                                SizedBox(
+                                  height: 15,
                                 ),
-                              ),
-                            ],
+                                ProgressCard(
+                                  state: ProgressCardState.pending,
+                                  icon: HeroIcons.save,
+                                  text: "Download Files",
+                                ),
+                                ProgressCard(
+                                  state: ProgressCardState.pending,
+                                  icon: HeroIcons.saveAs,
+                                  text: "Download Tools",
+                                ),
+                                ProgressCard(
+                                  state: ProgressCardState.pending,
+                                  icon: HeroIcons.upload,
+                                  text: "Install Firmware",
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(15),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Color(0xff00B633),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Color(0xff00B633),
+                                                blurRadius: 10,
+                                                spreadRadius: 1.5,
+                                              ),
+                                            ]),
+                                        padding: EdgeInsets.all(2),
+                                        width: 20,
+                                        height: 20,
+                                        child: HeroIcon(
+                                          HeroIcons.check,
+                                          color: Colors.white,
+                                          solid: false,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 15,
+                                      ),
+                                      Text(
+                                        "Complete",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Theme.of(context)
+                                              .disabledColor
+                                              .withAlpha(150),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           Container(
                             width: double.infinity,
