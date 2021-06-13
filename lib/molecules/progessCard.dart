@@ -10,53 +10,57 @@ enum ProgressCardState {
 
 class ProgressCard extends StatelessWidget {
   final String text;
-  final HeroIcons icon;
+  final Widget icon;
   final ProgressCardState state;
+  final bool showTrailing;
 
   const ProgressCard({
     required this.text,
     required this.state,
     required this.icon,
+    this.showTrailing = true,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Widget trailing;
+    Widget? trailing;
 
-    switch (state) {
-      case ProgressCardState.done:
-        {
-          trailing = HeroIcon(
-            HeroIcons.checkCircle,
-            solid: true,
-            size: 20,
-            color: Colors.green,
-          );
-        }
-        break;
-      case ProgressCardState.inProgress:
-        {
-          trailing = Container(
-            width: 20,
-            //margin: EdgeInsets.only(right: 15),
-            child: LoadingIndicator(
-              indicatorType: Indicator.ballRotateChase,
-            ),
-          );
-        }
-        break;
-      case ProgressCardState.pending:
-        {
-          trailing = HeroIcon(
-            HeroIcons.clock,
-            size: 20,
-            color: state != ProgressCardState.inProgress
-                ? Theme.of(context).disabledColor.withAlpha(150)
-                : Color(0xff353535),
-          );
-        }
-        break;
+    if (showTrailing) {
+      switch (state) {
+        case ProgressCardState.done:
+          {
+            trailing = HeroIcon(
+              HeroIcons.checkCircle,
+              solid: true,
+              size: 20,
+              color: Colors.green,
+            );
+          }
+          break;
+        case ProgressCardState.inProgress:
+          {
+            trailing = Container(
+              width: 20,
+              //margin: EdgeInsets.only(right: 15),
+              child: LoadingIndicator(
+                indicatorType: Indicator.ballRotateChase,
+              ),
+            );
+          }
+          break;
+        case ProgressCardState.pending:
+          {
+            trailing = HeroIcon(
+              HeroIcons.clock,
+              size: 20,
+              color: state != ProgressCardState.inProgress
+                  ? Theme.of(context).disabledColor.withAlpha(150)
+                  : Color(0xff353535),
+            );
+          }
+          break;
+      }
     }
 
     return Container(
@@ -84,12 +88,7 @@ class ProgressCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              HeroIcon(
-                icon,
-                color: state != ProgressCardState.inProgress
-                    ? Theme.of(context).disabledColor.withAlpha(150)
-                    : Color(0xff353535),
-              ),
+              icon,
               SizedBox(
                 width: 15,
               ),
@@ -104,7 +103,7 @@ class ProgressCard extends StatelessWidget {
               ),
             ],
           ),
-          trailing
+          trailing ?? SizedBox(),
         ],
       ),
     );
