@@ -3,9 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gatego_unified_app/components/SerialSelect.dart';
 import 'package:gatego_unified_app/components/actionCard.dart';
 import 'package:gatego_unified_app/components/serialInfo.dart';
-import 'package:gatego_unified_app/molecules/progessCard.dart';
 import 'package:heroicons/heroicons.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 
 class FlashPage extends StatelessWidget {
   final bool extended;

@@ -66,7 +66,6 @@ class _ActionCardState extends State<ActionCard> {
                           height: 15,
                         ),
                         ...widget.actions.map((e) {
-                          print(progress);
                           var prog = ProgressCardState.pending;
                           if (widget.actions.indexOf(e) == progress) {
                             prog = ProgressCardState.inProgress;

@@ -97,7 +97,6 @@ class _MenuWrapperState extends State<MenuWrapper>
                     ),
               expanded: _extended,
               onItemPressed: (item) {
-                print(item);
                 _selectedItemKey = item;
                 setState(() {});
               },
