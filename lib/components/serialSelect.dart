@@ -31,7 +31,7 @@ class _SerialCardState extends State<SerialCard> {
     return Consumer(
       builder: (context, watch, child) {
         var serialExternal = watch(serialProvider).state;
-        var sizedBox = SizedBox(
+        var sizedBox = const SizedBox(
           width: 50,
         );
         return Container(
@@ -92,8 +92,8 @@ class _SerialCardState extends State<SerialCard> {
                     //width: 450,
                     child: Text(
                       serialExternal == null
-                          ? "No Port Selected"
-                          : "Connected to Device",
+                          ? 'No Port Selected'
+                          : 'Connected to Device',
                       style: const TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.bold,
@@ -136,7 +136,7 @@ class _SerialCardState extends State<SerialCard> {
                       : Row(
                           children: [
                             const Text(
-                              "Ready to Flash",
+                              'Ready to Flash',
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w600,
@@ -146,7 +146,7 @@ class _SerialCardState extends State<SerialCard> {
                               width: 10,
                             ),
                             Tooltip(
-                              message: "Disconnect",
+                              message: 'Disconnect',
                               child: IconButton(
                                 onPressed: () {
                                   initPorts();

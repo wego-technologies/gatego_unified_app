@@ -26,7 +26,7 @@ class SerialInfo extends ConsumerWidget {
             const SizedBox(
               width: 10,
             ),
-            Text(serialSelected?.vendorId.toString() ?? "None")
+            Text(serialSelected?.vendorId.toString() ?? 'None')
           ],
         ),
         const SizedBox(
@@ -41,7 +41,7 @@ class SerialInfo extends ConsumerWidget {
             const SizedBox(
               width: 10,
             ),
-            Text(serialExternal ?? "None")
+            Text(serialExternal ?? 'None')
           ],
         ),
       ],

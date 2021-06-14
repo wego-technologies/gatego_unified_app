@@ -26,7 +26,7 @@ class Menu extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final jwtState = watch(jwtProvider).state;
-    if (jwtState == "") {
+    if (jwtState == '') {
       //getJWT("admin", "vfiKkusWvNfHLzqqRDntaeXUFrGicD").then((value) {
       //context.read(jwtProvider).state = value;
       //});
@@ -54,7 +54,7 @@ class Menu extends ConsumerWidget {
               child: Column(
                 children: !expanded
                     ? menuItems.entries.map((item) {
-                        bool _itemSelcted = item.key == selectedItemKey;
+                        var _itemSelcted = item.key == selectedItemKey;
                         return Tooltip(
                           message: item.key,
                           child: Container(
@@ -87,7 +87,7 @@ class Menu extends ConsumerWidget {
                         );
                       }).toList()
                     : menuItems.entries.map((item) {
-                        bool _itemSelcted = item.key == selectedItemKey;
+                        var _itemSelcted = item.key == selectedItemKey;
                         return Container(
                           constraints: const BoxConstraints(minWidth: 200),
                           margin: const EdgeInsets.symmetric(vertical: 13),
@@ -173,7 +173,7 @@ class Menu extends ConsumerWidget {
                         ),
                       if (expanded)
                         Text(
-                          "Minimize Menu",
+                          'Minimize Menu',
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontWeight: FontWeight.w600,

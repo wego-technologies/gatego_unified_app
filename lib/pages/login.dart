@@ -21,8 +21,8 @@ class _LoginPageState extends State<LoginPage> {
   final userFn = FocusNode();
   final passFn = FocusNode();
 
-  String passw = "";
-  String user = "";
+  String passw = '';
+  String user = '';
 
   bool inP = false;
 
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                     return Column(
                       children: [
                         const Text(
-                          "Login",
+                          'Login',
                           style: TextStyle(
                             fontSize: 35,
                             fontWeight: FontWeight.bold,
@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                         TextInput(
                           setData: (data) => user,
                           icon: Icons.person_outline_rounded,
-                          text: "Username",
+                          text: 'Username',
                           c: userC,
                           fn: userFn,
                           nextFocus: passFn.requestFocus,
@@ -102,12 +102,12 @@ class _LoginPageState extends State<LoginPage> {
                           obscureText: true,
                           setData: (data) => user,
                           icon: Icons.vpn_key_outlined,
-                          text: "Password",
+                          text: 'Password',
                           c: passC,
                           fn: passFn,
                           nextFocus: !inP
                               ? () {
-                                  if (userC.text != "" && passC.text != "") {
+                                  if (userC.text != '' && passC.text != '') {
                                     getJWT(userC.text, passC.text).then((jwt) {
                                       if (jwt != null) {
                                         inP = false;
@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           onPressed: !inP
                               ? () {
-                                  if (userC.text != "" && passC.text != "") {
+                                  if (userC.text != '' && passC.text != '') {
                                     getJWT(userC.text, passC.text).then((jwt) {
                                       if (jwt != null) {
                                         inP = false;
@@ -165,9 +165,9 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                           icon: !inP
-                              ? const Text("Continue")
+                              ? const Text('Continue')
                               : const Text(
-                                  "Loading",
+                                  'Loading',
                                   style: TextStyle(color: Colors.white),
                                 ),
                         ),

@@ -37,24 +37,24 @@ class Account {
     yardId = json['yard_id'];
     carrierId = json['carrier_id'];
     organization = json['organization'] != null
-        ? new Organization.fromJson(json['organization'])
+        ? Organization.fromJson(json['organization'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['username'] = this.username;
-    data['active'] = this.active;
-    data['role'] = this.role;
-    data['email'] = this.email;
-    data['name'] = this.name;
-    data['phone_number'] = this.phoneNumber;
-    data['language_code'] = this.languageCode;
-    data['yard_id'] = this.yardId;
-    data['carrier_id'] = this.carrierId;
-    if (this.organization != null) {
-      data['organization'] = this.organization!.toJson();
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['username'] = username;
+    data['active'] = active;
+    data['role'] = role;
+    data['email'] = email;
+    data['name'] = name;
+    data['phone_number'] = phoneNumber;
+    data['language_code'] = languageCode;
+    data['yard_id'] = yardId;
+    data['carrier_id'] = carrierId;
+    if (organization != null) {
+      data['organization'] = organization!.toJson();
     }
     return data;
   }
@@ -75,9 +75,9 @@ class Organization {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
     return data;
   }
 }

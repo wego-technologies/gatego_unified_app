@@ -16,7 +16,7 @@ class UserCard extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     var jwt = watch(jwtProvider).state;
     var acc = watch(accountProvider).state;
-    if (jwt != "" && acc == null) {
+    if (jwt != '' && acc == null) {
       getAccount(watch).then((value) {
         if (value != null) {
           watch(accountProvider).state = value;
@@ -25,7 +25,7 @@ class UserCard extends ConsumerWidget {
     }
     if (expanded) {
       return Container(
-        padding: EdgeInsets.only(left: 4),
+        padding: const EdgeInsets.only(left: 4),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.white,
@@ -34,14 +34,14 @@ class UserCard extends ConsumerWidget {
                 blurRadius: 6,
                 spreadRadius: 0,
                 color: Theme.of(context).shadowColor.withAlpha(50),
-                offset: Offset(0, 0),
+                offset: const Offset(0, 0),
               )
             ]),
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: acc == null
               ? () {
-                  Beamer.of(context).beamToNamed("/login");
+                  Beamer.of(context).beamToNamed('/login');
                 }
               : null,
           child: Padding(
@@ -58,14 +58,14 @@ class UserCard extends ConsumerWidget {
                         color: Colors.grey.shade600,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          acc == null ? "Login" : "Welcome!",
+                          acc == null ? 'Login' : 'Welcome!',
                           style: Theme.of(context).textTheme.headline6,
                         ),
                         if (acc != null)
@@ -81,8 +81,8 @@ class UserCard extends ConsumerWidget {
                   ],
                 ),
                 if (acc == null)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 10.0),
                     child: HeroIcon(
                       HeroIcons.arrowRight,
                       size: 20,
@@ -90,20 +90,20 @@ class UserCard extends ConsumerWidget {
                   ),
                 if (acc != null)
                   Material(
+                    color: Colors.white,
                     child: Tooltip(
-                      message: "Log Out",
+                      message: 'Log Out',
                       child: IconButton(
                         onPressed: () {
-                          watch(jwtProvider).state = "";
+                          watch(jwtProvider).state = '';
                           watch(accountProvider).state = null;
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.logout_rounded,
                         ),
                         splashRadius: 20,
                       ),
                     ),
-                    color: Colors.white,
                   )
               ],
             ),
@@ -112,13 +112,13 @@ class UserCard extends ConsumerWidget {
       );
     }
     return Tooltip(
-      message: acc == null ? "Login" : acc.name,
+      message: acc == null ? 'Login' : acc.name,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 12),
         child: InkWell(
           onTap: acc == null
               ? () {
-                  Beamer.of(context).beamToNamed("/login");
+                  Beamer.of(context).beamToNamed('/login');
                 }
               : null,
           borderRadius: BorderRadius.circular(50000),

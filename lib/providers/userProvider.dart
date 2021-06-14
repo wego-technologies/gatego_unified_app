@@ -7,24 +7,24 @@ import 'package:http/http.dart' as http;
 Future<String?> getJWT(String user, String pass) async {
   var res = await http.post(
       Uri(
-        host: "api.gatego.io",
-        scheme: "https",
-        path: "auth/login",
+        host: 'api.gatego.io',
+        scheme: 'https',
+        path: 'auth/login',
       ),
       body: jsonEncode(
         {
-          "username": user,
-          "password": pass,
+          'username': user,
+          'password': pass,
         },
       ),
       headers: {
-        "Accept": "application/json",
-        "content-type": "application/json"
+        'Accept': 'application/json',
+        'content-type': 'application/json'
       });
 
   if (res.statusCode == 200) {
     var json = jsonDecode(res.body) as Map<String, dynamic>;
-    return json["jwt_token"];
+    return json['jwt_token'];
   } else {
     print(res);
     return null;
@@ -34,19 +34,19 @@ Future<String?> getJWT(String user, String pass) async {
 Future<String?> refreshJWT(String jwt) async {
   var res = await http.post(
       Uri(
-        host: "api.gatego.io",
-        scheme: "https",
-        path: "auth/refresh-token",
+        host: 'api.gatego.io',
+        scheme: 'https',
+        path: 'auth/refresh-token',
       ),
       headers: {
-        "Accept": "application/json",
-        "content-type": "application/json",
-        "Authorization": "Bearer " + jwt,
+        'Accept': 'application/json',
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ' + jwt,
       });
 
   if (res.statusCode == 200) {
     var json = jsonDecode(res.body) as Map<String, dynamic>;
-    return json["jwt_token"];
+    return json['jwt_token'];
   } else {
     print(res);
     return null;
@@ -62,13 +62,13 @@ Future<Account?> getAccount(ScopedReader watch) async {
 
   var res = await http.get(
       Uri(
-        host: "api.gatego.io",
-        scheme: "https",
-        path: "api/account/me",
+        host: 'api.gatego.io',
+        scheme: 'https',
+        path: 'api/account/me',
       ),
       headers: {
-        "Accept": "*/*",
-        "Authorization": "Bearer " + jwt,
+        'Accept': '*/*',
+        'Authorization': 'Bearer ' + jwt,
       });
 
   if (res.statusCode == 200) {
@@ -83,7 +83,7 @@ Future<Account?> getAccount(ScopedReader watch) async {
 //Account getAccount(String jwt) {}
 
 final jwtProvider = StateProvider.autoDispose<String>((ref) {
-  return "";
+  return '';
 });
 
 final accountProvider = StateProvider.autoDispose<Account?>((ref) {

@@ -25,12 +25,12 @@ class _ActionCardState extends State<ActionCard> {
   @override
   Widget build(BuildContext context) {
     if (progress == widget.actions.length) {
-      print("done");
+      print('done');
     }
     return Expanded(
       child: Container(
         clipBehavior: Clip.antiAlias,
-        margin: EdgeInsets.only(top: 30),
+        margin: const EdgeInsets.only(top: 30),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(10),
@@ -39,7 +39,7 @@ class _ActionCardState extends State<ActionCard> {
               blurRadius: 15,
               spreadRadius: 0,
               color: Theme.of(context).shadowColor.withAlpha(20),
-              offset: Offset(0, 0),
+              offset: const Offset(0, 0),
             ),
           ],
         ),
@@ -47,22 +47,22 @@ class _ActionCardState extends State<ActionCard> {
           children: [
             Container(
               width: 350,
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     child: ListView(
                       children: [
-                        Text(
-                          "Progress",
+                        const Text(
+                          'Progress',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         ...widget.actions.map((e) {
@@ -85,19 +85,19 @@ class _ActionCardState extends State<ActionCard> {
                             state: prog,
                             icon: HeroIcon(
                               e.icon,
-                              color: Color(0xff353535),
+                              color: const Color(0xff353535),
                             ),
                             text: e.title,
                           );
                         }).toList(),
                         ProgressCard(
-                          text: "Complete",
+                          text: 'Complete',
                           showTrailing: false,
                           state: widget.actions.length == progress
                               ? ProgressCardState.inProgress
                               : ProgressCardState.pending,
                           icon: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color(0xff00B633),
                                 boxShadow: [
@@ -107,10 +107,10 @@ class _ActionCardState extends State<ActionCard> {
                                     spreadRadius: 1.5,
                                   ),
                                 ]),
-                            padding: EdgeInsets.all(2),
+                            padding: const EdgeInsets.all(2),
                             width: 20,
                             height: 20,
-                            child: HeroIcon(
+                            child: const HeroIcon(
                               HeroIcons.check,
                               color: Colors.white,
                               solid: false,
@@ -127,7 +127,7 @@ class _ActionCardState extends State<ActionCard> {
                       child: ElevatedButton.icon(
                         style: ButtonStyle(
                           padding: MaterialStateProperty.resolveWith(
-                            (states) => EdgeInsets.symmetric(
+                            (states) => const EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 50),
                           ),
                           backgroundColor: MaterialStateProperty.resolveWith(
@@ -150,8 +150,8 @@ class _ActionCardState extends State<ActionCard> {
                                   });
                                 });
                               },
-                        label: Icon(Icons.play_arrow_rounded),
-                        icon: Text("Start Flashing"),
+                        label: const Icon(Icons.play_arrow_rounded),
+                        icon: const Text('Start Flashing'),
                       ),
                     );
                   }),

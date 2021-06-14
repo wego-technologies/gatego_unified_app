@@ -54,23 +54,23 @@ class MenuWrapper extends StatefulWidget {
 
 class _MenuWrapperState extends State<MenuWrapper>
     with TickerProviderStateMixin {
-  String _selectedItemKey = "Flash Device";
+  String _selectedItemKey = 'Flash Device';
   bool _extended = false;
 
-  Map<String, HeroIcons> _destinations = {
-    "Flash Device": HeroIcons.chip,
-    "Register Device": HeroIcons.plusCircle,
-    "Test Device": HeroIcons.shieldCheck,
-    "Factory Reset": HeroIcons.fire,
+  final Map<String, HeroIcons> _destinations = {
+    'Flash Device': HeroIcons.chip,
+    'Register Device': HeroIcons.plusCircle,
+    'Test Device': HeroIcons.shieldCheck,
+    'Factory Reset': HeroIcons.fire,
   };
 
   @override
   Widget build(BuildContext context) {
-    Map<String, Widget> _pages = {
-      "Flash Device": FlashPage(_extended),
-      "Register Device": const LoginPage(),
-      "Test Device": const LoginPage(),
-      "Factory Reset": const LoginPage(),
+    var _pages = <String, Widget>{
+      'Flash Device': FlashPage(_extended),
+      'Register Device': const LoginPage(),
+      'Test Device': const LoginPage(),
+      'Factory Reset': const LoginPage(),
     };
 
     return Scaffold(
@@ -87,12 +87,12 @@ class _MenuWrapperState extends State<MenuWrapper>
               menuItems: _destinations,
               leading: _extended
                   ? Image.asset(
-                      "assets/Gatego logo.png",
+                      'assets/Gatego logo.png',
                       height: 50,
                       //fit: BoxFit.,
                     )
                   : Image.asset(
-                      "assets/Blue Icon Circle.png",
+                      'assets/Blue Icon Circle.png',
                       height: 50,
                     ),
               expanded: _extended,
