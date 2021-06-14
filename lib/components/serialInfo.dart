@@ -19,26 +19,26 @@ class SerialInfo extends ConsumerWidget {
       children: [
         Row(
           children: [
-            HeroIcon(
+            const HeroIcon(
               HeroIcons.chip,
               size: 30,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(serialSelected?.vendorId.toString() ?? "None")
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Row(
           children: [
-            HeroIcon(
+            const HeroIcon(
               HeroIcons.lightningBolt,
               size: 30,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(serialExternal ?? "None")

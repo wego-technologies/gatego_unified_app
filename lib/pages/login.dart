@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({
+  const LoginPage({
     Key? key,
   }) : super(key: key);
 
@@ -54,8 +54,8 @@ class _LoginPageState extends State<LoginPage> {
             decoration: BoxDecoration(
                 color: Theme.of(context).canvasColor,
                 borderRadius: BorderRadius.circular(10)),
-            padding: EdgeInsets.all(20),
-            constraints: BoxConstraints(maxWidth: 500, maxHeight: 410),
+            padding: const EdgeInsets.all(20),
+            constraints: const BoxConstraints(maxWidth: 500, maxHeight: 410),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       Beamer.of(context).popRoute();
                     },
-                    icon: Icon(Icons.close),
+                    icon: const Icon(Icons.close),
                     splashRadius: 20,
                   ),
                 ),
@@ -73,18 +73,18 @@ class _LoginPageState extends State<LoginPage> {
                     String? jwt = watch(jwtProvider).state;
                     if (jwt.isNotEmpty) {
                       Beamer.of(context).popRoute();
-                      return SizedBox();
+                      return const SizedBox();
                     }
                     return Column(
                       children: [
-                        Text(
+                        const Text(
                           "Login",
                           style: TextStyle(
                             fontSize: 35,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         TextInput(
@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                           fn: userFn,
                           nextFocus: passFn.requestFocus,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         TextInput(
@@ -121,13 +121,13 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               : () {},
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         ElevatedButton.icon(
                           style: ButtonStyle(
                             padding: MaterialStateProperty.resolveWith(
-                              (states) => EdgeInsets.symmetric(
+                              (states) => const EdgeInsets.symmetric(
                                   vertical: 18, horizontal: 50),
                             ),
                             backgroundColor: MaterialStateProperty.resolveWith(
@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               : null,
                           label: !inP
-                              ? Icon(Icons.arrow_forward)
+                              ? const Icon(Icons.arrow_forward)
                               : SizedBox(
                                   height: 25,
                                   width: 25,
@@ -165,8 +165,8 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                           icon: !inP
-                              ? Text("Continue")
-                              : Text(
+                              ? const Text("Continue")
+                              : const Text(
                                   "Loading",
                                   style: TextStyle(color: Colors.white),
                                 ),

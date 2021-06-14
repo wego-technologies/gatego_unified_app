@@ -8,7 +8,7 @@ import 'package:heroicons/heroicons.dart';
 class FlashPage extends StatelessWidget {
   final bool extended;
 
-  FlashPage(this.extended);
+  const FlashPage(this.extended);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class FlashPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width -
                       (extended ? 282 : 232),
                   child: Row(
-                    children: [
+                    children: const [
                       Flexible(
                         child: SerialCard(),
                         flex: 5,
@@ -42,7 +42,7 @@ class FlashPage extends StatelessWidget {
               actions: [
                 ActionItem(
                   doOnAction: () async {
-                    await Future.delayed(Duration(seconds: 2));
+                    await Future.delayed(const Duration(seconds: 2));
                     return true;
                   },
                   icon: HeroIcons.download,
@@ -50,7 +50,7 @@ class FlashPage extends StatelessWidget {
                 ),
                 ActionItem(
                   doOnAction: () async {
-                    await Future.delayed(Duration(seconds: 2));
+                    await Future.delayed(const Duration(seconds: 2));
                     return true;
                   },
                   icon: HeroIcons.folderDownload,
@@ -58,7 +58,7 @@ class FlashPage extends StatelessWidget {
                 ),
                 ActionItem(
                   doOnAction: () async {
-                    await Future.delayed(Duration(seconds: 2));
+                    await Future.delayed(const Duration(seconds: 2));
                     return true;
                   },
                   icon: HeroIcons.trash,
@@ -66,14 +66,14 @@ class FlashPage extends StatelessWidget {
                 ),
                 ActionItem(
                   doOnAction: () async {
-                    await Future.delayed(Duration(seconds: 2));
+                    await Future.delayed(const Duration(seconds: 2));
                     return true;
                   },
                   icon: HeroIcons.upload,
                   title: "Install Firmware",
                 ),
               ],
-              buttonIcon: HeroIcon(HeroIcons.play),
+              buttonIcon: const HeroIcon(HeroIcons.play),
               buttonText: "Start Flashing",
             ),
           ],

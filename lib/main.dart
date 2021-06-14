@@ -17,8 +17,8 @@ class AppWrapper extends StatelessWidget {
     locationBuilder: SimpleLocationBuilder(
       routes: {
         // Return either Widgets or BeamPages if more customization is needed
-        '/': (context, state) => MenuWrapper(),
-        '/login': (context, state) => LoginPage(),
+        '/': (context, state) => const MenuWrapper(),
+        '/login': (context, state) => const LoginPage(),
       },
     ),
   );
@@ -30,12 +30,12 @@ class AppWrapper extends StatelessWidget {
         title: 'Gatego Autonomous+ Tools',
         theme: ThemeData(
           primarySwatch: Colors.blue,
-          primaryColor: Color(0xFF00ADE2),
+          primaryColor: const Color(0xFF00ADE2),
           textTheme: GoogleFonts.robotoTextTheme(
             Theme.of(context).textTheme,
           ).apply(
-            bodyColor: Color(0xff353535),
-            displayColor: Color(0xff353535),
+            bodyColor: const Color(0xff353535),
+            displayColor: const Color(0xff353535),
           ),
         ),
         routeInformationParser: BeamerParser(),
@@ -68,9 +68,9 @@ class _MenuWrapperState extends State<MenuWrapper>
   Widget build(BuildContext context) {
     Map<String, Widget> _pages = {
       "Flash Device": FlashPage(_extended),
-      "Register Device": LoginPage(),
-      "Test Device": LoginPage(),
-      "Factory Reset": LoginPage(),
+      "Register Device": const LoginPage(),
+      "Test Device": const LoginPage(),
+      "Factory Reset": const LoginPage(),
     };
 
     return Scaffold(
@@ -103,7 +103,7 @@ class _MenuWrapperState extends State<MenuWrapper>
               trailing: UserCard(expanded: _extended),
             ),
           ),
-          _pages[_selectedItemKey] ?? SizedBox(),
+          _pages[_selectedItemKey] ?? const SizedBox(),
         ],
       ),
     );

@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class UserCard extends ConsumerWidget {
   final bool expanded;
 
-  UserCard({
+  const UserCard({
     required this.expanded,
     Key? key,
   }) : super(key: key);

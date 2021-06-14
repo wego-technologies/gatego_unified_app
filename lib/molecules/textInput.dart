@@ -24,8 +24,8 @@ class TextInput extends StatefulWidget {
 }
 
 class _TextInputState extends State<TextInput> {
-  var colorIcon = Color(0xffd8d8d8);
-  var colorShadow = Color(0xffe6e6e6);
+  var colorIcon = const Color(0xffd8d8d8);
+  var colorShadow = const Color(0xffe6e6e6);
   double blurRadius = 5;
   double spreadRadius = 1;
 
@@ -35,15 +35,15 @@ class _TextInputState extends State<TextInput> {
     widget.fn.addListener(() {
       if (widget.fn.hasFocus) {
         setState(() {
-          colorIcon = Color(0xff00a1d3);
-          colorShadow = Color(0xffb2e3f2);
+          colorIcon = const Color(0xff00a1d3);
+          colorShadow = const Color(0xffb2e3f2);
           blurRadius = 2;
           spreadRadius = 5;
         });
       } else {
         setState(() {
-          colorIcon = Color(0xffd8d8d8);
-          colorShadow = Color(0xffe6e6e6);
+          colorIcon = const Color(0xffd8d8d8);
+          colorShadow = const Color(0xffe6e6e6);
           blurRadius = 5;
           spreadRadius = 1;
         });
@@ -53,11 +53,11 @@ class _TextInputState extends State<TextInput> {
 
   @override
   Widget build(BuildContext context) {
-    final padding = 8.0;
+    const padding = 8.0;
     var size = MediaQuery.of(context).size.width - padding * 2;
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(padding),
+        padding: const EdgeInsets.all(padding),
         child: Container(
           //color: Color(0xfff5f5f5),
           width: size,
@@ -70,11 +70,11 @@ class _TextInputState extends State<TextInput> {
                   color: colorShadow)
             ],
             borderRadius: BorderRadius.circular(15),
-            color: Color(0xfff5f5f5),
+            color: const Color(0xfff5f5f5),
           ),
           child: Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Icon(
@@ -86,7 +86,7 @@ class _TextInputState extends State<TextInput> {
                 //width: size * 0.9,
                 child: ClipRRect(
                   borderRadius:
-                      BorderRadius.horizontal(right: Radius.circular(15)),
+                      const BorderRadius.horizontal(right: Radius.circular(15)),
                   child: TextField(
                     controller: widget.c,
                     focusNode: widget.fn,
@@ -98,13 +98,13 @@ class _TextInputState extends State<TextInput> {
                     keyboardType: TextInputType.text,
                     onChanged: widget.setData,
                     decoration: InputDecoration(
-                      fillColor: Color(0xfff5f5f5),
-                      focusColor: Color(0xfff5f5f5),
-                      hoverColor: Color(0xfff5f5f5),
+                      fillColor: const Color(0xfff5f5f5),
+                      focusColor: const Color(0xfff5f5f5),
+                      hoverColor: const Color(0xfff5f5f5),
                       filled: true,
                       border: InputBorder.none,
                       hintText: widget.text,
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           color: Color(0xff727272),
                           fontWeight: FontWeight.w300),
                     ),

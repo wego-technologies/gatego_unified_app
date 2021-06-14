@@ -34,7 +34,7 @@ class Menu extends ConsumerWidget {
 
     return Container(
       decoration: BoxDecoration(
-        boxShadow: [BoxShadow(blurRadius: 5, spreadRadius: -2)],
+        boxShadow: const [BoxShadow(blurRadius: 5, spreadRadius: -2)],
         color: Theme.of(context).canvasColor,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -43,11 +43,11 @@ class Menu extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             leading ?? const SizedBox(),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Expanded(
@@ -58,14 +58,14 @@ class Menu extends ConsumerWidget {
                         return Tooltip(
                           message: item.key,
                           child: Container(
-                            margin: EdgeInsets.symmetric(
+                            margin: const EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 3),
                             child: IconButton(
                               onPressed: () {
                                 onItemPressed(item.key);
                               },
                               icon: Container(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   color: _itemSelcted
                                       ? Theme.of(context).primaryColor
@@ -90,14 +90,14 @@ class Menu extends ConsumerWidget {
                         bool _itemSelcted = item.key == selectedItemKey;
                         return Container(
                           constraints: const BoxConstraints(minWidth: 200),
-                          margin: EdgeInsets.symmetric(vertical: 13),
+                          margin: const EdgeInsets.symmetric(vertical: 13),
                           child: InkWell(
                             borderRadius: BorderRadius.circular(5000),
                             onTap: () {
                               onItemPressed(item.key);
                             },
                             child: Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               //margin: EdgeInsets.all(10),
                               width: 170,
                               decoration: BoxDecoration(
@@ -116,7 +116,7 @@ class Menu extends ConsumerWidget {
                                         ? Theme.of(context).canvasColor
                                         : Theme.of(context).iconTheme.color,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 15,
                                   ),
                                   Text(
@@ -130,7 +130,7 @@ class Menu extends ConsumerWidget {
                                           : Theme.of(context).iconTheme.color,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                 ],
@@ -141,17 +141,17 @@ class Menu extends ConsumerWidget {
                       }).toList(),
               ),
             ),
-            trailing ?? SizedBox(),
+            trailing ?? const SizedBox(),
             Container(
               //constraints: const BoxConstraints(minWidth: double.infinity),
-              margin: EdgeInsets.symmetric(vertical: 13, horizontal: 8),
+              margin: const EdgeInsets.symmetric(vertical: 13, horizontal: 8),
               child: InkWell(
                 borderRadius: BorderRadius.circular(5000),
                 onTap: () {
                   onExpandedToggle();
                 },
                 child: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   //margin: EdgeInsets.all(10),
                   //width: 170,
                   decoration: BoxDecoration(
@@ -168,7 +168,7 @@ class Menu extends ConsumerWidget {
                         color: Theme.of(context).iconTheme.color,
                       ),
                       if (expanded)
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                       if (expanded)
@@ -182,7 +182,7 @@ class Menu extends ConsumerWidget {
                           ),
                         ),
                       if (expanded)
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                     ],

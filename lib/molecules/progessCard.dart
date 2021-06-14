@@ -45,7 +45,7 @@ class _ProgressCardState extends State<ProgressCard> {
                     blurRadius: 10,
                     spreadRadius: 0,
                     color: Theme.of(context).shadowColor.withAlpha(50),
-                    offset: Offset(0, 0),
+                    offset: const Offset(0, 0),
                   ),
                 ]
               : [],
@@ -62,7 +62,7 @@ class _ProgressCardState extends State<ProgressCard> {
       switch (widget.state) {
         case ProgressCardState.done:
           {
-            trailing = HeroIcon(
+            trailing = const HeroIcon(
               HeroIcons.checkCircle,
               solid: true,
               size: 20,
@@ -83,7 +83,7 @@ class _ProgressCardState extends State<ProgressCard> {
           break;
         case ProgressCardState.pending:
           {
-            trailing = HeroIcon(
+            trailing = const HeroIcon(
               HeroIcons.clock,
               size: 20,
               color: Color(0xff353535),
@@ -94,10 +94,10 @@ class _ProgressCardState extends State<ProgressCard> {
     }
 
     return AnimatedContainer(
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
       height: 65,
-      padding: EdgeInsets.all(15),
-      margin: EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.all(15),
+      margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: boxDecor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,19 +105,19 @@ class _ProgressCardState extends State<ProgressCard> {
           Row(
             children: [
               widget.icon,
-              SizedBox(
+              const SizedBox(
                 width: 15,
               ),
               Text(
                 widget.text,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                   color: Color(0xff353535),
                 ),
               ),
             ],
           ),
-          trailing ?? SizedBox(),
+          trailing ?? const SizedBox(),
         ],
       ),
     );

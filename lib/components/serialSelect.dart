@@ -5,7 +5,7 @@ import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SerialCard extends StatefulWidget {
-  SerialCard({Key? key}) : super(key: key);
+  const SerialCard({Key? key}) : super(key: key);
 
   @override
   _SerialCardState createState() => _SerialCardState();
@@ -31,6 +31,9 @@ class _SerialCardState extends State<SerialCard> {
     return Consumer(
       builder: (context, watch, child) {
         var serialExternal = watch(serialProvider).state;
+        var sizedBox = SizedBox(
+          width: 50,
+        );
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
           //constraints: BoxConstraints(maxHeight: 150),
@@ -42,7 +45,7 @@ class _SerialCardState extends State<SerialCard> {
                 blurRadius: 15,
                 spreadRadius: 0,
                 color: Theme.of(context).shadowColor.withAlpha(20),
-                offset: Offset(0, 0),
+                offset: const Offset(0, 0),
               )
             ],
           ),
@@ -54,10 +57,10 @@ class _SerialCardState extends State<SerialCard> {
                     shape: BoxShape.circle,
                     color: serialExternal == null
                         ? Colors.transparent
-                        : Color(0xff00B633),
+                        : const Color(0xff00B633),
                     boxShadow: serialExternal != null
                         ? [
-                            BoxShadow(
+                            const BoxShadow(
                               color: Color(0xff00B633),
                               blurRadius: 10,
                               spreadRadius: 1.5,
@@ -66,7 +69,7 @@ class _SerialCardState extends State<SerialCard> {
                         : null),
                 padding: serialExternal == null
                     ? EdgeInsets.zero
-                    : EdgeInsets.all(10),
+                    : const EdgeInsets.all(10),
                 width: 100,
                 height: 100,
                 child: HeroIcon(
@@ -80,9 +83,7 @@ class _SerialCardState extends State<SerialCard> {
                   solid: true,
                 ),
               ),
-              SizedBox(
-                width: 50,
-              ),
+              sizedBox,
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,7 +94,7 @@ class _SerialCardState extends State<SerialCard> {
                       serialExternal == null
                           ? "No Port Selected"
                           : "Connected to Device",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.bold,
                       ),
@@ -121,12 +122,12 @@ class _SerialCardState extends State<SerialCard> {
                                 }).toList()
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             IconButton(
                               onPressed: initPorts,
-                              icon: Icon(Icons.refresh_rounded),
+                              icon: const Icon(Icons.refresh_rounded),
                               color: Theme.of(context).primaryColor,
                               splashRadius: 20,
                             )
@@ -134,29 +135,30 @@ class _SerialCardState extends State<SerialCard> {
                         )
                       : Row(
                           children: [
-                            Text(
+                            const Text(
                               "Ready to Flash",
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Tooltip(
                               message: "Disconnect",
                               child: IconButton(
-                                  onPressed: () {
-                                    initPorts();
-                                    serialSelected = null;
-                                    watch(serialProvider).state = null;
-                                  },
-                                  splashRadius: 20,
-                                  icon: Icon(
-                                    Icons.usb_off,
-                                    color: Color(0xff353535),
-                                  )),
+                                onPressed: () {
+                                  initPorts();
+                                  serialSelected = null;
+                                  watch(serialProvider).state = null;
+                                },
+                                splashRadius: 20,
+                                icon: const Icon(
+                                  Icons.usb_off,
+                                  color: Color(0xff353535),
+                                ),
+                              ),
                             )
                           ],
                         ),
