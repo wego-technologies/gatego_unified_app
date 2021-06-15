@@ -46,7 +46,7 @@ class FlashPage extends StatelessWidget {
                     return true;
                   },
                   icon: HeroIcons.download,
-                  title: "Download Files",
+                  title: 'Download Files',
                 ),
                 ActionItem(
                   doOnAction: () async {
@@ -54,7 +54,7 @@ class FlashPage extends StatelessWidget {
                     return true;
                   },
                   icon: HeroIcons.folderDownload,
-                  title: "Download Tools",
+                  title: 'Download Tools',
                 ),
                 ActionItem(
                   doOnAction: () async {
@@ -62,7 +62,7 @@ class FlashPage extends StatelessWidget {
                     return true;
                   },
                   icon: HeroIcons.trash,
-                  title: "Erase Chip",
+                  title: 'Erase Chip',
                 ),
                 ActionItem(
                   doOnAction: () async {
@@ -70,11 +70,11 @@ class FlashPage extends StatelessWidget {
                     return true;
                   },
                   icon: HeroIcons.upload,
-                  title: "Install Firmware",
+                  title: 'Install Firmware',
                 ),
               ],
               buttonIcon: const HeroIcon(HeroIcons.play),
-              buttonText: "Start Flashing",
+              buttonText: 'Start Flashing',
             ),
           ],
         ),

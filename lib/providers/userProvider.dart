@@ -56,7 +56,7 @@ Future<String?> refreshJWT(String jwt) async {
 Future<Account?> getAccount(ScopedReader watch) async {
   String? jwt = watch(jwtProvider).state;
 
-  if (jwt == "") {
+  if (jwt == '') {
     return null;
   }
 
