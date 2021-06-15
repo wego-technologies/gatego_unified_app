@@ -69,7 +69,7 @@ class _ActionCardState extends State<ActionCard> {
                             var prog = ProgressCardState.pending;
                             if (widget.actions.indexOf(e) == progress) {
                               prog = ProgressCardState.inProgress;
-                              stream.add('Starting ' + e.title);
+                              stream.add(stream.stream);
                               e.doOnAction().then((_) {
                                 setState(() {
                                   stream.add('Complete ' + e.title);
@@ -166,7 +166,7 @@ class _ActionCardState extends State<ActionCard> {
                 color: Colors.black87,
                 child: Consumer(
                   builder: (context, watch, child) {
-                    return StreamBuilder<String>(
+                    return StreamBuilder<List<String>>(
                       stream: watch(commandStreamProvider).state.stream,
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
