@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gatego_unified_app/components/SerialSelect.dart';
-import 'package:gatego_unified_app/components/actionCard.dart';
-import 'package:gatego_unified_app/components/serialInfo.dart';
+import '../components/SerialSelect.dart';
+import '../components/actionCard.dart';
+import '../components/serialInfo.dart';
 import 'package:heroicons/heroicons.dart';
 
 class FlashPage extends StatelessWidget {
