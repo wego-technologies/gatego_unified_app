@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/molecules/progessCard.dart';
+import 'package:gatego_unified_app/providers/commandStreamProvider.dart';
 import 'package:gatego_unified_app/providers/serialProvider.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -24,9 +25,6 @@ class _ActionCardState extends State<ActionCard> {
   int? progress;
   @override
   Widget build(BuildContext context) {
-    if (progress == widget.actions.length) {
-      print('done');
-    }
     return Expanded(
       child: Container(
         clipBehavior: Clip.antiAlias,
@@ -51,75 +49,80 @@ class _ActionCardState extends State<ActionCard> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: ListView(
-                      children: [
-                        const Text(
-                          'Progress',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
+                  Consumer(builder: (context, watch, _) {
+                    var stream = watch(commandStreamProvider).state;
+                    return Expanded(
+                      child: ListView(
+                        children: [
+                          const Text(
+                            'Progress',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        ...widget.actions.map((e) {
-                          var prog = ProgressCardState.pending;
-                          if (widget.actions.indexOf(e) == progress) {
-                            prog = ProgressCardState.inProgress;
-                            e.doOnAction().then((_) {
-                              setState(() {
-                                if (progress != null &&
-                                    progress != widget.actions.length) {
-                                  progress = progress! + 1;
-                                }
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          ...widget.actions.map((e) {
+                            var prog = ProgressCardState.pending;
+                            if (widget.actions.indexOf(e) == progress) {
+                              prog = ProgressCardState.inProgress;
+                              stream.add('Starting ' + e.title);
+                              e.doOnAction().then((_) {
+                                setState(() {
+                                  stream.add('Complete ' + e.title);
+                                  if (progress != null &&
+                                      progress != widget.actions.length) {
+                                    progress = progress! + 1;
+                                  }
+                                });
                               });
-                            });
-                          } else if (widget.actions.indexOf(e) <
-                              (progress ?? 0)) {
-                            prog = ProgressCardState.done;
-                          }
-                          return ProgressCard(
-                            state: prog,
-                            icon: HeroIcon(
-                              e.icon,
-                              color: const Color(0xff353535),
+                            } else if (widget.actions.indexOf(e) <
+                                (progress ?? 0)) {
+                              prog = ProgressCardState.done;
+                            }
+                            return ProgressCard(
+                              state: prog,
+                              icon: HeroIcon(
+                                e.icon,
+                                color: const Color(0xff353535),
+                              ),
+                              text: e.title,
+                            );
+                          }).toList(),
+                          ProgressCard(
+                            text: 'Complete',
+                            showTrailing: false,
+                            state: widget.actions.length == progress
+                                ? ProgressCardState.inProgress
+                                : ProgressCardState.pending,
+                            icon: Container(
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Color(0xff00B633),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0xff00B633),
+                                      blurRadius: 10,
+                                      spreadRadius: 1.5,
+                                    ),
+                                  ]),
+                              padding: const EdgeInsets.all(2),
+                              width: 20,
+                              height: 20,
+                              child: const HeroIcon(
+                                HeroIcons.check,
+                                color: Colors.white,
+                                solid: false,
+                              ),
                             ),
-                            text: e.title,
-                          );
-                        }).toList(),
-                        ProgressCard(
-                          text: 'Complete',
-                          showTrailing: false,
-                          state: widget.actions.length == progress
-                              ? ProgressCardState.inProgress
-                              : ProgressCardState.pending,
-                          icon: Container(
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color(0xff00B633),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0xff00B633),
-                                    blurRadius: 10,
-                                    spreadRadius: 1.5,
-                                  ),
-                                ]),
-                            padding: const EdgeInsets.all(2),
-                            width: 20,
-                            height: 20,
-                            child: const HeroIcon(
-                              HeroIcons.check,
-                              color: Colors.white,
-                              solid: false,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                          )
+                        ],
+                      ),
+                    );
+                  }),
                   Consumer(builder: (context, watch, _) {
                     var serial = watch(serialProvider).state;
                     return Container(
@@ -161,6 +164,30 @@ class _ActionCardState extends State<ActionCard> {
             Flexible(
               child: Container(
                 color: Colors.black87,
+                child: Consumer(
+                  builder: (context, watch, child) {
+                    return StreamBuilder<String>(
+                      stream: watch(commandStreamProvider).state.stream,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Expanded(
+                            child: ListView.builder(
+                              itemBuilder: (context, index) {
+                                return Text(
+                                  snapshot.data![index],
+                                  style: TextStyle(color: Colors.white),
+                                );
+                              },
+                              itemCount: snapshot.data!.length,
+                            ),
+                          );
+                        } else {
+                          return const SizedBox.expand();
+                        }
+                      },
+                    );
+                  },
+                ),
               ),
             ),
           ],

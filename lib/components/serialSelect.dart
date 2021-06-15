@@ -106,22 +106,31 @@ class _SerialCardState extends State<SerialCard> {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            DropdownButton<String>(
-                              onChanged: (value) {
-                                watch(serialProvider).state = value;
-                                serialSelected = SerialPort(value!);
-                              },
-                              value: serialExternal,
-                              items: [
-                                ...availablePorts.map((e) {
-                                  final port = SerialPort(e);
-                                  return DropdownMenuItem(
-                                    value: e,
-                                    child: Text(port.description.toString()),
-                                  );
-                                }).toList()
-                              ],
-                            ),
+                            availablePorts.isNotEmpty
+                                ? DropdownButton<String>(
+                                    onChanged: (value) {
+                                      watch(serialProvider).state = value;
+                                      serialSelected = SerialPort(value!);
+                                    },
+                                    value: serialExternal,
+                                    items: [
+                                      ...availablePorts.map((e) {
+                                        final port = SerialPort(e);
+                                        return DropdownMenuItem(
+                                          value: e,
+                                          child:
+                                              Text(port.description.toString()),
+                                        );
+                                      }).toList()
+                                    ],
+                                  )
+                                : const Text(
+                                    'No Devices Detected',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                    textAlign: TextAlign.start,
+                                  ),
                             const SizedBox(
                               width: 10,
                             ),
