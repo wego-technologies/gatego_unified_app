@@ -6,6 +6,7 @@ enum ProgressCardState {
   inProgress,
   pending,
   done,
+  fail,
 }
 
 class ProgressCard extends StatefulWidget {
@@ -90,6 +91,15 @@ class _ProgressCardState extends State<ProgressCard> {
             );
           }
           break;
+        case ProgressCardState.fail:
+          {
+            trailing = HeroIcon(
+              HeroIcons.xCircle,
+              size: 20,
+              color: Theme.of(context).errorColor,
+              solid: true,
+            );
+          }
       }
     }
 

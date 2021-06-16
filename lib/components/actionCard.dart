@@ -67,25 +67,30 @@ class _ActionCardState extends State<ActionCard> {
                             height: 15,
                           ),
                           ...widget.actions.map((e) {
-                            var prog = ProgressCardState.pending;
                             if (widget.actions.indexOf(e) == progress) {
-                              prog = ProgressCardState.inProgress;
-                              commandList.add('Starting ' + e.title);
-                              e.doOnAction().then((_) {
+                              commandList.add('> Starting ' + e.title);
+                              e.state = ProgressCardState.inProgress;
+                              e.doOnAction(context, watch).then((res) {
                                 setState(() {
-                                  commandList.add('Completed ' + e.title);
+                                  if (res) {
+                                    commandList.add('> Completed ' + e.title);
+                                    e.state = ProgressCardState.done;
+                                  } else {
+                                    commandList.add(
+                                        '> Failed ' + e.title + ', halting');
+                                    e.state = ProgressCardState.fail;
+                                    progress = widget.actions.length;
+                                  }
+
                                   if (progress != null &&
                                       progress != widget.actions.length) {
                                     progress = progress! + 1;
                                   }
                                 });
                               });
-                            } else if (widget.actions.indexOf(e) <
-                                (progress ?? 0)) {
-                              prog = ProgressCardState.done;
                             }
                             return ProgressCard(
-                              state: prog,
+                              state: e.state ?? ProgressCardState.pending,
                               icon: HeroIcon(
                                 e.icon,
                                 color: const Color(0xff353535),
@@ -149,10 +154,10 @@ class _ActionCardState extends State<ActionCard> {
                             ? null
                             : () {
                                 widget.actions.forEach((element) {
-                                  setState(() {
-                                    progress = 0;
-                                  });
+                                  progress = 0;
+                                  element.state = ProgressCardState.pending;
                                 });
+                                setState(() {});
                               },
                         label: const Icon(Icons.play_arrow_rounded),
                         icon: const Text('Start Flashing'),
@@ -215,11 +220,13 @@ class _ActionCardState extends State<ActionCard> {
 class ActionItem {
   String title;
   HeroIcons icon;
-  Future<bool> Function() doOnAction;
+  ProgressCardState? state;
+  Future<bool> Function(BuildContext, ScopedReader) doOnAction;
 
   ActionItem({
     required this.doOnAction,
     required this.icon,
     required this.title,
+    this.state,
   });
 }
