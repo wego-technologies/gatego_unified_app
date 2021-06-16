@@ -24,6 +24,7 @@ class ActionCard extends StatefulWidget {
 
 class _ActionCardState extends State<ActionCard> {
   int? progress;
+  int? failedIndex;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -67,7 +68,8 @@ class _ActionCardState extends State<ActionCard> {
                             height: 15,
                           ),
                           ...widget.actions.map((e) {
-                            if (widget.actions.indexOf(e) == progress) {
+                            var index = widget.actions.indexOf(e);
+                            if (index == progress) {
                               commandList.add('> Starting ' + e.title);
                               e.state = ProgressCardState.inProgress;
                               e.doOnAction(context, watch).then((res) {
@@ -78,6 +80,7 @@ class _ActionCardState extends State<ActionCard> {
                                   } else {
                                     commandList.add(
                                         '> Failed ' + e.title + ', halting');
+                                    failedIndex = index;
                                     e.state = ProgressCardState.fail;
                                     progress = widget.actions.length;
                                   }
@@ -88,6 +91,12 @@ class _ActionCardState extends State<ActionCard> {
                                   }
                                 });
                               });
+                            } else if (failedIndex != null &&
+                                failedIndex! == index) {
+                              e.state = ProgressCardState.fail;
+                            } else if (failedIndex != null &&
+                                failedIndex! > index) {
+                              e.state = ProgressCardState.done;
                             }
                             return ProgressCard(
                               state: e.state ?? ProgressCardState.pending,
@@ -99,18 +108,22 @@ class _ActionCardState extends State<ActionCard> {
                             );
                           }).toList(),
                           ProgressCard(
-                            text: 'Complete',
+                            text: failedIndex == null ? 'Complete' : 'Failed',
                             showTrailing: false,
                             state: widget.actions.length == progress
                                 ? ProgressCardState.inProgress
                                 : ProgressCardState.pending,
                             icon: Container(
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Color(0xff00B633),
+                                  color: failedIndex == null
+                                      ? const Color(0xff00B633)
+                                      : Theme.of(context).errorColor,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Color(0xff00B633),
+                                      color: failedIndex == null
+                                          ? const Color(0xff00B633)
+                                          : Theme.of(context).errorColor,
                                       blurRadius: 10,
                                       spreadRadius: 1.5,
                                     ),
@@ -118,8 +131,10 @@ class _ActionCardState extends State<ActionCard> {
                               padding: const EdgeInsets.all(2),
                               width: 20,
                               height: 20,
-                              child: const HeroIcon(
-                                HeroIcons.check,
+                              child: HeroIcon(
+                                failedIndex == null
+                                    ? HeroIcons.check
+                                    : HeroIcons.x,
                                 color: Colors.white,
                                 solid: false,
                               ),
@@ -157,6 +172,7 @@ class _ActionCardState extends State<ActionCard> {
                                   progress = 0;
                                   element.state = ProgressCardState.pending;
                                 });
+                                failedIndex = null;
                                 setState(() {});
                               },
                         label: const Icon(Icons.play_arrow_rounded),
