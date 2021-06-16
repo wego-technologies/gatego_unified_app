@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/molecules/progessCard.dart';
 import 'package:gatego_unified_app/providers/commandStreamProvider.dart';
 import 'package:gatego_unified_app/providers/serialProvider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -50,7 +51,7 @@ class _ActionCardState extends State<ActionCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Consumer(builder: (context, watch, _) {
-                    var stream = watch(commandStreamProvider).state;
+                    var commandList = watch(commandProvider).state;
                     return Expanded(
                       child: ListView(
                         children: [
@@ -69,10 +70,10 @@ class _ActionCardState extends State<ActionCard> {
                             var prog = ProgressCardState.pending;
                             if (widget.actions.indexOf(e) == progress) {
                               prog = ProgressCardState.inProgress;
-                              stream.add(stream.stream);
+                              commandList.add('Starting ' + e.title);
                               e.doOnAction().then((_) {
                                 setState(() {
-                                  stream.add('Complete ' + e.title);
+                                  commandList.add('Completed ' + e.title);
                                   if (progress != null &&
                                       progress != widget.actions.length) {
                                     progress = progress! + 1;
@@ -164,27 +165,41 @@ class _ActionCardState extends State<ActionCard> {
             Flexible(
               child: Container(
                 color: Colors.black87,
+                padding: const EdgeInsets.all(20),
                 child: Consumer(
                   builder: (context, watch, child) {
-                    return StreamBuilder<List<String>>(
-                      stream: watch(commandStreamProvider).state.stream,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return Expanded(
-                            child: ListView.builder(
-                              itemBuilder: (context, index) {
-                                return Text(
-                                  snapshot.data![index],
-                                  style: TextStyle(color: Colors.white),
-                                );
+                    var commands = watch(commandProvider).state;
+                    return Stack(
+                      children: [
+                        ListView.builder(
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: Text(
+                                commands[index],
+                                style: GoogleFonts.ubuntuMono(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            );
+                          },
+                          itemCount: commands.length,
+                        ),
+                        Positioned(
+                          bottom: 1,
+                          right: 1,
+                          child: Tooltip(
+                            message: 'Clear',
+                            child: FloatingActionButton(
+                              onPressed: () {
+                                watch(commandProvider).state = [];
                               },
-                              itemCount: snapshot.data!.length,
+                              backgroundColor: Theme.of(context).primaryColor,
+                              child: const HeroIcon(HeroIcons.trash),
                             ),
-                          );
-                        } else {
-                          return const SizedBox.expand();
-                        }
-                      },
+                          ),
+                        )
+                      ],
                     );
                   },
                 ),
