@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gatego_unified_app/molecules/progessCard.dart';
+import 'package:flutter_libserialport/flutter_libserialport.dart';
 import 'package:gatego_unified_app/providers/commandStreamProvider.dart';
+import 'package:gatego_unified_app/providers/serialProvider.dart';
 import 'package:path_provider/path_provider.dart';
 import '../components/SerialSelect.dart';
 import '../components/actionCard.dart';
@@ -105,8 +106,36 @@ class FlashPage extends StatelessWidget {
                 ),
                 ActionItem(
                   doOnAction: (context, watch) async {
-                    await Future.delayed(const Duration(seconds: 2));
-                    return true;
+                    var dir = (await getApplicationDocumentsDirectory()).path;
+                    var file = File('$dir${Platform.pathSeparator}flasher')
+                        .absolute
+                        .path;
+                    var serial = watch(serialProvider).state;
+                    if (Platform.isWindows) {
+                      file += '.exe';
+                    }
+                    SerialPort(serial!).close();
+                    var proc = await Process.run(
+                      file,
+                      [
+                        'erase_flash',
+                      ],
+                      runInShell: true,
+                    );
+
+                    watch(commandProvider).state.add(proc.stdout);
+
+                    var result = watch(commandProvider)
+                        .state
+                        .where((element) =>
+                            element.contains('Chip erase completed'))
+                        .toList();
+                    print(result);
+                    if (result.isNotEmpty) {
+                      return true;
+                    } else {
+                      return false;
+                    }
                   },
                   icon: HeroIcons.trash,
                   title: 'Erase Chip',
