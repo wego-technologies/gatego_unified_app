@@ -11,6 +11,7 @@ import '../components/actionCard.dart';
 import '../components/serialInfo.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:http/http.dart' as http;
+import 'package:process_run/shell.dart';
 
 class FlashPage extends StatelessWidget {
   final bool extended;
@@ -115,15 +116,18 @@ class FlashPage extends StatelessWidget {
                       file += '.exe';
                     }
                     SerialPort(serial!).close();
-                    var proc = await Process.run(
-                      file,
-                      [
-                        'erase_flash',
-                      ],
-                      runInShell: true,
-                    );
 
-                    watch(commandProvider).state.add(proc.stdout);
+                    var controller = ShellLinesController();
+                    var shell = Shell(stdout: controller.sink, verbose: false);
+                    controller.stream.listen((event) {
+                      watch(commandProvider).state.add(event);
+                      print(event);
+                    });
+                    try {
+                      await shell.run('$file erase_flash');
+                    } on ShellException catch (_) {
+                      shell.kill();
+                    }
 
                     var result = watch(commandProvider)
                         .state

@@ -35,6 +35,7 @@ dependencies:
   loading_indicator: ^2.1.1
   flutter_libserialport: ^0.2.1
   path_provider: ^2.0.2
+  process_run: ^0.12.1
 
 dev_dependencies:
   flutter_test:

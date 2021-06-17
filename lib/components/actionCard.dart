@@ -183,49 +183,56 @@ class _ActionCardState extends State<ActionCard> {
                 ],
               ),
             ),
-            Flexible(
-              child: Container(
-                color: Colors.black87,
-                padding: const EdgeInsets.all(20),
-                child: Consumer(
-                  builder: (context, watch, child) {
-                    var commands = watch(commandProvider).state;
-                    return Stack(
-                      children: [
-                        ListView.builder(
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: Text(
-                                commands[index],
-                                style: GoogleFonts.ubuntuMono(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            );
-                          },
-                          itemCount: commands.length,
-                        ),
-                        Positioned(
-                          bottom: 1,
-                          right: 1,
-                          child: Tooltip(
-                            message: 'Clear',
-                            child: FloatingActionButton(
-                              onPressed: () {
-                                watch(commandProvider).state = [];
-                              },
-                              backgroundColor: Theme.of(context).primaryColor,
-                              child: const HeroIcon(HeroIcons.trash),
-                            ),
-                          ),
-                        )
-                      ],
-                    );
+            const Console(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Console extends ConsumerWidget {
+  const Console({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, ScopedReader watch) {
+    var commands = watch(commandProvider);
+    return Flexible(
+      child: Container(
+        color: Colors.black87,
+        padding: const EdgeInsets.all(20),
+        child: Stack(
+          children: [
+            ListView.builder(
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: Text(
+                    commands.state[index],
+                    style: GoogleFonts.ubuntuMono(
+                      color: Colors.white,
+                    ),
+                  ),
+                );
+              },
+              itemCount: commands.state.length,
+            ),
+            Positioned(
+              bottom: 1,
+              right: 1,
+              child: Tooltip(
+                message: 'Clear',
+                child: FloatingActionButton(
+                  onPressed: () {
+                    watch(commandProvider).state = [];
                   },
+                  backgroundColor: Theme.of(context).primaryColor,
+                  child: const HeroIcon(HeroIcons.trash),
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
