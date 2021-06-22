@@ -232,7 +232,7 @@ class FlashPage extends StatelessWidget {
                       print(event);
                     });
                     try {
-                      await shell.run('$file erase_flash');
+                      await shell.run('"$file" erase_flash');
                     } on ShellException catch (_) {
                       shell.kill();
                     }
