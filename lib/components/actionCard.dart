@@ -24,6 +24,7 @@ class ActionCard extends StatefulWidget {
 
 class _ActionCardState extends State<ActionCard> {
   int? progress;
+  bool inP = false;
   int? failedIndex;
   @override
   Widget build(BuildContext context) {
@@ -69,10 +70,12 @@ class _ActionCardState extends State<ActionCard> {
                           ),
                           ...widget.actions.map((e) {
                             var index = widget.actions.indexOf(e);
-                            if (index == progress) {
+                            if (index == progress && !inP) {
+                              inP = true;
                               commandList.add('> Starting ' + e.title);
                               e.state = ProgressCardState.inProgress;
                               e.doOnAction(context, watch).then((res) {
+                                inP = false;
                                 setState(() {
                                   if (res) {
                                     commandList.add('> Completed ' + e.title);
@@ -183,7 +186,7 @@ class _ActionCardState extends State<ActionCard> {
                 ],
               ),
             ),
-            const Console(),
+            Console(),
           ],
         ),
       ),
@@ -192,7 +195,8 @@ class _ActionCardState extends State<ActionCard> {
 }
 
 class Console extends ConsumerWidget {
-  const Console({
+  // ignore: prefer_const_constructors_in_immutables
+  Console({
     Key? key,
   }) : super(key: key);
 

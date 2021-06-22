@@ -12,6 +12,7 @@ import '../components/serialInfo.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:http/http.dart' as http;
 import 'package:process_run/shell.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FlashPage extends StatelessWidget {
   final bool extended;
@@ -56,11 +57,26 @@ class FlashPage extends StatelessWidget {
                       var req = await client.get(
                           Uri.parse('https://firmware.gatego.io/firmware.bin'));
                       var bytes = req.bodyBytes;
-                      watch(commandProvider).state.add('Saving file...');
+                      if (req.statusCode != 200) {
+                        context.read(commandProvider).state = [
+                          'Error downloading file. Code ' +
+                              req.statusCode.toString() +
+                              '\n\nDetails: ' +
+                              req.reasonPhrase!
+                        ];
+                        return false;
+                      }
+                      context.read(commandProvider).state = [
+                        ...context.read(commandProvider).state,
+                        'Saving file...'
+                      ];
                       var dir = (await getApplicationDocumentsDirectory()).path;
                       var file =
                           File('$dir${Platform.pathSeparator}fimware.bin');
-                      watch(commandProvider).state.add('Saved in ${file.path}');
+                      context.read(commandProvider).state = [
+                        ...context.read(commandProvider).state,
+                        'Saved in ${file.path}'
+                      ];
                       await file.writeAsBytes(bytes);
                     } catch (e) {
                       return false;
@@ -85,17 +101,24 @@ class FlashPage extends StatelessWidget {
                       var req = await client.get(Uri.parse(url));
                       var bytes = req.bodyBytes;
                       if (req.statusCode != 200) {
-                        watch(commandProvider).state.add(
-                            'Error downloading file. Code ' +
-                                req.statusCode.toString() +
-                                '\n\nDetails: ' +
-                                req.reasonPhrase!);
+                        context.read(commandProvider).state = [
+                          'Error downloading file. Code ' +
+                              req.statusCode.toString() +
+                              '\n\nDetails: ' +
+                              req.reasonPhrase!
+                        ];
                         return false;
                       }
-                      watch(commandProvider).state.add('Saving file...');
+                      context.read(commandProvider).state = [
+                        ...context.read(commandProvider).state,
+                        'Saving file...'
+                      ];
                       var dir = (await getApplicationDocumentsDirectory()).path;
                       var file = File('$dir${Platform.pathSeparator}$fileName');
-                      watch(commandProvider).state.add('Saved in ${file.path}');
+                      context.read(commandProvider).state = [
+                        ...context.read(commandProvider).state,
+                        'Saved in ${file.path}'
+                      ];
                       await file.writeAsBytes(bytes);
                     } catch (e) {
                       return false;
@@ -120,7 +143,10 @@ class FlashPage extends StatelessWidget {
                     var controller = ShellLinesController();
                     var shell = Shell(stdout: controller.sink, verbose: false);
                     controller.stream.listen((event) {
-                      watch(commandProvider).state.add(event);
+                      context.read(commandProvider).state = [
+                        ...context.read(commandProvider).state,
+                        event
+                      ];
                       print(event);
                     });
                     try {
@@ -134,7 +160,8 @@ class FlashPage extends StatelessWidget {
                         .where((element) =>
                             element.contains('Chip erase completed'))
                         .toList();
-                    print(result);
+
+                    shell.kill();
                     if (result.isNotEmpty) {
                       return true;
                     } else {
