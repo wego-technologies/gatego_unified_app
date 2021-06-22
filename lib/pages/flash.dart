@@ -51,7 +51,9 @@ class FlashPage extends StatelessWidget {
               actions: [
                 ActionItem(
                   doOnAction: (context, watch) async {
-                    watch(commandProvider).state.add('Starting download...');
+                    watch(commandProvider)
+                        .state
+                        .add('Starting firmware download...');
                     try {
                       var client = http.Client();
                       var req = await client.get(
@@ -78,6 +80,108 @@ class FlashPage extends StatelessWidget {
                         'Saved in ${file.path}'
                       ];
                       await file.writeAsBytes(bytes);
+                      try {
+                        context.read(commandProvider).state = [
+                          ...context.read(commandProvider).state,
+                          'Starting boot partition download...'
+                        ];
+                        var client = http.Client();
+                        var req = await client.get(Uri.parse(
+                            'https://firmware.gatego.io/bootloaders/boot_app0.bin'));
+                        var bytes = req.bodyBytes;
+                        if (req.statusCode != 200) {
+                          context.read(commandProvider).state = [
+                            'Error downloading file. Code ' +
+                                req.statusCode.toString() +
+                                '\n\nDetails: ' +
+                                req.reasonPhrase!
+                          ];
+                          return false;
+                        }
+                        context.read(commandProvider).state = [
+                          ...context.read(commandProvider).state,
+                          'Saving file...'
+                        ];
+                        var dir =
+                            (await getApplicationDocumentsDirectory()).path;
+                        var file =
+                            File('$dir${Platform.pathSeparator}boot_app0.bin');
+                        context.read(commandProvider).state = [
+                          ...context.read(commandProvider).state,
+                          'Saved in ${file.path}'
+                        ];
+                        await file.writeAsBytes(bytes);
+                        try {
+                          context.read(commandProvider).state = [
+                            ...context.read(commandProvider).state,
+                            'Starting bootloader download...'
+                          ];
+                          var client = http.Client();
+                          var req = await client.get(Uri.parse(
+                              'https://firmware.gatego.io/bootloaders/bootloader_dio_40m.bin'));
+                          var bytes = req.bodyBytes;
+                          if (req.statusCode != 200) {
+                            context.read(commandProvider).state = [
+                              'Error downloading file. Code ' +
+                                  req.statusCode.toString() +
+                                  '\n\nDetails: ' +
+                                  req.reasonPhrase!
+                            ];
+                            return false;
+                          }
+                          context.read(commandProvider).state = [
+                            ...context.read(commandProvider).state,
+                            'Saving file...'
+                          ];
+                          var dir =
+                              (await getApplicationDocumentsDirectory()).path;
+                          var file = File(
+                              '$dir${Platform.pathSeparator}bootloader_dio_40m.bin');
+                          context.read(commandProvider).state = [
+                            ...context.read(commandProvider).state,
+                            'Saved in ${file.path}'
+                          ];
+                          await file.writeAsBytes(bytes);
+                          try {
+                            context.read(commandProvider).state = [
+                              ...context.read(commandProvider).state,
+                              'Starting partitions download...'
+                            ];
+                            var client = http.Client();
+                            var req = await client.get(Uri.parse(
+                                'https://firmware.gatego.io/bootloaders/partitions.bin'));
+                            var bytes = req.bodyBytes;
+                            if (req.statusCode != 200) {
+                              context.read(commandProvider).state = [
+                                'Error downloading file. Code ' +
+                                    req.statusCode.toString() +
+                                    '\n\nDetails: ' +
+                                    req.reasonPhrase!
+                              ];
+                              return false;
+                            }
+                            context.read(commandProvider).state = [
+                              ...context.read(commandProvider).state,
+                              'Saving file...'
+                            ];
+                            var dir =
+                                (await getApplicationDocumentsDirectory()).path;
+                            var file = File(
+                                '$dir${Platform.pathSeparator}partitions.bin');
+                            context.read(commandProvider).state = [
+                              ...context.read(commandProvider).state,
+                              'Saved in ${file.path}'
+                            ];
+                            await file.writeAsBytes(bytes);
+                          } catch (e) {
+                            return false;
+                          }
+                        } catch (e) {
+                          return false;
+                        }
+                      } catch (e) {
+                        return false;
+                      }
                     } catch (e) {
                       return false;
                     }
