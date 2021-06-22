@@ -72,7 +72,7 @@ class FlashPage extends StatelessWidget {
                         ...context.read(commandProvider).state,
                         'Saving file...'
                       ];
-                      var dir = (await getApplicationDocumentsDirectory()).path;
+                      var dir = (await getApplicationSupportDirectory()).path;
                       var file =
                           File('$dir${Platform.pathSeparator}fimware.bin');
                       context.read(commandProvider).state = [
@@ -195,7 +195,7 @@ class FlashPage extends StatelessWidget {
                         ...context.read(commandProvider).state,
                         'Saving file...'
                       ];
-                      var dir = (await getApplicationDocumentsDirectory()).path;
+                      var dir = (await getApplicationSupportDirectory()).path;
                       var file = File('$dir${Platform.pathSeparator}$fileName');
                       context.read(commandProvider).state = [
                         ...context.read(commandProvider).state,
@@ -212,7 +212,7 @@ class FlashPage extends StatelessWidget {
                 ),
                 ActionItem(
                   doOnAction: (context, watch) async {
-                    var dir = (await getApplicationDocumentsDirectory()).path;
+                    var dir = (await getApplicationSupportDirectory()).path;
                     var file = File('$dir${Platform.pathSeparator}flasher')
                         .absolute
                         .path;
