@@ -255,8 +255,48 @@ class FlashPage extends StatelessWidget {
                 ),
                 ActionItem(
                   doOnAction: (context, watch) async {
-                    await Future.delayed(const Duration(seconds: 2));
-                    return true;
+                    var dir = (await getApplicationSupportDirectory()).path;
+                    var file = File('$dir${Platform.pathSeparator}flasher')
+                        .absolute
+                        .path;
+                    var serial = watch(serialProvider).state;
+                    if (Platform.isWindows) {
+                      file += '.exe';
+                    }
+                    SerialPort(serial!).close();
+
+                    var controller = ShellLinesController();
+                    var shell = Shell(stdout: controller.sink, verbose: false);
+                    controller.stream.listen((event) {
+                      context.read(commandProvider).state = [
+                        ...context.read(commandProvider).state,
+                        event
+                      ];
+                      print(event);
+                    });
+                    try {
+                      await shell.run(
+                        '"$file" --chip esp32 --port "$serial" --baud 2000000 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 40m --flash_size detect 0x1000 '
+                        ' "${'$dir${Platform.pathSeparator}bootloader_dio_40m.bin'}"'
+                        ' 0x8000 "$dir${Platform.pathSeparator}partitions.bin"'
+                        ' 0xe000 "$dir${Platform.pathSeparator}boot_app0.bin" 0x10000 "$dir${Platform.pathSeparator}firmware.bin"',
+                      );
+                    } on ShellException catch (_) {
+                      shell.kill();
+                    }
+
+                    var result = watch(commandProvider)
+                        .state
+                        .where((element) =>
+                            element.contains('Chip erase completed'))
+                        .toList();
+
+                    shell.kill();
+                    if (result.isNotEmpty) {
+                      return true;
+                    } else {
+                      return false;
+                    }
                   },
                   icon: HeroIcons.upload,
                   title: 'Install Firmware',
