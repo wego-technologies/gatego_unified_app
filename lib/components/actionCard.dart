@@ -23,9 +23,22 @@ class ActionCard extends StatefulWidget {
 }
 
 class _ActionCardState extends State<ActionCard> {
+  var cont = ScrollController();
   int? progress;
   bool inP = false;
   int? failedIndex;
+
+  @override
+  void dispose() {
+    cont.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -78,11 +91,16 @@ class _ActionCardState extends State<ActionCard> {
                                 inP = false;
                                 setState(() {
                                   if (res) {
-                                    commandList.add('> Completed ' + e.title);
+                                    context.read(commandProvider).state = [
+                                      ...context.read(commandProvider).state,
+                                      ('> Completed ' + e.title)
+                                    ];
                                     e.state = ProgressCardState.done;
                                   } else {
-                                    commandList.add(
-                                        '> Failed ' + e.title + ', halting');
+                                    context.read(commandProvider).state = [
+                                      ...context.read(commandProvider).state,
+                                      ('> Failed ' + e.title + ', halting')
+                                    ];
                                     failedIndex = index;
                                     e.state = ProgressCardState.fail;
                                     progress = widget.actions.length;
@@ -94,11 +112,14 @@ class _ActionCardState extends State<ActionCard> {
                                   }
                                 });
                               });
+                            } else if (inP && progress == index) {
+                              e.state = ProgressCardState.inProgress;
                             } else if (failedIndex != null &&
                                 failedIndex! == index) {
                               e.state = ProgressCardState.fail;
-                            } else if (failedIndex != null &&
-                                failedIndex! > index) {
+                            } else if ((failedIndex != null &&
+                                    failedIndex! > index) ||
+                                ((progress! >= index) && failedIndex == null)) {
                               e.state = ProgressCardState.done;
                             }
                             return ProgressCard(
@@ -186,7 +207,9 @@ class _ActionCardState extends State<ActionCard> {
                 ],
               ),
             ),
-            Console(),
+            Console(
+              cont: cont,
+            ),
           ],
         ),
       ),
@@ -194,14 +217,19 @@ class _ActionCardState extends State<ActionCard> {
   }
 }
 
+// ignore: must_be_immutable
 class Console extends ConsumerWidget {
+  late ScrollController cont;
+
   // ignore: prefer_const_constructors_in_immutables
   Console({
     Key? key,
+    required this.cont,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    updateConsole(cont);
     var commands = watch(commandProvider);
     return Flexible(
       child: Container(
@@ -210,10 +238,11 @@ class Console extends ConsumerWidget {
         child: Stack(
           children: [
             ListView.builder(
+              controller: cont,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: Text(
+                  child: SelectableText(
                     commands.state[index],
                     style: GoogleFonts.ubuntuMono(
                       color: Colors.white,
@@ -256,4 +285,15 @@ class ActionItem {
     required this.title,
     this.state,
   });
+}
+
+Future<void> updateConsole(ScrollController cont) async {
+  await Future.delayed(const Duration(seconds: 0));
+  if (cont.hasClients) {
+    await cont.animateTo(
+      cont.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeInOutCubic,
+    );
+  }
 }
