@@ -276,13 +276,15 @@ class FlashPage extends StatelessWidget {
                     });
                     try {
                       await shell.run(
-                        '"$file" --chip esp32 --port "$serial" --baud 2000000 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 40m --flash_size detect 0x1000 '
+                        '.\"$file" --chip esp32 --port "$serial" --baud 2000000 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 40m --flash_size detect 0x1000 '
                         ' "${'$dir${Platform.pathSeparator}bootloader_dio_40m.bin'}"'
                         ' 0x8000 "$dir${Platform.pathSeparator}partitions.bin"'
                         ' 0xe000 "$dir${Platform.pathSeparator}boot_app0.bin" 0x10000 "$dir${Platform.pathSeparator}firmware.bin"',
                       );
                     } on ShellException catch (_) {
+                      print(_.message);
                       shell.kill();
+                      return false;
                     }
 
                     var result = watch(commandProvider)
