@@ -119,7 +119,8 @@ class _ActionCardState extends State<ActionCard> {
                               e.state = ProgressCardState.fail;
                             } else if ((failedIndex != null &&
                                     failedIndex! > index) ||
-                                ((progress! >= index) && failedIndex == null)) {
+                                (((progress ?? 0) >= index) &&
+                                    failedIndex == null)) {
                               e.state = ProgressCardState.done;
                             }
                             return ProgressCard(
