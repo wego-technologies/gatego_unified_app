@@ -2,6 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/molecules/textInput.dart';
 import 'package:gatego_unified_app/providers/userProvider.dart';
+import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
@@ -25,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   String user = '';
 
   bool inP = false;
+  bool error = false;
 
   @override
   void dispose() {
@@ -55,7 +57,8 @@ class _LoginPageState extends State<LoginPage> {
                 color: Theme.of(context).canvasColor,
                 borderRadius: BorderRadius.circular(10)),
             padding: const EdgeInsets.all(20),
-            constraints: const BoxConstraints(maxWidth: 500, maxHeight: 410),
+            constraints:
+                BoxConstraints(maxWidth: 500, maxHeight: error ? 432 : 410),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -100,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         TextInput(
                           obscureText: true,
-                          setData: (data) => user,
+                          setData: (data) => passw,
                           icon: Icons.vpn_key_outlined,
                           text: 'Password',
                           c: passC,
@@ -112,6 +115,11 @@ class _LoginPageState extends State<LoginPage> {
                                       if (jwt != null) {
                                         inP = false;
                                         watch(jwtProvider).state = jwt;
+                                      } else {
+                                        setState(() {
+                                          inP = false;
+                                          error = true;
+                                        });
                                       }
                                     });
                                     setState(() {
@@ -122,7 +130,29 @@ class _LoginPageState extends State<LoginPage> {
                               : () {},
                         ),
                         const SizedBox(
-                          height: 30,
+                          height: 15,
+                        ),
+                        if (error)
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color:
+                                  Theme.of(context).errorColor.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Row(
+                              children: [
+                                const HeroIcon(HeroIcons.exclamationCircle),
+                                const SizedBox(
+                                  width: 15,
+                                ),
+                                const Text(
+                                    'There was an error logging in. Please try again.')
+                              ],
+                            ),
+                          ),
+                        const SizedBox(
+                          height: 15,
                         ),
                         ElevatedButton.icon(
                           style: ButtonStyle(
@@ -146,6 +176,11 @@ class _LoginPageState extends State<LoginPage> {
                                       if (jwt != null) {
                                         inP = false;
                                         watch(jwtProvider).state = jwt;
+                                      } else {
+                                        setState(() {
+                                          inP = false;
+                                          error = true;
+                                        });
                                       }
                                     });
                                     setState(() {
