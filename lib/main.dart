@@ -1,4 +1,5 @@
 import 'package:beamer/beamer.dart';
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/components/menu.dart';
 import 'package:gatego_unified_app/molecules/UserCard.dart';
@@ -8,7 +9,7 @@ import 'package:heroicons/heroicons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-void main() {
+void main() async {
   runApp(AppWrapper());
 }
 

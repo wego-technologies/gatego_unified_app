@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(10)),
             padding: const EdgeInsets.all(20),
             constraints:
-                BoxConstraints(maxWidth: 500, maxHeight: error ? 432 : 410),
+                BoxConstraints(maxWidth: 500, maxHeight: error ? 433 : 410),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -141,12 +141,12 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Row(
-                              children: [
-                                const HeroIcon(HeroIcons.exclamationCircle),
-                                const SizedBox(
+                              children: const [
+                                HeroIcon(HeroIcons.exclamationCircle),
+                                SizedBox(
                                   width: 15,
                                 ),
-                                const Text(
+                                Text(
                                     'There was an error logging in. Please try again.')
                               ],
                             ),
