@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -8,6 +9,7 @@ import 'package:http/http.dart' as http;
 class AccountProvider extends ChangeNotifier {
   Account? acc;
   String? jwt;
+  Timer? refTimer;
 
   Future<String?> getJWT(String user, String pass) async {
     var res = await http.post(
@@ -61,7 +63,7 @@ class AccountProvider extends ChangeNotifier {
   }
 
   Future<Account?> getAccount() async {
-    if (jwt != null || jwt == '') {
+    if (jwt == null || jwt == '') {
       return null;
     }
 
@@ -90,19 +92,39 @@ class AccountProvider extends ChangeNotifier {
     if (await getJWT(usr, pw) != null) {
       if (await getAccount() != null) {
         notifyListeners();
+        refTimer = Timer.periodic(const Duration(seconds: 120), (timer) {
+          print('Refreshing');
+          refreshJWT(jwt!);
+        });
         return true;
+      } else {
+        return false;
       }
     } else {
       return false;
     }
-    return true;
+  }
+
+  void logout() {
+    acc = null;
+    jwt = null;
+    if (refTimer != null) {
+      refTimer!.cancel();
+      refTimer = null;
+    }
+    notifyListeners();
+  }
+
+  bool isLoggedIn() {
+    if (acc == null) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
 
-final jwtProvider = ChangeNotifierProvider.autoDispose<AccountProvider>((ref) {
+final accountProvider =
+    ChangeNotifierProvider.autoDispose<AccountProvider>((ref) {
   return AccountProvider();
-});
-
-final accountProvider = StateProvider.autoDispose<Account?>((ref) {
-  return null;
 });

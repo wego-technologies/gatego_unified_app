@@ -14,15 +14,7 @@ class UserCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    var jwt = watch(jwtProvider).state;
-    var acc = watch(accountProvider).state;
-    if (jwt != '' && acc == null) {
-      getAccount(watch).then((value) {
-        if (value != null) {
-          watch(accountProvider).state = value;
-        }
-      });
-    }
+    var acc = watch(accountProvider).acc;
     if (expanded) {
       return Container(
         padding: const EdgeInsets.only(left: 4),
@@ -95,8 +87,7 @@ class UserCard extends ConsumerWidget {
                       message: 'Log Out',
                       child: IconButton(
                         onPressed: () {
-                          watch(jwtProvider).state = '';
-                          watch(accountProvider).state = null;
+                          context.read(accountProvider).logout();
                         },
                         icon: const Icon(
                           Icons.logout_rounded,

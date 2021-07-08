@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gatego_unified_app/providers/userProvider.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -25,13 +24,6 @@ class Menu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final jwtState = watch(jwtProvider).state;
-    if (jwtState == '') {
-      //getJWT("admin", "vfiKkusWvNfHLzqqRDntaeXUFrGicD").then((value) {
-      //context.read(jwtProvider).state = value;
-      //});
-    }
-
     return Container(
       decoration: BoxDecoration(
         boxShadow: const [BoxShadow(blurRadius: 5, spreadRadius: -2)],

@@ -1,9 +1,3 @@
-import 'dart:convert';
-
-import 'package:gatego_unified_app/providers/userProvider.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart' as http;
-
 class Account {
   late int id;
   late String username;
