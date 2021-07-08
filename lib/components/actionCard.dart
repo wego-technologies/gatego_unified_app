@@ -202,7 +202,7 @@ class _ActionCardState extends State<ActionCard> {
                                 setState(() {});
                               },
                         label: const Icon(Icons.play_arrow_rounded),
-                        icon: const Text('Start Flashing'),
+                        icon: Text(widget.buttonText),
                       ),
                     );
                   }),

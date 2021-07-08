@@ -5,7 +5,8 @@ import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SerialCard extends StatefulWidget {
-  const SerialCard({Key? key}) : super(key: key);
+  final String title;
+  const SerialCard(this.title, {Key? key}) : super(key: key);
 
   @override
   _SerialCardState createState() => _SerialCardState();
@@ -146,9 +147,9 @@ class _SerialCardState extends State<SerialCard> {
                         )
                       : Row(
                           children: [
-                            const Text(
-                              'Ready to Flash',
-                              style: TextStyle(
+                            Text(
+                              'Ready to ${widget.title}',
+                              style: const TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w600,
                               ),

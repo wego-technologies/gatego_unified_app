@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gatego_unified_app/actions/falsh.dart';
+import 'package:gatego_unified_app/molecules/console.dart';
 import '../components/SerialSelect.dart';
 import '../components/actionCard.dart';
 import '../components/serialInfo.dart';
@@ -8,8 +9,16 @@ import 'package:heroicons/heroicons.dart';
 
 class FlashPage extends StatelessWidget {
   final bool extended;
+  final List<ActionItem> actions;
+  final String title;
+  final String button;
 
-  const FlashPage(this.extended);
+  const FlashPage(
+    this.extended, {
+    required this.actions,
+    this.title = 'Flash',
+    this.button = 'Flashing',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +32,12 @@ class FlashPage extends StatelessWidget {
                 width:
                     MediaQuery.of(context).size.width - (extended ? 282 : 232),
                 child: Row(
-                  children: const [
+                  children: [
                     Flexible(
                       flex: 5,
-                      child: SerialCard(),
+                      child: SerialCard(title),
                     ),
-                    Flexible(
+                    const Flexible(
                         child: Padding(
                       padding: EdgeInsets.only(left: 30),
                       child: SerialInfo(),
@@ -39,9 +48,9 @@ class FlashPage extends StatelessWidget {
             ],
           ),
           ActionCard(
-            actions: flashActions,
+            actions: actions,
             buttonIcon: const HeroIcon(HeroIcons.play),
-            buttonText: 'Start Flashing',
+            buttonText: 'Start $button',
           ),
         ],
       ),

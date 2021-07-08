@@ -10,7 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:process_run/shell.dart';
 
-var flashActions = [
+final resetActions = [
   ActionItem(
     doOnAction: (context, watch) async {
       watch(commandProvider).state.add('Starting firmware download...');
@@ -166,6 +166,46 @@ var flashActions = [
     },
     icon: HeroIcons.folderDownload,
     title: 'Download Tools',
+  ),
+  ActionItem(
+    doOnAction: (context, watch) async {
+      var dir = (await getApplicationSupportDirectory()).path;
+      var file = File('$dir${Platform.pathSeparator}flasher').absolute.path;
+      var serial = watch(serialProvider).state;
+      if (Platform.isWindows) {
+        file += '.exe';
+      }
+      SerialPort(serial!).close();
+
+      var controller = ShellLinesController();
+      var shell = Shell(stdout: controller.sink, verbose: false);
+      controller.stream.listen((event) {
+        context.read(commandProvider).state = [
+          ...context.read(commandProvider).state,
+          event
+        ];
+        print(event);
+      });
+      try {
+        await shell.run('"$file" erase_flash');
+      } on ShellException catch (_) {
+        shell.kill();
+      }
+
+      var result = watch(commandProvider)
+          .state
+          .where((element) => element.contains('Chip erase completed'))
+          .toList();
+
+      shell.kill();
+      if (result.isNotEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    icon: HeroIcons.trash,
+    title: 'Erase Chip',
   ),
   ActionItem(
     doOnAction: (context, watch) async {

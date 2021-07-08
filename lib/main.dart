@@ -1,5 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:gatego_unified_app/actions/factoryReset.dart';
+import 'package:gatego_unified_app/actions/falsh.dart';
 import 'package:gatego_unified_app/components/menu.dart';
 import 'package:gatego_unified_app/molecules/UserCard.dart';
 import 'package:gatego_unified_app/pages/comingSoon.dart';
@@ -68,10 +70,18 @@ class _MenuWrapperState extends State<MenuWrapper>
   @override
   Widget build(BuildContext context) {
     var _pages = <String, Widget>{
-      'Flash Device': FlashPage(_extended),
+      'Flash Device': FlashPage(
+        _extended,
+        actions: flashActions,
+      ),
       'Register Device': const ComingSoonPage(),
       'Test Device': const ComingSoonPage(),
-      'Factory Reset': const ComingSoonPage(),
+      'Factory Reset': FlashPage(
+        _extended,
+        actions: resetActions,
+        button: 'Resetting',
+        title: 'Reset',
+      ),
     };
 
     return Scaffold(
