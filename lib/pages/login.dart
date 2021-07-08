@@ -73,8 +73,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Consumer(
                   builder: (context, watch, widget) {
-                    String? jwt = watch(jwtProvider).state;
-                    if (jwt.isNotEmpty) {
+                    var acc = watch(accountProvider);
+
+                    if (acc.isLoggedIn()) {
                       Beamer.of(context).popRoute();
                       return const SizedBox();
                     }
@@ -111,10 +112,11 @@ class _LoginPageState extends State<LoginPage> {
                           nextFocus: !inP
                               ? () {
                                   if (userC.text != '' && passC.text != '') {
-                                    getJWT(userC.text, passC.text).then((jwt) {
-                                      if (jwt != null) {
+                                    acc
+                                        .login(userC.text, passC.text)
+                                        .then((success) {
+                                      if (success) {
                                         inP = false;
-                                        watch(jwtProvider).state = jwt;
                                       } else {
                                         setState(() {
                                           inP = false;
@@ -172,10 +174,12 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: !inP
                               ? () {
                                   if (userC.text != '' && passC.text != '') {
-                                    getJWT(userC.text, passC.text).then((jwt) {
-                                      if (jwt != null) {
+                                    acc
+                                        .login(userC.text, passC.text)
+                                        .then((success) {
+                                      print(success);
+                                      if (success) {
                                         inP = false;
-                                        watch(jwtProvider).state = jwt;
                                       } else {
                                         setState(() {
                                           inP = false;

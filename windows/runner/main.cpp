@@ -7,11 +7,18 @@
 #include "utils.h"
 
 int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
-                      _In_ wchar_t *command_line, _In_ int show_command) {
+                      _In_ wchar_t *command_line, _In_ int show_command)
+{
   // Attach to console when present (e.g., 'flutter run') or create a
   // new console when running with a debugger.
-  if (!::AttachConsole(ATTACH_PARENT_PROCESS) && ::IsDebuggerPresent()) {
+  if (!::AttachConsole(ATTACH_PARENT_PROCESS) && ::IsDebuggerPresent())
+  {
     CreateAndAttachConsole();
+  }
+  else
+  {
+    AllocConsole();
+    ShowWindow(GetConsoleWindow(), SW_HIDE);
   }
 
   // Initialize COM, so that it is available for use in the library and/or
@@ -30,7 +37,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   FlutterWindow window(&run_loop, project);
   Win32Window::Point origin(10, 10);
   Win32Window::Size size(1280, 720);
-  if (!window.CreateAndShow(L"gatego_unified_app", origin, size)) {
+  if (!window.CreateAndShow(L"gatego_unified_app", origin, size))
+  {
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);
