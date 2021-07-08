@@ -3,7 +3,6 @@ import 'package:gatego_unified_app/molecules/console.dart';
 import 'package:gatego_unified_app/molecules/progessCard.dart';
 import 'package:gatego_unified_app/providers/commandStreamProvider.dart';
 import 'package:gatego_unified_app/providers/serialProvider.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

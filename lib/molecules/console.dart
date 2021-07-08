@@ -6,7 +6,7 @@ import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Console extends ConsumerWidget {
-  late ScrollController cont;
+  final ScrollController cont;
 
   // ignore: prefer_const_constructors_in_immutables
   Console({
