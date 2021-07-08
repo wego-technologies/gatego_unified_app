@@ -61,7 +61,6 @@ class _ActionCardState extends State<ActionCard> {
           children: [
             Container(
               width: 350,
-              padding: const EdgeInsets.all(20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -69,6 +68,7 @@ class _ActionCardState extends State<ActionCard> {
                     var commandList = watch(commandProvider).state;
                     return Expanded(
                       child: ListView(
+                        padding: const EdgeInsets.all(20),
                         children: [
                           const Text(
                             'Progress',
@@ -172,6 +172,7 @@ class _ActionCardState extends State<ActionCard> {
                   Consumer(builder: (context, watch, _) {
                     var serial = watch(serialProvider).state;
                     return Container(
+                      padding: const EdgeInsets.all(20),
                       width: double.infinity,
                       child: ElevatedButton.icon(
                         style: ButtonStyle(
