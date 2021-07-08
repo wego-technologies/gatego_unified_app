@@ -13,39 +13,37 @@ class FlashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(25),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width -
-                      (extended ? 282 : 232),
-                  child: Row(
-                    children: const [
-                      Flexible(
-                        flex: 5,
-                        child: SerialCard(),
-                      ),
-                      Flexible(
-                          child: Padding(
-                        padding: EdgeInsets.only(left: 30),
-                        child: SerialInfo(),
-                      ))
-                    ],
-                  ),
+    return Padding(
+      padding: const EdgeInsets.all(25),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width:
+                    MediaQuery.of(context).size.width - (extended ? 282 : 232),
+                child: Row(
+                  children: const [
+                    Flexible(
+                      flex: 5,
+                      child: SerialCard(),
+                    ),
+                    Flexible(
+                        child: Padding(
+                      padding: EdgeInsets.only(left: 30),
+                      child: SerialInfo(),
+                    ))
+                  ],
                 ),
-              ],
-            ),
-            ActionCard(
-              actions: flashActions,
-              buttonIcon: const HeroIcon(HeroIcons.play),
-              buttonText: 'Start Flashing',
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+          ActionCard(
+            actions: flashActions,
+            buttonIcon: const HeroIcon(HeroIcons.play),
+            buttonText: 'Start Flashing',
+          ),
+        ],
       ),
     );
   }

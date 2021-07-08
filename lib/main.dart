@@ -2,6 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/components/menu.dart';
 import 'package:gatego_unified_app/molecules/UserCard.dart';
+import 'package:gatego_unified_app/pages/comingSoon.dart';
 import 'package:gatego_unified_app/pages/flash.dart';
 import 'package:gatego_unified_app/pages/login.dart';
 import 'package:heroicons/heroicons.dart';
@@ -68,9 +69,9 @@ class _MenuWrapperState extends State<MenuWrapper>
   Widget build(BuildContext context) {
     var _pages = <String, Widget>{
       'Flash Device': FlashPage(_extended),
-      'Register Device': const LoginPage(),
-      'Test Device': const LoginPage(),
-      'Factory Reset': const LoginPage(),
+      'Register Device': const ComingSoonPage(),
+      'Test Device': const ComingSoonPage(),
+      'Factory Reset': const ComingSoonPage(),
     };
 
     return Scaffold(
@@ -103,7 +104,12 @@ class _MenuWrapperState extends State<MenuWrapper>
               trailing: UserCard(expanded: _extended),
             ),
           ),
-          _pages[_selectedItemKey] ?? const SizedBox(),
+          Expanded(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 150),
+              child: _pages[_selectedItemKey] ?? const SizedBox(),
+            ),
+          ),
         ],
       ),
     );
