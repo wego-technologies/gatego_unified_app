@@ -93,7 +93,6 @@ class AccountProvider extends ChangeNotifier {
       if (await getAccount() != null) {
         notifyListeners();
         refTimer = Timer.periodic(const Duration(seconds: 120), (timer) {
-          print('Refreshing');
           refreshJWT(jwt!);
         });
         return true;

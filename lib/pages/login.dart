@@ -73,11 +73,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Consumer(
                   builder: (context, watch, widget) {
-                    if (context.read(accountProvider).isLoggedIn()) {
+                    var acc = watch(accountProvider);
+
+                    if (acc.isLoggedIn()) {
                       Beamer.of(context).popRoute();
                       return const SizedBox();
                     }
-                    var acc = watch(accountProvider);
                     return Column(
                       children: [
                         const Text(
@@ -111,8 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                           nextFocus: !inP
                               ? () {
                                   if (userC.text != '' && passC.text != '') {
-                                    context
-                                        .read(accountProvider)
+                                    acc
                                         .login(userC.text, passC.text)
                                         .then((success) {
                                       if (success) {
@@ -174,8 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: !inP
                               ? () {
                                   if (userC.text != '' && passC.text != '') {
-                                    context
-                                        .read(accountProvider)
+                                    acc
                                         .login(userC.text, passC.text)
                                         .then((success) {
                                       print(success);
