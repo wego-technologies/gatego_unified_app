@@ -23,7 +23,9 @@ class _SerialCardState extends State<SerialCard> {
   }
 
   void initPorts() {
-    setState(() => availablePorts = SerialPort.availablePorts);
+    setState(() => availablePorts = SerialPort.availablePorts
+        .where((element) => SerialPort(element).vendorId == 6790)
+        .toList());
   }
 
   @override
