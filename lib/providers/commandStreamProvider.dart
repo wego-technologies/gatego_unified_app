@@ -1,5 +1,9 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final commandProvider = StateProvider.autoDispose<List<String>>((ref) {
+final commandFlashProvider = StateProvider<List<String>>((ref) {
+  return [];
+});
+
+final commandResetProvider = StateProvider<List<String>>((ref) {
   return [];
 });

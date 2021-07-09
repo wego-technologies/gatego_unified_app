@@ -17,11 +17,11 @@ class ComingSoonPage extends StatelessWidget {
             color: Colors.yellow.shade800,
             size: 100,
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Text(
-            "Coming Soon",
+            'Coming Soon',
             style: Theme.of(context).textTheme.headline3,
           ),
         ],

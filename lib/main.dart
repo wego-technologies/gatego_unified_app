@@ -7,6 +7,7 @@ import 'package:gatego_unified_app/molecules/UserCard.dart';
 import 'package:gatego_unified_app/pages/comingSoon.dart';
 import 'package:gatego_unified_app/pages/flash.dart';
 import 'package:gatego_unified_app/pages/login.dart';
+import 'package:gatego_unified_app/providers/commandStreamProvider.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -73,6 +74,7 @@ class _MenuWrapperState extends State<MenuWrapper>
       'Flash Device': FlashPage(
         _extended,
         actions: flashActions,
+        commandProvider: commandFlashProvider,
       ),
       'Register Device': const ComingSoonPage(),
       'Test Device': const ComingSoonPage(),
@@ -81,6 +83,7 @@ class _MenuWrapperState extends State<MenuWrapper>
         actions: resetActions,
         button: 'Resetting',
         title: 'Reset',
+        commandProvider: commandResetProvider,
       ),
     };
 

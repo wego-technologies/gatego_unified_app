@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/molecules/console.dart';
 import 'package:gatego_unified_app/molecules/progessCard.dart';
-import 'package:gatego_unified_app/providers/commandStreamProvider.dart';
 import 'package:gatego_unified_app/providers/serialProvider.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,12 +9,14 @@ class ActionCard extends StatefulWidget {
   final List<ActionItem> actions;
   final String buttonText;
   final Widget buttonIcon;
+  final StateProvider<List<String>> commandProvider;
 
   const ActionCard({
     Key? key,
     required this.actions,
     required this.buttonIcon,
     required this.buttonText,
+    required this.commandProvider,
   }) : super(key: key);
 
   @override
@@ -31,6 +32,7 @@ class _ActionCardState extends State<ActionCard> {
   @override
   void dispose() {
     cont.dispose();
+    widget.actions.map((e) => e.state = ProgressCardState.pending).toList();
     super.dispose();
   }
 
@@ -65,9 +67,10 @@ class _ActionCardState extends State<ActionCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Consumer(builder: (context, watch, _) {
-                    var commandList = watch(commandProvider).state;
+                    var commandList = watch(widget.commandProvider).state;
                     return Expanded(
                       child: ListView(
+                        key: PageStorageKey(widget.buttonText + 'listView'),
                         padding: const EdgeInsets.all(20),
                         children: [
                           const Text(
@@ -87,18 +90,27 @@ class _ActionCardState extends State<ActionCard> {
                               inP = true;
                               commandList.add('> Starting ' + e.title);
                               e.state = ProgressCardState.inProgress;
-                              e.doOnAction(context, watch).then((res) {
+                              e
+                                  .doOnAction(
+                                      context, watch, widget.commandProvider)
+                                  .then((res) {
                                 inP = false;
-                                setState(() {
+                                setStateProtected(() {
                                   if (res) {
-                                    context.read(commandProvider).state = [
-                                      ...context.read(commandProvider).state,
+                                    context.read(widget.commandProvider).state =
+                                        [
+                                      ...context
+                                          .read(widget.commandProvider)
+                                          .state,
                                       ('> Completed ' + e.title)
                                     ];
                                     e.state = ProgressCardState.done;
                                   } else {
-                                    context.read(commandProvider).state = [
-                                      ...context.read(commandProvider).state,
+                                    context.read(widget.commandProvider).state =
+                                        [
+                                      ...context
+                                          .read(widget.commandProvider)
+                                          .state,
                                       ('> Failed ' + e.title + ', halting')
                                     ];
                                     failedIndex = index;
@@ -199,7 +211,7 @@ class _ActionCardState extends State<ActionCard> {
                                   element.state = ProgressCardState.pending;
                                 });
                                 failedIndex = null;
-                                setState(() {});
+                                setStateProtected(() {});
                               },
                         label: const Icon(Icons.play_arrow_rounded),
                         icon: Text(widget.buttonText),
@@ -211,11 +223,20 @@ class _ActionCardState extends State<ActionCard> {
             ),
             Console(
               cont: cont,
+              commandProvider: widget.commandProvider,
             ),
           ],
         ),
       ),
     );
+  }
+
+  void setStateProtected(void Function() fn) {
+    if (mounted) {
+      setState(fn);
+    } else {
+      print('Error!');
+    }
   }
 }
 

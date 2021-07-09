@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/molecules/progessCard.dart';
-import 'package:gatego_unified_app/providers/commandStreamProvider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Console extends ConsumerWidget {
   final ScrollController cont;
+  final StateProvider<List<String>> commandProvider;
 
   // ignore: prefer_const_constructors_in_immutables
   Console({
     Key? key,
     required this.cont,
+    required this.commandProvider,
   }) : super(key: key);
 
   @override
@@ -91,7 +92,8 @@ class ActionItem {
   String title;
   HeroIcons icon;
   ProgressCardState? state;
-  Future<bool> Function(BuildContext, ScopedReader) doOnAction;
+  Future<bool> Function(BuildContext, ScopedReader, StateProvider<List<String>>)
+      doOnAction;
 
   ActionItem({
     required this.doOnAction,

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter_libserialport/flutter_libserialport.dart';
 import 'package:gatego_unified_app/molecules/console.dart';
-import 'package:gatego_unified_app/providers/commandStreamProvider.dart';
 import 'package:gatego_unified_app/providers/serialProvider.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:http/http.dart' as http;
@@ -12,7 +11,7 @@ import 'package:process_run/shell.dart';
 
 var flashActions = [
   ActionItem(
-    doOnAction: (context, watch) async {
+    doOnAction: (context, watch, commandProvider) async {
       watch(commandProvider).state.add('Starting firmware download...');
       try {
         var client = http.Client();
@@ -126,7 +125,7 @@ var flashActions = [
     title: 'Download Files',
   ),
   ActionItem(
-    doOnAction: (context, watch) async {
+    doOnAction: (context, watch, commandProvider) async {
       watch(commandProvider).state.add('Starting download...');
       try {
         var client = http.Client();
@@ -168,7 +167,7 @@ var flashActions = [
     title: 'Download Tools',
   ),
   ActionItem(
-    doOnAction: (context, watch) async {
+    doOnAction: (context, watch, commandProvider) async {
       var dir = (await getApplicationSupportDirectory()).absolute.path;
       var file = File('$dir${Platform.pathSeparator}flasher').absolute.path;
       var serial = watch(serialProvider).state;
