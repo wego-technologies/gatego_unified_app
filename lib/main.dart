@@ -111,8 +111,12 @@ class _MenuWrapperState extends State<MenuWrapper>
                     ),
               expanded: _extended,
               onItemPressed: (item) {
-                _selectedItemKey = item;
-                setState(() {});
+                if (context.read(inProgProvider).state) {
+                  print('In P');
+                } else {
+                  _selectedItemKey = item;
+                  setState(() {});
+                }
               },
               trailing: UserCard(expanded: _extended),
             ),

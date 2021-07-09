@@ -7,3 +7,7 @@ final commandFlashProvider = StateProvider<List<String>>((ref) {
 final commandResetProvider = StateProvider<List<String>>((ref) {
   return [];
 });
+
+final inProgProvider = StateProvider<bool>((ref) {
+  return false;
+});

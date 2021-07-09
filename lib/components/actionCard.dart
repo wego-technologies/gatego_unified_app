@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/molecules/console.dart';
 import 'package:gatego_unified_app/molecules/progessCard.dart';
+import 'package:gatego_unified_app/providers/commandStreamProvider.dart';
 import 'package:gatego_unified_app/providers/serialProvider.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -122,6 +123,10 @@ class _ActionCardState extends State<ActionCard> {
                                       progress != widget.actions.length) {
                                     progress = progress! + 1;
                                   }
+
+                                  if (progress == widget.actions.length) {
+                                    context.read(inProgProvider).state = false;
+                                  }
                                 });
                               });
                             } else if (inP && progress == index) {
@@ -211,6 +216,7 @@ class _ActionCardState extends State<ActionCard> {
                                   element.state = ProgressCardState.pending;
                                 });
                                 failedIndex = null;
+                                context.read(inProgProvider).state = true;
                                 setStateProtected(() {});
                               },
                         label: const Icon(Icons.play_arrow_rounded),
