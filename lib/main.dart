@@ -92,33 +92,39 @@ class _MenuWrapperState extends State<MenuWrapper>
         children: [
           Container(
             width: _extended ? 232 : null,
-            child: Menu(
-              onExpandedToggle: () {
-                _extended = !_extended;
-                setState(() {});
+            child: Consumer(
+              builder: (context, watch, child) {
+                return Menu(
+                  onExpandedToggle: () {
+                    _extended = !_extended;
+                    setState(() {});
+                  },
+                  selectedItemKey: _selectedItemKey,
+                  menuItems: _destinations,
+                  leading: _extended
+                      ? Image.asset(
+                          'assets/Gatego logo.png',
+                          height: 50,
+                          //fit: BoxFit.,
+                        )
+                      : Image.asset(
+                          'assets/Blue Icon Circle.png',
+                          height: 50,
+                        ),
+                  expanded: _extended,
+                  onItemPressed: !watch(inProgProvider).state
+                      ? (item) {
+                          if (context.read(inProgProvider).state) {
+                            print('In P');
+                          } else {
+                            _selectedItemKey = item;
+                            setState(() {});
+                          }
+                        }
+                      : null,
+                  trailing: UserCard(expanded: _extended),
+                );
               },
-              selectedItemKey: _selectedItemKey,
-              menuItems: _destinations,
-              leading: _extended
-                  ? Image.asset(
-                      'assets/Gatego logo.png',
-                      height: 50,
-                      //fit: BoxFit.,
-                    )
-                  : Image.asset(
-                      'assets/Blue Icon Circle.png',
-                      height: 50,
-                    ),
-              expanded: _extended,
-              onItemPressed: (item) {
-                if (context.read(inProgProvider).state) {
-                  print('In P');
-                } else {
-                  _selectedItemKey = item;
-                  setState(() {});
-                }
-              },
-              trailing: UserCard(expanded: _extended),
             ),
           ),
           Expanded(

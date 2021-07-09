@@ -8,7 +8,7 @@ class Menu extends ConsumerWidget {
   final Widget? leading;
   final Widget? trailing;
   final bool expanded;
-  final Function onItemPressed;
+  final Function? onItemPressed;
   final Function onExpandedToggle;
 
   const Menu({
@@ -48,14 +48,18 @@ class Menu extends ConsumerWidget {
                     ? menuItems.entries.map((item) {
                         var _itemSelcted = item.key == selectedItemKey;
                         return Tooltip(
-                          message: item.key,
+                          message: onItemPressed != null
+                              ? item.key
+                              : 'Disabled, please wait.',
                           child: Container(
                             margin: const EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 3),
                             child: IconButton(
-                              onPressed: () {
-                                onItemPressed(item.key);
-                              },
+                              onPressed: onItemPressed != null
+                                  ? () {
+                                      onItemPressed!(item.key);
+                                    }
+                                  : null,
                               icon: Container(
                                 padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
@@ -85,9 +89,11 @@ class Menu extends ConsumerWidget {
                           margin: const EdgeInsets.symmetric(vertical: 13),
                           child: InkWell(
                             borderRadius: BorderRadius.circular(5000),
-                            onTap: () {
-                              onItemPressed(item.key);
-                            },
+                            onTap: onItemPressed != null
+                                ? () {
+                                    onItemPressed!(item.key);
+                                  }
+                                : null,
                             child: Container(
                               padding: const EdgeInsets.all(10),
                               //margin: EdgeInsets.all(10),

@@ -230,6 +230,7 @@ class _ActionCardState extends State<ActionCard> {
             Console(
               cont: cont,
               commandProvider: widget.commandProvider,
+              key: Key(widget.buttonText + 'console'),
             ),
           ],
         ),
