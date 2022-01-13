@@ -18,11 +18,11 @@ void main() async {
 
 class AppWrapper extends StatelessWidget {
   final routerDelegate = BeamerDelegate(
-    locationBuilder: SimpleLocationBuilder(
+    locationBuilder: RoutesLocationBuilder(
       routes: {
         // Return either Widgets or BeamPages if more customization is needed
-        '/': (context, state) => const MenuWrapper(),
-        '/login': (context, state) => const LoginPage(),
+        '/': (context, state, data) => const MenuWrapper(),
+        '/login': (context, state, data) => const LoginPage(),
       },
     ),
   );
@@ -58,8 +58,8 @@ class MenuWrapper extends StatefulWidget {
 
 class _MenuWrapperState extends State<MenuWrapper>
     with TickerProviderStateMixin {
-  String _selectedItemKey = 'Flash Device';
-  bool _extended = false;
+  final String _selectedItemKey = 'Flash Device';
+  final bool _extended = false;
 
   final Map<String, HeroIcons> _destinations = {
     'Flash Device': HeroIcons.chip,
@@ -94,35 +94,22 @@ class _MenuWrapperState extends State<MenuWrapper>
             width: _extended ? 232 : null,
             child: Consumer(
               builder: (context, watch, child) {
-                return Menu(
-                  onExpandedToggle: () {
-                    _extended = !_extended;
-                    setState(() {});
-                  },
-                  selectedItemKey: _selectedItemKey,
-                  menuItems: _destinations,
-                  leading: _extended
-                      ? Image.asset(
-                          'assets/Gatego logo.png',
-                          height: 50,
-                          //fit: BoxFit.,
-                        )
-                      : Image.asset(
-                          'assets/Blue Icon Circle.png',
-                          height: 50,
-                        ),
-                  expanded: _extended,
-                  onItemPressed: !watch(inProgProvider).state
-                      ? (item) {
-                          if (context.read(inProgProvider).state) {
-                            print('In P');
-                          } else {
-                            _selectedItemKey = item;
-                            setState(() {});
-                          }
-                        }
-                      : null,
-                  trailing: UserCard(expanded: _extended),
+                return NavigationRail(
+                  labelType: NavigationRailLabelType.selected,
+                  destinations: _destinations
+                      .map((key, value) {
+                        return MapEntry(
+                          key,
+                          NavigationRailDestination(
+                            icon: HeroIcon(value),
+                            label: Text(key),
+                          ),
+                        );
+                      })
+                      .values
+                      .toList(),
+                  selectedIndex: 0,
+                  onDestinationSelected: (index) {},
                 );
               },
             ),

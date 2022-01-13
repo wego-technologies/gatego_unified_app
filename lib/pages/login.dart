@@ -195,12 +195,12 @@ class _LoginPageState extends State<LoginPage> {
                               : null,
                           label: !inP
                               ? const Icon(Icons.arrow_forward)
-                              : SizedBox(
+                              : const SizedBox(
                                   height: 25,
                                   width: 25,
                                   child: LoadingIndicator(
                                     indicatorType: Indicator.ballRotateChase,
-                                    color: Colors.white,
+                                    colors: [Colors.white],
                                   ),
                                 ),
                           icon: !inP

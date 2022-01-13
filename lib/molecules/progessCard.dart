@@ -76,7 +76,7 @@ class _ProgressCardState extends State<ProgressCard> {
             trailing = Container(
               width: 20,
               //margin: EdgeInsets.only(right: 15),
-              child: LoadingIndicator(
+              child: const LoadingIndicator(
                 indicatorType: Indicator.ballRotateChase,
               ),
             );
