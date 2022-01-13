@@ -23,10 +23,10 @@ class Menu extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       decoration: BoxDecoration(
-        boxShadow: const [BoxShadow(blurRadius: 5, spreadRadius: -2)],
+        boxShadow: const [BoxShadow(blurRadius: 4, spreadRadius: -3)],
         color: Theme.of(context).canvasColor,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 5),

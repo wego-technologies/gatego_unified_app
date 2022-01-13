@@ -16,9 +16,9 @@ class Console extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context, WidgetRef ref) {
     updateConsole(cont);
-    var commands = watch(commandProvider);
+    var commands = ref.watch(commandProvider.state);
     return Flexible(
       child: Container(
         color: Colors.black87,
@@ -74,7 +74,7 @@ class Console extends ConsumerWidget {
                   message: 'Clear',
                   child: FloatingActionButton(
                     onPressed: () {
-                      watch(commandProvider).state = [];
+                      ref.watch(commandProvider.state).state = [];
                     },
                     backgroundColor: Theme.of(context).primaryColor,
                     child: const HeroIcon(HeroIcons.trash),
@@ -92,7 +92,7 @@ class ActionItem {
   String title;
   HeroIcons icon;
   ProgressCardState? state;
-  Future<bool> Function(BuildContext, ScopedReader, StateProvider<List<String>>)
+  Future<bool> Function(BuildContext, WidgetRef, StateProvider<List<String>>)
       doOnAction;
 
   ActionItem({

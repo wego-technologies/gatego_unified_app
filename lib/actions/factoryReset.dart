@@ -5,21 +5,23 @@ import 'package:gatego_unified_app/molecules/console.dart';
 import 'package:gatego_unified_app/providers/serialProvider.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:http/http.dart' as http;
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:process_run/shell.dart';
 
 final resetActions = [
   ActionItem(
-    doOnAction: (context, watch, commandProvider) async {
-      watch(commandProvider).state.add('Starting firmware download...');
+    doOnAction: (context, ref, commandProvider) async {
+      ref
+          .watch(commandProvider.state)
+          .state
+          .add('Starting firmware download...');
       try {
         var client = http.Client();
         var req = await client
             .get(Uri.parse('https://firmware.gatego.io/firmware.bin'));
         var bytes = req.bodyBytes;
         if (req.statusCode != 200) {
-          context.read(commandProvider).state = [
+          ref.read(commandProvider.state).state = [
             'Error downloading file. Code ' +
                 req.statusCode.toString() +
                 '\n\nDetails: ' +
@@ -27,26 +29,26 @@ final resetActions = [
           ];
           return false;
         }
-        context.read(commandProvider).state = [
-          ...context.read(commandProvider).state,
+        ref.read(commandProvider.state).state = [
+          ...ref.read(commandProvider.state).state,
           'Saving file...'
         ];
         var dir = (await getApplicationSupportDirectory()).path;
         var file = File('$dir${Platform.pathSeparator}firmware.bin');
-        context.read(commandProvider).state = [
-          ...context.read(commandProvider).state,
+        ref.read(commandProvider.state).state = [
+          ...ref.read(commandProvider.state).state,
           'Saved in ${file.path}'
         ];
         await file.writeAsBytes(bytes);
-        context.read(commandProvider).state = [
-          ...context.read(commandProvider).state,
+        ref.read(commandProvider.state).state = [
+          ...ref.read(commandProvider.state).state,
           'Starting boot partition download...'
         ];
         req = await client.get(
             Uri.parse('https://firmware.gatego.io/bootloaders/boot_app0.bin'));
         bytes = req.bodyBytes;
         if (req.statusCode != 200) {
-          context.read(commandProvider).state = [
+          ref.read(commandProvider.state).state = [
             'Error downloading file. Code ' +
                 req.statusCode.toString() +
                 '\n\nDetails: ' +
@@ -54,25 +56,25 @@ final resetActions = [
           ];
           return false;
         }
-        context.read(commandProvider).state = [
-          ...context.read(commandProvider).state,
+        ref.read(commandProvider.state).state = [
+          ...ref.read(commandProvider.state).state,
           'Saving file...'
         ];
         file = File('$dir${Platform.pathSeparator}boot_app0.bin');
-        context.read(commandProvider).state = [
-          ...context.read(commandProvider).state,
+        ref.read(commandProvider.state).state = [
+          ...ref.read(commandProvider.state).state,
           'Saved in ${file.path}'
         ];
         await file.writeAsBytes(bytes);
-        context.read(commandProvider).state = [
-          ...context.read(commandProvider).state,
+        ref.read(commandProvider.state).state = [
+          ...ref.read(commandProvider.state).state,
           'Starting bootloader download...'
         ];
         req = await client.get(Uri.parse(
             'https://firmware.gatego.io/bootloaders/bootloader_dio_40m.bin'));
         bytes = req.bodyBytes;
         if (req.statusCode != 200) {
-          context.read(commandProvider).state = [
+          ref.read(commandProvider.state).state = [
             'Error downloading file. Code ' +
                 req.statusCode.toString() +
                 '\n\nDetails: ' +
@@ -80,25 +82,25 @@ final resetActions = [
           ];
           return false;
         }
-        context.read(commandProvider).state = [
-          ...context.read(commandProvider).state,
+        ref.read(commandProvider.state).state = [
+          ...ref.read(commandProvider.state).state,
           'Saving file...'
         ];
         file = File('$dir${Platform.pathSeparator}bootloader_dio_40m.bin');
-        context.read(commandProvider).state = [
-          ...context.read(commandProvider).state,
+        ref.read(commandProvider.state).state = [
+          ...ref.read(commandProvider.state).state,
           'Saved in ${file.path}'
         ];
         await file.writeAsBytes(bytes);
-        context.read(commandProvider).state = [
-          ...context.read(commandProvider).state,
+        ref.read(commandProvider.state).state = [
+          ...ref.read(commandProvider.state).state,
           'Starting partitions download...'
         ];
         req = await client.get(
             Uri.parse('https://firmware.gatego.io/bootloaders/partitions.bin'));
         bytes = req.bodyBytes;
         if (req.statusCode != 200) {
-          context.read(commandProvider).state = [
+          ref.read(commandProvider.state).state = [
             'Error downloading file. Code ' +
                 req.statusCode.toString() +
                 '\n\nDetails: ' +
@@ -106,13 +108,13 @@ final resetActions = [
           ];
           return false;
         }
-        context.read(commandProvider).state = [
-          ...context.read(commandProvider).state,
+        ref.read(commandProvider.state).state = [
+          ...ref.read(commandProvider.state).state,
           'Saving file...'
         ];
         file = File('$dir${Platform.pathSeparator}partitions.bin');
-        context.read(commandProvider).state = [
-          ...context.read(commandProvider).state,
+        ref.read(commandProvider.state).state = [
+          ...ref.read(commandProvider.state).state,
           'Saved in ${file.path}'
         ];
         await file.writeAsBytes(bytes);
@@ -125,8 +127,8 @@ final resetActions = [
     title: 'Download Files',
   ),
   ActionItem(
-    doOnAction: (context, watch, commandProvider) async {
-      watch(commandProvider).state.add('Starting download...');
+    doOnAction: (context, ref, commandProvider) async {
+      ref.watch(commandProvider.state).state.add('Starting download...');
       try {
         var client = http.Client();
         var fileName = 'flasher';
@@ -139,7 +141,7 @@ final resetActions = [
         var req = await client.get(Uri.parse(url));
         var bytes = req.bodyBytes;
         if (req.statusCode != 200) {
-          context.read(commandProvider).state = [
+          ref.read(commandProvider.state).state = [
             'Error downloading file. Code ' +
                 req.statusCode.toString() +
                 '\n\nDetails: ' +
@@ -147,14 +149,14 @@ final resetActions = [
           ];
           return false;
         }
-        context.read(commandProvider).state = [
-          ...context.read(commandProvider).state,
+        ref.read(commandProvider.state).state = [
+          ...ref.read(commandProvider.state).state,
           'Saving file...'
         ];
         var dir = (await getApplicationSupportDirectory()).path;
         var file = File('$dir${Platform.pathSeparator}$fileName');
-        context.read(commandProvider).state = [
-          ...context.read(commandProvider).state,
+        ref.read(commandProvider.state).state = [
+          ...ref.read(commandProvider.state).state,
           'Saved in ${file.path}'
         ];
         await file.writeAsBytes(bytes);
@@ -167,10 +169,10 @@ final resetActions = [
     title: 'Download Tools',
   ),
   ActionItem(
-    doOnAction: (context, watch, commandProvider) async {
+    doOnAction: (context, ref, commandProvider) async {
       var dir = (await getApplicationSupportDirectory()).path;
       var file = File('$dir${Platform.pathSeparator}flasher').absolute.path;
-      var serial = watch(serialProvider).state;
+      var serial = ref.watch(serialProvider.state).state;
       if (Platform.isWindows) {
         file += '.exe';
       }
@@ -179,8 +181,8 @@ final resetActions = [
       var controller = ShellLinesController();
       var shell = Shell(stdout: controller.sink, verbose: false);
       controller.stream.listen((event) {
-        context.read(commandProvider).state = [
-          ...context.read(commandProvider).state,
+        ref.read(commandProvider.state).state = [
+          ...ref.read(commandProvider.state).state,
           event
         ];
         print(event);
@@ -191,7 +193,8 @@ final resetActions = [
         shell.kill();
       }
 
-      var result = watch(commandProvider)
+      var result = ref
+          .watch(commandProvider.state)
           .state
           .where((element) => element.contains('Chip erase completed'))
           .toList();
@@ -207,10 +210,10 @@ final resetActions = [
     title: 'Erase Chip',
   ),
   ActionItem(
-    doOnAction: (context, watch, commandProvider) async {
+    doOnAction: (context, ref, commandProvider) async {
       var dir = (await getApplicationSupportDirectory()).absolute.path;
       var file = File('$dir${Platform.pathSeparator}flasher').absolute.path;
-      var serial = watch(serialProvider).state;
+      var serial = ref.watch(serialProvider.state).state;
       if (Platform.isWindows) {
         file += '.exe';
       }
@@ -219,8 +222,8 @@ final resetActions = [
       var controller = ShellLinesController();
       var shell = Shell(stdout: controller.sink, verbose: false);
       controller.stream.listen((event) {
-        context.read(commandProvider).state = [
-          ...context.read(commandProvider).state,
+        ref.read(commandProvider.state).state = [
+          ...ref.read(commandProvider.state).state,
           event
         ];
         print(event);
@@ -237,7 +240,8 @@ final resetActions = [
         return false;
       }
 
-      var result = watch(commandProvider)
+      var result = ref
+          .watch(commandProvider.state)
           .state
           .where((element) => element.contains('Hash of data verified'))
           .toList();

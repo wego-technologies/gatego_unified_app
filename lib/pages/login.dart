@@ -72,8 +72,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Consumer(
-                  builder: (context, watch, widget) {
-                    var acc = watch(accountProvider);
+                  builder: (context, ref, widget) {
+                    var acc = ref.watch(accountProvider);
 
                     if (acc.isLoggedIn()) {
                       Beamer.of(context).popRoute();
@@ -195,12 +195,12 @@ class _LoginPageState extends State<LoginPage> {
                               : null,
                           label: !inP
                               ? const Icon(Icons.arrow_forward)
-                              : SizedBox(
+                              : const SizedBox(
                                   height: 25,
                                   width: 25,
                                   child: LoadingIndicator(
                                     indicatorType: Indicator.ballRotateChase,
-                                    color: Colors.white,
+                                    colors: [Colors.white],
                                   ),
                                 ),
                           icon: !inP

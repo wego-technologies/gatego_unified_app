@@ -18,11 +18,11 @@ void main() async {
 
 class AppWrapper extends StatelessWidget {
   final routerDelegate = BeamerDelegate(
-    locationBuilder: SimpleLocationBuilder(
+    locationBuilder: RoutesLocationBuilder(
       routes: {
         // Return either Widgets or BeamPages if more customization is needed
-        '/': (context, state) => const MenuWrapper(),
-        '/login': (context, state) => const LoginPage(),
+        '/': (context, state, data) => const MenuWrapper(),
+        '/login': (context, state, data) => const LoginPage(),
       },
     ),
   );
@@ -35,6 +35,10 @@ class AppWrapper extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
           primaryColor: const Color(0xFF00ADE2),
+          navigationRailTheme: NavigationRailThemeData(
+            elevation: 5,
+            indicatorColor: Color(0xFF00ADE2).withOpacity(0.2),
+          ),
           textTheme: GoogleFonts.robotoTextTheme(
             Theme.of(context).textTheme,
           ).apply(
@@ -58,27 +62,27 @@ class MenuWrapper extends StatefulWidget {
 
 class _MenuWrapperState extends State<MenuWrapper>
     with TickerProviderStateMixin {
-  String _selectedItemKey = 'Flash Device';
+  String _selectedItemKey = 'Flash';
   bool _extended = false;
 
   final Map<String, HeroIcons> _destinations = {
-    'Flash Device': HeroIcons.chip,
-    'Register Device': HeroIcons.plusCircle,
-    'Test Device': HeroIcons.shieldCheck,
-    'Factory Reset': HeroIcons.fire,
+    'Flash': HeroIcons.chip,
+    'Register': HeroIcons.plusCircle,
+    'Test': HeroIcons.shieldCheck,
+    'Reset': HeroIcons.fire,
   };
 
   @override
   Widget build(BuildContext context) {
     var _pages = <String, Widget>{
-      'Flash Device': FlashPage(
+      'Flash': FlashPage(
         _extended,
         actions: flashActions,
         commandProvider: commandFlashProvider,
       ),
-      'Register Device': const ComingSoonPage(),
-      'Test Device': const ComingSoonPage(),
-      'Factory Reset': FlashPage(
+      'Register': const ComingSoonPage(),
+      'Test': const ComingSoonPage(),
+      'Reset': FlashPage(
         _extended,
         actions: resetActions,
         button: 'Resetting',
@@ -93,7 +97,7 @@ class _MenuWrapperState extends State<MenuWrapper>
           Container(
             width: _extended ? 232 : null,
             child: Consumer(
-              builder: (context, watch, child) {
+              builder: (context, ref, child) {
                 return Menu(
                   onExpandedToggle: () {
                     _extended = !_extended;
@@ -112,9 +116,9 @@ class _MenuWrapperState extends State<MenuWrapper>
                           height: 50,
                         ),
                   expanded: _extended,
-                  onItemPressed: !watch(inProgProvider).state
+                  onItemPressed: !ref.watch(inProgProvider)
                       ? (item) {
-                          if (context.read(inProgProvider).state) {
+                          if (ref.read(inProgProvider)) {
                             print('In P');
                           } else {
                             _selectedItemKey = item;
@@ -122,7 +126,6 @@ class _MenuWrapperState extends State<MenuWrapper>
                           }
                         }
                       : null,
-                  trailing: UserCard(expanded: _extended),
                 );
               },
             ),

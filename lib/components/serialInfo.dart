@@ -8,8 +8,8 @@ class SerialInfo extends ConsumerWidget {
   const SerialInfo({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    var serialExternal = watch(serialProvider).state;
+  Widget build(BuildContext context, WidgetRef ref) {
+    var serialExternal = ref.watch(serialProvider.state).state;
     SerialPort? serialSelected;
     if (serialExternal != null) {
       serialSelected = SerialPort(serialExternal);

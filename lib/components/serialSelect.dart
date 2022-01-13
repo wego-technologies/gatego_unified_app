@@ -4,7 +4,7 @@ import 'package:gatego_unified_app/providers/serialProvider.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SerialCard extends StatefulWidget {
+class SerialCard extends ConsumerStatefulWidget {
   final String title;
   const SerialCard(this.title, {Key? key}) : super(key: key);
 
@@ -12,7 +12,7 @@ class SerialCard extends StatefulWidget {
   _SerialCardState createState() => _SerialCardState();
 }
 
-class _SerialCardState extends State<SerialCard> {
+class _SerialCardState extends ConsumerState<SerialCard> {
   List<String> availablePorts = [];
 
   SerialPort? serialSelected;
@@ -32,8 +32,8 @@ class _SerialCardState extends State<SerialCard> {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, watch, child) {
-        var serialExternal = watch(serialProvider).state;
+      builder: (context, ref, child) {
+        var serialExternal = ref.watch(serialProvider.state).state;
         var sizedBox = const SizedBox(
           width: 50,
         );
@@ -77,13 +77,13 @@ class _SerialCardState extends State<SerialCard> {
                 height: 100,
                 child: HeroIcon(
                   serialExternal == null
-                      ? HeroIcons.questionMarkCircle
+                      ? HeroIcons.cubeTransparent
                       : HeroIcons.check,
                   size: 100,
                   color: serialExternal == null
-                      ? Theme.of(context).iconTheme.color
+                      ? Theme.of(context).iconTheme.color!.withOpacity(0.5)
                       : Colors.white,
-                  solid: true,
+                  solid: false,
                 ),
               ),
               sizedBox,
@@ -112,10 +112,14 @@ class _SerialCardState extends State<SerialCard> {
                             availablePorts.isNotEmpty
                                 ? DropdownButton<String>(
                                     onChanged: (value) {
-                                      watch(serialProvider).state = value;
+                                      ref.watch(serialProvider.state).state =
+                                          value;
                                       serialSelected = SerialPort(value!);
                                     },
                                     value: serialExternal,
+                                    borderRadius: BorderRadius.circular(10),
+                                    underline: SizedBox(),
+                                    hint: Text("Select a port"),
                                     items: [
                                       ...availablePorts.map((e) {
                                         final port = SerialPort(e);
@@ -163,7 +167,7 @@ class _SerialCardState extends State<SerialCard> {
                                 onPressed: () {
                                   initPorts();
                                   serialSelected = null;
-                                  watch(serialProvider).state = null;
+                                  ref.watch(serialProvider.state).state = null;
                                 },
                                 splashRadius: 20,
                                 icon: const Icon(
