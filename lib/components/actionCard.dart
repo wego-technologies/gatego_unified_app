@@ -68,7 +68,8 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Consumer(builder: (context, ref, _) {
-                    var commandList = ref.watch(widget.commandProvider.state).state;
+                    var commandList =
+                        ref.watch(widget.commandProvider.state).state;
                     return Expanded(
                       child: ListView(
                         key: PageStorageKey(widget.buttonText + 'listView'),
@@ -76,10 +77,10 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                         children: [
                           const Text(
                             'Progress',
-                            textAlign: TextAlign.center,
+                            textAlign: TextAlign.left,
                             style: TextStyle(
                               fontSize: 30,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w800,
                             ),
                           ),
                           const SizedBox(
@@ -98,17 +99,21 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                                 inP = false;
                                 setStateProtected(() {
                                   if (res) {
-                                    ref.read(widget.commandProvider.state).state =
-                                        [
-                                      ...ref.read(widget.commandProvider.state)
+                                    ref
+                                        .read(widget.commandProvider.state)
+                                        .state = [
+                                      ...ref
+                                          .read(widget.commandProvider.state)
                                           .state,
                                       ('> Completed ' + e.title)
                                     ];
                                     e.state = ProgressCardState.done;
                                   } else {
-                                    ref.read(widget.commandProvider.state).state =
-                                        [
-                                      ...ref.read(widget.commandProvider.state)
+                                    ref
+                                        .read(widget.commandProvider.state)
+                                        .state = [
+                                      ...ref
+                                          .read(widget.commandProvider.state)
                                           .state,
                                       ('> Failed ' + e.title + ', halting')
                                     ];
@@ -123,7 +128,8 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                                   }
 
                                   if (progress == widget.actions.length) {
-                                    ref.read(inProgProvider.state).state = false;
+                                    ref.read(inProgProvider.state).state =
+                                        false;
                                   }
                                 });
                               });
@@ -196,7 +202,15 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                                 vertical: 20, horizontal: 50),
                           ),
                           backgroundColor: MaterialStateProperty.resolveWith(
-                            (states) => Theme.of(context).primaryColor,
+                            (states) {
+                              if (states.contains(MaterialState.disabled)) {
+                                return Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.5);
+                              } else {
+                                return Theme.of(context).primaryColor;
+                              }
+                            },
                           ),
                           shape: MaterialStateProperty.resolveWith(
                             (states) => RoundedRectangleBorder(

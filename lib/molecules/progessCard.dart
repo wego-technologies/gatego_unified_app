@@ -36,9 +36,7 @@ class _ProgressCardState extends State<ProgressCard> {
     if (widget.state == ProgressCardState.inProgress) {
       setState(() {
         boxDecor = BoxDecoration(
-          color: widget.state != ProgressCardState.inProgress
-              ? Colors.transparent
-              : Theme.of(context).cardColor,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(5),
           boxShadow: widget.state == ProgressCardState.inProgress
               ? [
@@ -54,7 +52,7 @@ class _ProgressCardState extends State<ProgressCard> {
       });
     } else {
       boxDecor = BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: Color.fromARGB(255, 240, 240, 240),
         borderRadius: BorderRadius.circular(5),
       );
     }

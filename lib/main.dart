@@ -35,6 +35,10 @@ class AppWrapper extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
           primaryColor: const Color(0xFF00ADE2),
+          navigationRailTheme: NavigationRailThemeData(
+            elevation: 5,
+            indicatorColor: Color(0xFF00ADE2).withOpacity(0.2),
+          ),
           textTheme: GoogleFonts.robotoTextTheme(
             Theme.of(context).textTheme,
           ).apply(
@@ -58,27 +62,27 @@ class MenuWrapper extends StatefulWidget {
 
 class _MenuWrapperState extends State<MenuWrapper>
     with TickerProviderStateMixin {
-  final String _selectedItemKey = 'Flash Device';
-  final bool _extended = false;
+  String _selectedItemKey = 'Flash';
+  bool _extended = false;
 
   final Map<String, HeroIcons> _destinations = {
-    'Flash Device': HeroIcons.chip,
-    'Register Device': HeroIcons.plusCircle,
-    'Test Device': HeroIcons.shieldCheck,
-    'Factory Reset': HeroIcons.fire,
+    'Flash': HeroIcons.chip,
+    'Register': HeroIcons.plusCircle,
+    'Test': HeroIcons.shieldCheck,
+    'Reset': HeroIcons.fire,
   };
 
   @override
   Widget build(BuildContext context) {
     var _pages = <String, Widget>{
-      'Flash Device': FlashPage(
+      'Flash': FlashPage(
         _extended,
         actions: flashActions,
         commandProvider: commandFlashProvider,
       ),
-      'Register Device': const ComingSoonPage(),
-      'Test Device': const ComingSoonPage(),
-      'Factory Reset': FlashPage(
+      'Register': const ComingSoonPage(),
+      'Test': const ComingSoonPage(),
+      'Reset': FlashPage(
         _extended,
         actions: resetActions,
         button: 'Resetting',
@@ -94,22 +98,34 @@ class _MenuWrapperState extends State<MenuWrapper>
             width: _extended ? 232 : null,
             child: Consumer(
               builder: (context, ref, child) {
-                return NavigationRail(
-                  labelType: NavigationRailLabelType.selected,
-                  destinations: _destinations
-                      .map((key, value) {
-                        return MapEntry(
-                          key,
-                          NavigationRailDestination(
-                            icon: HeroIcon(value),
-                            label: Text(key),
-                          ),
-                        );
-                      })
-                      .values
-                      .toList(),
-                  selectedIndex: 0,
-                  onDestinationSelected: (index) {},
+                return Menu(
+                  onExpandedToggle: () {
+                    _extended = !_extended;
+                    setState(() {});
+                  },
+                  selectedItemKey: _selectedItemKey,
+                  menuItems: _destinations,
+                  leading: _extended
+                      ? Image.asset(
+                          'assets/Gatego logo.png',
+                          height: 50,
+                          //fit: BoxFit.,
+                        )
+                      : Image.asset(
+                          'assets/Blue Icon Circle.png',
+                          height: 50,
+                        ),
+                  expanded: _extended,
+                  onItemPressed: !ref.watch(inProgProvider)
+                      ? (item) {
+                          if (ref.read(inProgProvider)) {
+                            print('In P');
+                          } else {
+                            _selectedItemKey = item;
+                            setState(() {});
+                          }
+                        }
+                      : null,
                 );
               },
             ),
