@@ -93,7 +93,7 @@ class _MenuWrapperState extends State<MenuWrapper>
           Container(
             width: _extended ? 232 : null,
             child: Consumer(
-              builder: (context, watch, child) {
+              builder: (context, ref, child) {
                 return NavigationRail(
                   labelType: NavigationRailLabelType.selected,
                   destinations: _destinations

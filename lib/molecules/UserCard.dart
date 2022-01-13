@@ -13,8 +13,8 @@ class UserCard extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    var acc = watch(accountProvider).acc;
+  Widget build(BuildContext context, WidgetRef ref) {
+    var acc = ref.watch(accountProvider).acc;
     if (expanded) {
       return Container(
         padding: const EdgeInsets.only(left: 4),
@@ -87,7 +87,7 @@ class UserCard extends ConsumerWidget {
                       message: 'Log Out',
                       child: IconButton(
                         onPressed: () {
-                          context.read(accountProvider).logout();
+                          ref.read(accountProvider).logout();
                         },
                         icon: const Icon(
                           Icons.logout_rounded,

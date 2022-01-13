@@ -23,7 +23,7 @@ class Menu extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       decoration: BoxDecoration(
         boxShadow: const [BoxShadow(blurRadius: 5, spreadRadius: -2)],

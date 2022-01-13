@@ -6,7 +6,7 @@ import 'package:gatego_unified_app/providers/serialProvider.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ActionCard extends StatefulWidget {
+class ActionCard extends ConsumerStatefulWidget {
   final List<ActionItem> actions;
   final String buttonText;
   final Widget buttonIcon;
@@ -24,7 +24,7 @@ class ActionCard extends StatefulWidget {
   _ActionCardState createState() => _ActionCardState();
 }
 
-class _ActionCardState extends State<ActionCard> {
+class _ActionCardState extends ConsumerState<ActionCard> {
   var cont = ScrollController();
   int? progress;
   bool inP = false;
@@ -67,8 +67,8 @@ class _ActionCardState extends State<ActionCard> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Consumer(builder: (context, watch, _) {
-                    var commandList = watch(widget.commandProvider).state;
+                  Consumer(builder: (context, ref, _) {
+                    var commandList = ref.watch(widget.commandProvider.state).state;
                     return Expanded(
                       child: ListView(
                         key: PageStorageKey(widget.buttonText + 'listView'),
@@ -93,24 +93,22 @@ class _ActionCardState extends State<ActionCard> {
                               e.state = ProgressCardState.inProgress;
                               e
                                   .doOnAction(
-                                      context, watch, widget.commandProvider)
+                                      context, ref, widget.commandProvider)
                                   .then((res) {
                                 inP = false;
                                 setStateProtected(() {
                                   if (res) {
-                                    context.read(widget.commandProvider).state =
+                                    ref.read(widget.commandProvider.state).state =
                                         [
-                                      ...context
-                                          .read(widget.commandProvider)
+                                      ...ref.read(widget.commandProvider.state)
                                           .state,
                                       ('> Completed ' + e.title)
                                     ];
                                     e.state = ProgressCardState.done;
                                   } else {
-                                    context.read(widget.commandProvider).state =
+                                    ref.read(widget.commandProvider.state).state =
                                         [
-                                      ...context
-                                          .read(widget.commandProvider)
+                                      ...ref.read(widget.commandProvider.state)
                                           .state,
                                       ('> Failed ' + e.title + ', halting')
                                     ];
@@ -125,7 +123,7 @@ class _ActionCardState extends State<ActionCard> {
                                   }
 
                                   if (progress == widget.actions.length) {
-                                    context.read(inProgProvider).state = false;
+                                    ref.read(inProgProvider.state).state = false;
                                   }
                                 });
                               });
@@ -186,8 +184,8 @@ class _ActionCardState extends State<ActionCard> {
                       ),
                     );
                   }),
-                  Consumer(builder: (context, watch, _) {
-                    var serial = watch(serialProvider).state;
+                  Consumer(builder: (context, ref, _) {
+                    var serial = ref.watch(serialProvider.state).state;
                     return Container(
                       padding: const EdgeInsets.all(20),
                       width: double.infinity,
@@ -216,7 +214,7 @@ class _ActionCardState extends State<ActionCard> {
                                   element.state = ProgressCardState.pending;
                                 });
                                 failedIndex = null;
-                                context.read(inProgProvider).state = true;
+                                ref.read(inProgProvider.state).state = true;
                                 setStateProtected(() {});
                               },
                         label: const Icon(Icons.play_arrow_rounded),
