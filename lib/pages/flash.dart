@@ -30,22 +30,9 @@ class FlashPage extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                width:
-                    MediaQuery.of(context).size.width - (extended ? 282 : 232),
-                child: Row(
-                  children: [
-                    Flexible(
-                      flex: 5,
-                      child: SerialCard(title),
-                    ),
-                    const Flexible(
-                        child: Padding(
-                      padding: EdgeInsets.only(left: 30),
-                      child: SerialInfo(),
-                    ))
-                  ],
-                ),
+              Expanded(
+                flex: 5,
+                child: SerialCard(title),
               ),
             ],
           ),

@@ -35,7 +35,7 @@ class _ProgressCardState extends State<ProgressCard> {
     if (widget.state == ProgressCardState.inProgress) {
       setState(() {
         boxDecor = BoxDecoration(
-          color: Theme.of(context).cardColor,
+          color: Theme.of(context).cardColor.withOpacity(1),
           borderRadius: BorderRadius.circular(5),
           boxShadow: widget.state == ProgressCardState.inProgress
               ? [

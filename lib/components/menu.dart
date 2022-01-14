@@ -57,7 +57,7 @@ class Menu extends ConsumerWidget {
                                     }
                                   : null,
                               icon: Container(
-                                padding: const EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(0),
                                 decoration: BoxDecoration(
                                   color: _itemSelcted
                                       ? Theme.of(context)
@@ -66,12 +66,29 @@ class Menu extends ConsumerWidget {
                                       : Colors.transparent,
                                   shape: BoxShape.circle,
                                 ),
-                                child: HeroIcon(
-                                  item.value,
-                                  size: 30,
-                                  color: _itemSelcted
-                                      ? Theme.of(context).primaryColor
-                                      : Theme.of(context).iconTheme.color,
+                                child: Stack(
+                                  alignment: AlignmentDirectional.centerStart,
+                                  children: [
+                                    if (_itemSelcted)
+                                      Container(
+                                        width: 5,
+                                        height: 10,
+                                        decoration: BoxDecoration(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(10000)),
+                                      ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: HeroIcon(
+                                        item.value,
+                                        size: 30,
+                                        color:
+                                            Theme.of(context).iconTheme.color,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                               iconSize: 50,

@@ -114,7 +114,7 @@ class _MenuWrapperState extends State<MenuWrapper>
                   ),
                   selectedItemKey: _selectedItemKey,
                   menuItems: _destinations,
-                  leading: _extended
+                  /*leading: _extended
                       ? Image.asset(
                           'assets/Gatego logo.png',
                           height: 50,
@@ -123,7 +123,7 @@ class _MenuWrapperState extends State<MenuWrapper>
                       : Image.asset(
                           'assets/Blue Icon Circle.png',
                           height: 50,
-                        ),
+                        ),*/
                   expanded: _extended,
                   onItemPressed: !ref.watch(inProgProvider)
                       ? (item) {
