@@ -16,6 +16,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Window.initialize();
+  await Window.setEffect(
+    effect: WindowEffect.mica,
+    //color: Colors.white.withOpacity(0.1),
+    dark: false,
+  );
   runApp(AppWrapper());
 }
 
@@ -90,12 +95,6 @@ class _MenuWrapperState extends State<MenuWrapper>
         commandProvider: commandResetProvider,
       ),
     };
-
-    Window.setEffect(
-      effect: WindowEffect.mica,
-      //color: Colors.white.withOpacity(0.1),
-      dark: false,
-    );
 
     return Scaffold(
       backgroundColor: Colors.transparent,
