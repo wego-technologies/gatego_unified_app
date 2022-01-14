@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
-                  "Gatego Unified",
+                  'Gatego Unified',
                   style: Theme.of(context).textTheme.headline3!.copyWith(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:heroicons/heroicons.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 
 enum ProgressCardState {
   inProgress,
@@ -52,7 +51,7 @@ class _ProgressCardState extends State<ProgressCard> {
       });
     } else {
       boxDecor = BoxDecoration(
-        color: Color.fromARGB(255, 240, 240, 240),
+        color: const Color.fromARGB(255, 240, 240, 240),
         borderRadius: BorderRadius.circular(5),
       );
     }
@@ -142,9 +141,9 @@ class _ProgressCardState extends State<ProgressCard> {
                   children: [
                     Center(child: widget.icon),
                     Positioned(
-                      child: trailing ?? const SizedBox(),
                       bottom: 0,
                       right: 0,
+                      child: trailing ?? const SizedBox(),
                     )
                   ],
                 ),

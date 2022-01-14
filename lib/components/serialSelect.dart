@@ -113,8 +113,8 @@ class _SerialCardState extends ConsumerState<SerialCard> {
                                     },
                                     value: serialExternal,
                                     borderRadius: BorderRadius.circular(10),
-                                    underline: SizedBox(),
-                                    hint: Text("Select a port"),
+                                    underline: const SizedBox(),
+                                    hint: const Text('Select a port'),
                                     items: [
                                       ...availablePorts.map((e) {
                                         final port = SerialPort(e);
