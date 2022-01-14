@@ -43,14 +43,9 @@ class _SerialCardState extends ConsumerState<SerialCard> {
           decoration: BoxDecoration(
             color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 15,
-                spreadRadius: 0,
-                color: Theme.of(context).shadowColor.withAlpha(20),
-                offset: const Offset(0, 0),
-              )
-            ],
+            border: Border.all(
+              color: Colors.grey.shade300,
+            ),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.max,

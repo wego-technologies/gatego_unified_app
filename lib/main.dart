@@ -1,5 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:gatego_unified_app/actions/factoryReset.dart';
 import 'package:gatego_unified_app/actions/falsh.dart';
 import 'package:gatego_unified_app/components/menu.dart';
@@ -13,6 +14,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Window.initialize();
   runApp(AppWrapper());
 }
 
@@ -33,6 +36,7 @@ class AppWrapper extends StatelessWidget {
       child: MaterialApp.router(
         title: 'Gatego Autonomous+ Tools',
         theme: ThemeData(
+          cardColor: ThemeData().cardColor.withAlpha(180),
           primarySwatch: Colors.blue,
           primaryColor: const Color(0xFF00ADE2),
           textTheme: GoogleFonts.robotoTextTheme(
@@ -87,7 +91,14 @@ class _MenuWrapperState extends State<MenuWrapper>
       ),
     };
 
+    Window.setEffect(
+      effect: WindowEffect.mica,
+      //color: Colors.white.withOpacity(0.1),
+      dark: false,
+    );
+
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Row(
         children: [
           Container(

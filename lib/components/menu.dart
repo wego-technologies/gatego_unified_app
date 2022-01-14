@@ -25,10 +25,6 @@ class Menu extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      decoration: BoxDecoration(
-        boxShadow: const [BoxShadow(blurRadius: 4, spreadRadius: -3)],
-        color: Theme.of(context).canvasColor,
-      ),
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: Material(
         color: Colors.transparent,
@@ -53,7 +49,7 @@ class Menu extends ConsumerWidget {
                               : 'Disabled, please wait.',
                           child: Container(
                             margin: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 3),
+                                vertical: 0, horizontal: 3),
                             child: IconButton(
                               onPressed: onItemPressed != null
                                   ? () {
@@ -64,7 +60,9 @@ class Menu extends ConsumerWidget {
                                 padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   color: _itemSelcted
-                                      ? Theme.of(context).primaryColor
+                                      ? Theme.of(context)
+                                          .disabledColor
+                                          .withOpacity(0.1)
                                       : Colors.transparent,
                                   shape: BoxShape.circle,
                                 ),
@@ -72,7 +70,7 @@ class Menu extends ConsumerWidget {
                                   item.value,
                                   size: 30,
                                   color: _itemSelcted
-                                      ? Theme.of(context).canvasColor
+                                      ? Theme.of(context).primaryColor
                                       : Theme.of(context).iconTheme.color,
                                 ),
                               ),
@@ -86,33 +84,48 @@ class Menu extends ConsumerWidget {
                         var _itemSelcted = item.key == selectedItemKey;
                         return Container(
                           constraints: const BoxConstraints(minWidth: 200),
-                          margin: const EdgeInsets.symmetric(vertical: 13),
+                          margin: const EdgeInsets.symmetric(vertical: 8),
                           child: InkWell(
-                            borderRadius: BorderRadius.circular(5000),
+                            borderRadius: BorderRadius.circular(10),
                             onTap: onItemPressed != null
                                 ? () {
                                     onItemPressed!(item.key);
                                   }
                                 : null,
                             child: Container(
-                              padding: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.only(
+                                  left: 0, right: 10, top: 10, bottom: 10),
                               //margin: EdgeInsets.all(10),
                               width: 170,
                               decoration: BoxDecoration(
                                 color: _itemSelcted
-                                    ? Theme.of(context).primaryColor
+                                    ? Theme.of(context)
+                                        .disabledColor
+                                        .withOpacity(0.1)
                                     : Colors.transparent,
-                                borderRadius: BorderRadius.circular(5000),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
+                                  Container(
+                                    width: 5,
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      color: _itemSelcted
+                                          ? Theme.of(context).primaryColor
+                                          : Colors.transparent,
+                                      borderRadius:
+                                          BorderRadius.circular(10000),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
                                   HeroIcon(
                                     item.value,
                                     size: 30,
-                                    color: _itemSelcted
-                                        ? Theme.of(context).canvasColor
-                                        : Theme.of(context).iconTheme.color,
+                                    color: Theme.of(context).iconTheme.color,
                                   ),
                                   const SizedBox(
                                     width: 15,
@@ -123,9 +136,7 @@ class Menu extends ConsumerWidget {
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 15,
-                                      color: _itemSelcted
-                                          ? Colors.white
-                                          : Theme.of(context).iconTheme.color,
+                                      color: Theme.of(context).iconTheme.color,
                                     ),
                                   ),
                                   const SizedBox(

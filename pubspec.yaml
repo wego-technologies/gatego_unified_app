@@ -37,6 +37,7 @@ dependencies:
   path_provider: ^2.0.8
   process_run: ^0.12.3+1
   desktop_window: ^0.4.0
+  flutter_acrylic: ^0.1.0
 
 dev_dependencies:
   flutter_test:

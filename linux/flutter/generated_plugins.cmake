@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   desktop_window
+  flutter_acrylic
   flutter_libserialport
 )
 

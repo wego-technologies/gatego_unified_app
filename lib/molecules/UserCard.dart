@@ -19,16 +19,12 @@ class UserCard extends ConsumerWidget {
       return Container(
         padding: const EdgeInsets.only(left: 4),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 5,
-                spreadRadius: -3,
-                color: Theme.of(context).shadowColor.withOpacity(0.15),
-                offset: const Offset(0, 0),
-              )
-            ]),
+          borderRadius: BorderRadius.circular(10),
+          color: Theme.of(context).cardColor,
+          border: Border.all(
+            color: Colors.grey.shade300,
+          ),
+        ),
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: acc == null
@@ -46,7 +42,9 @@ class UserCard extends ConsumerWidget {
                     CircleAvatar(
                       backgroundColor: Colors.grey.shade300,
                       child: HeroIcon(
-                        HeroIcons.user,
+                        acc == null
+                            ? HeroIcons.questionMarkCircle
+                            : HeroIcons.user,
                         color: Colors.grey.shade600,
                       ),
                     ),
