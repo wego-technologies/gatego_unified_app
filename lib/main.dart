@@ -35,10 +35,6 @@ class AppWrapper extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
           primaryColor: const Color(0xFF00ADE2),
-          navigationRailTheme: NavigationRailThemeData(
-            elevation: 5,
-            indicatorColor: Color(0xFF00ADE2).withOpacity(0.2),
-          ),
           textTheme: GoogleFonts.robotoTextTheme(
             Theme.of(context).textTheme,
           ).apply(
@@ -103,6 +99,9 @@ class _MenuWrapperState extends State<MenuWrapper>
                     _extended = !_extended;
                     setState(() {});
                   },
+                  trailing: UserCard(
+                    expanded: _extended,
+                  ),
                   selectedItemKey: _selectedItemKey,
                   menuItems: _destinations,
                   leading: _extended

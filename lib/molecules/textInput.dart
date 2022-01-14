@@ -37,14 +37,14 @@ class _TextInputState extends State<TextInput> {
         setState(() {
           colorIcon = const Color(0xff00a1d3);
           colorShadow = const Color(0xffb2e3f2);
-          blurRadius = 2;
-          spreadRadius = 5;
+          blurRadius = 0;
+          spreadRadius = 3;
         });
       } else {
         setState(() {
           colorIcon = const Color(0xffd8d8d8);
           colorShadow = const Color(0xffe6e6e6);
-          blurRadius = 5;
+          blurRadius = 0;
           spreadRadius = 1;
         });
       }
@@ -69,7 +69,7 @@ class _TextInputState extends State<TextInput> {
                   spreadRadius: spreadRadius,
                   color: colorShadow)
             ],
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(10),
             color: const Color(0xfff5f5f5),
           ),
           child: Row(

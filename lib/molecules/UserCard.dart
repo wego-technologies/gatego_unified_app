@@ -23,9 +23,9 @@ class UserCard extends ConsumerWidget {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                blurRadius: 6,
-                spreadRadius: 0,
-                color: Theme.of(context).shadowColor.withAlpha(50),
+                blurRadius: 5,
+                spreadRadius: -3,
+                color: Theme.of(context).shadowColor.withOpacity(0.15),
                 offset: const Offset(0, 0),
               )
             ]),
