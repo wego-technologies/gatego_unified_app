@@ -61,41 +61,64 @@ class _ProgressCardState extends State<ProgressCard> {
       switch (widget.state) {
         case ProgressCardState.done:
           {
-            trailing = const HeroIcon(
-              HeroIcons.checkCircle,
-              solid: true,
-              size: 20,
-              color: Colors.green,
+            trailing = Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius: BorderRadius.circular(100000),
+              ),
+              child: const HeroIcon(
+                HeroIcons.checkCircle,
+                solid: true,
+                size: 15,
+                color: Colors.green,
+              ),
             );
           }
           break;
         case ProgressCardState.inProgress:
           {
             trailing = Container(
-              width: 20,
+              width: 15,
+              height: 15,
               //margin: EdgeInsets.only(right: 15),
-              child: const LoadingIndicator(
-                indicatorType: Indicator.ballRotateChase,
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius: BorderRadius.circular(100000),
+              ),
+              child: const CircularProgressIndicator(
+                strokeWidth: 3,
               ),
             );
           }
           break;
         case ProgressCardState.pending:
           {
-            trailing = const HeroIcon(
-              HeroIcons.clock,
-              size: 20,
-              color: Color(0xff353535),
+            trailing = Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius: BorderRadius.circular(100000),
+              ),
+              child: const HeroIcon(
+                HeroIcons.clock,
+                size: 15,
+                color: Color(0xff353535),
+              ),
             );
           }
           break;
         case ProgressCardState.fail:
           {
-            trailing = HeroIcon(
-              HeroIcons.xCircle,
-              size: 20,
-              color: Theme.of(context).errorColor,
-              solid: true,
+            trailing = Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius: BorderRadius.circular(100000),
+              ),
+              child: HeroIcon(
+                HeroIcons.xCircle,
+                size: 15,
+                color: Theme.of(context).errorColor,
+                solid: true,
+              ),
             );
           }
       }
@@ -112,7 +135,20 @@ class _ProgressCardState extends State<ProgressCard> {
         children: [
           Row(
             children: [
-              widget.icon,
+              Container(
+                height: double.infinity,
+                width: 35,
+                child: Stack(
+                  children: [
+                    Center(child: widget.icon),
+                    Positioned(
+                      child: trailing ?? const SizedBox(),
+                      bottom: 0,
+                      right: 0,
+                    )
+                  ],
+                ),
+              ),
               const SizedBox(
                 width: 15,
               ),
@@ -125,7 +161,6 @@ class _ProgressCardState extends State<ProgressCard> {
               ),
             ],
           ),
-          trailing ?? const SizedBox(),
         ],
       ),
     );

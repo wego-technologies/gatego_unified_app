@@ -70,15 +70,15 @@ class Console extends ConsumerWidget {
               Positioned(
                 bottom: 1,
                 right: 1,
-                child: Tooltip(
-                  message: 'Clear',
-                  child: FloatingActionButton(
-                    onPressed: () {
-                      ref.watch(commandProvider.state).state = [];
-                    },
-                    backgroundColor: Theme.of(context).primaryColor,
-                    child: const HeroIcon(HeroIcons.trash),
-                  ),
+                child: FloatingActionButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  tooltip: 'Clear',
+                  onPressed: () {
+                    ref.watch(commandProvider.state).state = [];
+                  },
+                  backgroundColor: Theme.of(context).primaryColor,
+                  child: const HeroIcon(HeroIcons.trash),
                 ),
               )
           ],
