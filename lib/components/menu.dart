@@ -1,10 +1,10 @@
+import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Menu extends ConsumerWidget {
   final String selectedItemKey;
-  final Map<String, HeroIcons> menuItems;
+  final Map<String, IconData> menuItems;
   final Widget? leading;
   final Widget? trailing;
   final bool expanded;
@@ -81,7 +81,7 @@ class Menu extends ConsumerWidget {
                                       ),
                                     Padding(
                                       padding: const EdgeInsets.all(10),
-                                      child: HeroIcon(
+                                      child: Icon(
                                         item.value,
                                         size: 30,
                                         color:
@@ -139,7 +139,7 @@ class Menu extends ConsumerWidget {
                                   const SizedBox(
                                     width: 5,
                                   ),
-                                  HeroIcon(
+                                  Icon(
                                     item.value,
                                     size: 30,
                                     color: Theme.of(context).iconTheme.color,
@@ -186,10 +186,10 @@ class Menu extends ConsumerWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      HeroIcon(
+                      Icon(
                         !expanded
-                            ? HeroIcons.chevronRight
-                            : HeroIcons.chevronLeft,
+                            ? FluentSystemIcons.ic_fluent_chevron_right_regular
+                            : FluentSystemIcons.ic_fluent_chevron_left_regular,
                         size: 30,
                         color: Theme.of(context).iconTheme.color,
                       ),

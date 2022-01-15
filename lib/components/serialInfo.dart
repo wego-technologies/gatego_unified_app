@@ -1,7 +1,7 @@
+import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart';
 import 'package:gatego_unified_app/providers/serialProvider.dart';
-import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SerialInfo extends ConsumerWidget {
@@ -15,31 +15,31 @@ class SerialInfo extends ConsumerWidget {
       serialSelected = SerialPort(serialExternal);
     }
 
-    return Column(
+    return Row(
       children: [
-        Row(
-          children: [
-            const HeroIcon(
-              HeroIcons.chip,
+        Column(
+          children: const [
+            Icon(
+              FluentSystemIcons.ic_fluent_developer_board_regular,
               size: 30,
             ),
-            const SizedBox(
-              width: 10,
+            SizedBox(
+              height: 10,
             ),
-            Text(serialSelected?.vendorId.toString() ?? 'None')
+            Icon(
+              FluentSystemIcons.ic_fluent_usb_stick_regular,
+              size: 30,
+            ),
           ],
         ),
         const SizedBox(
-          height: 10,
+          width: 10,
         ),
-        Row(
+        Column(
           children: [
-            const HeroIcon(
-              HeroIcons.lightningBolt,
-              size: 30,
-            ),
+            Text(serialSelected?.vendorId.toString() ?? 'None'),
             const SizedBox(
-              width: 10,
+              height: 20,
             ),
             Text(serialExternal ?? 'None')
           ],

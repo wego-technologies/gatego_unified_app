@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
-set(BINARY_NAME "gatego_unified_app")
-set(APPLICATION_ID "com.example.gatego_unified_app")
+set(BINARY_NAME "Gatego Autonomous+ Tools")
+set(APPLICATION_ID "io.wegotech.gatego.unified_app")
 
 cmake_policy(SET CMP0063 NEW)
 

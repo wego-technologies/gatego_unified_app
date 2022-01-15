@@ -1,8 +1,8 @@
 import 'package:beamer/beamer.dart';
+import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/molecules/textInput.dart';
 import 'package:gatego_unified_app/providers/userProvider.dart';
-import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
@@ -173,7 +173,8 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 child: Row(
                                   children: const [
-                                    HeroIcon(HeroIcons.exclamationCircle),
+                                    Icon(FluentSystemIcons
+                                        .ic_fluent_dismiss_circle_regular),
                                     SizedBox(
                                       width: 15,
                                     ),

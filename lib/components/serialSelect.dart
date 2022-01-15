@@ -1,8 +1,8 @@
+import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart';
 import 'package:gatego_unified_app/components/serialInfo.dart';
 import 'package:gatego_unified_app/providers/serialProvider.dart';
-import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SerialCard extends ConsumerStatefulWidget {
@@ -73,15 +73,14 @@ class _SerialCardState extends ConsumerState<SerialCard> {
                     margin: const EdgeInsets.all(10),
                     width: 80,
                     height: 80,
-                    child: HeroIcon(
+                    child: Icon(
                       serialExternal == null
-                          ? HeroIcons.cubeTransparent
-                          : HeroIcons.check,
-                      size: 100,
+                          ? FluentSystemIcons.ic_fluent_search_square_regular
+                          : FluentSystemIcons.ic_fluent_checkmark_regular,
+                      size: 60,
                       color: serialExternal == null
                           ? Theme.of(context).iconTheme.color!.withOpacity(0.5)
                           : Colors.white,
-                      solid: false,
                     ),
                   ),
                   sizedBox,

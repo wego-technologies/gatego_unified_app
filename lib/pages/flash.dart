@@ -1,11 +1,10 @@
+import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gatego_unified_app/molecules/console.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../components/SerialSelect.dart';
 import '../components/actionCard.dart';
-import '../components/serialInfo.dart';
-import 'package:heroicons/heroicons.dart';
 
 class FlashPage extends StatelessWidget {
   final bool extended;
@@ -38,7 +37,7 @@ class FlashPage extends StatelessWidget {
           ),
           ActionCard(
             actions: actions,
-            buttonIcon: const HeroIcon(HeroIcons.play),
+            buttonIcon: const Icon(FluentSystemIcons.ic_fluent_play_filled),
             buttonText: 'Start $button',
             commandProvider: commandProvider,
             key: Key(title),

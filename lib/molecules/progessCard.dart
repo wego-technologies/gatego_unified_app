@@ -1,5 +1,5 @@
+import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:heroicons/heroicons.dart';
 
 enum ProgressCardState {
   inProgress,
@@ -65,9 +65,8 @@ class _ProgressCardState extends State<ProgressCard> {
                 color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(100000),
               ),
-              child: const HeroIcon(
-                HeroIcons.checkCircle,
-                solid: true,
+              child: const Icon(
+                FluentSystemIcons.ic_fluent_checkmark_circle_filled,
                 size: 15,
                 color: Colors.green,
               ),
@@ -97,8 +96,8 @@ class _ProgressCardState extends State<ProgressCard> {
                 color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(100000),
               ),
-              child: const HeroIcon(
-                HeroIcons.clock,
+              child: const Icon(
+                FluentSystemIcons.ic_fluent_clock_filled,
                 size: 15,
                 color: Color(0xff353535),
               ),
@@ -112,11 +111,10 @@ class _ProgressCardState extends State<ProgressCard> {
                 color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(100000),
               ),
-              child: HeroIcon(
-                HeroIcons.xCircle,
+              child: Icon(
+                FluentSystemIcons.ic_fluent_dismiss_filled,
                 size: 15,
                 color: Theme.of(context).errorColor,
-                solid: true,
               ),
             );
           }

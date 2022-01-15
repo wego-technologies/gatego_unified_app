@@ -1,9 +1,9 @@
+import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/molecules/console.dart';
 import 'package:gatego_unified_app/molecules/progessCard.dart';
 import 'package:gatego_unified_app/providers/commandStreamProvider.dart';
 import 'package:gatego_unified_app/providers/serialProvider.dart';
-import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ActionCard extends ConsumerStatefulWidget {
@@ -141,7 +141,7 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                             }
                             return ProgressCard(
                               state: e.state ?? ProgressCardState.pending,
-                              icon: HeroIcon(
+                              icon: Icon(
                                 e.icon,
                                 color: const Color(0xff353535),
                               ),
@@ -172,12 +172,14 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                               padding: const EdgeInsets.all(2),
                               width: 20,
                               height: 20,
-                              child: HeroIcon(
+                              child: Icon(
                                 failedIndex == null
-                                    ? HeroIcons.check
-                                    : HeroIcons.x,
+                                    ? FluentSystemIcons
+                                        .ic_fluent_checkmark_regular
+                                    : FluentSystemIcons
+                                        .ic_fluent_dismiss_regular,
                                 color: Colors.white,
-                                solid: false,
+                                size: 15,
                               ),
                             ),
                           )

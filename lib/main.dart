@@ -1,4 +1,5 @@
 import 'package:beamer/beamer.dart';
+import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:gatego_unified_app/actions/factoryReset.dart';
@@ -9,7 +10,6 @@ import 'package:gatego_unified_app/pages/comingSoon.dart';
 import 'package:gatego_unified_app/pages/flash.dart';
 import 'package:gatego_unified_app/pages/login.dart';
 import 'package:gatego_unified_app/providers/commandStreamProvider.dart';
-import 'package:heroicons/heroicons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -18,7 +18,6 @@ void main() async {
   await Window.initialize();
   await Window.setEffect(
     effect: WindowEffect.mica,
-    //color: Colors.white.withOpacity(0.1),
     dark: false,
   );
   runApp(AppWrapper());
@@ -70,11 +69,11 @@ class _MenuWrapperState extends State<MenuWrapper>
   String _selectedItemKey = 'Flash';
   bool _extended = false;
 
-  final Map<String, HeroIcons> _destinations = {
-    'Flash': HeroIcons.chip,
-    'Register': HeroIcons.plusCircle,
-    'Test': HeroIcons.shieldCheck,
-    'Reset': HeroIcons.fire,
+  final Map<String, IconData> _destinations = {
+    'Flash': FluentSystemIcons.ic_fluent_usb_port_regular,
+    'Reset': FluentSystemIcons.ic_fluent_arrow_sync_circle_regular,
+    'Register': FluentSystemIcons.ic_fluent_add_circle_regular,
+    'Test': FluentSystemIcons.ic_fluent_shield_regular,
   };
 
   @override

@@ -1,7 +1,7 @@
 import 'package:beamer/beamer.dart';
+import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/providers/userProvider.dart';
-import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class UserCard extends ConsumerWidget {
@@ -33,7 +33,7 @@ class UserCard extends ConsumerWidget {
                 }
               : null,
           child: Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(11),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -41,10 +41,11 @@ class UserCard extends ConsumerWidget {
                   children: [
                     CircleAvatar(
                       backgroundColor: Colors.grey.shade300,
-                      child: HeroIcon(
+                      child: Icon(
                         acc == null
-                            ? HeroIcons.questionMarkCircle
-                            : HeroIcons.user,
+                            ? FluentSystemIcons
+                                .ic_fluent_person_accounts_regular
+                            : FluentSystemIcons.ic_fluent_person_regular,
                         color: Colors.grey.shade600,
                       ),
                     ),
@@ -73,8 +74,8 @@ class UserCard extends ConsumerWidget {
                 if (acc == null)
                   const Padding(
                     padding: EdgeInsets.only(right: 10.0),
-                    child: HeroIcon(
-                      HeroIcons.arrowRight,
+                    child: Icon(
+                      FluentSystemIcons.ic_fluent_arrow_right_regular,
                       size: 20,
                     ),
                   ),
@@ -113,8 +114,10 @@ class UserCard extends ConsumerWidget {
           borderRadius: BorderRadius.circular(50000),
           child: CircleAvatar(
             backgroundColor: Colors.grey.shade300,
-            child: HeroIcon(
-              HeroIcons.user,
+            child: Icon(
+              acc == null
+                  ? FluentSystemIcons.ic_fluent_person_accounts_regular
+                  : FluentSystemIcons.ic_fluent_person_regular,
               color: Colors.grey.shade600,
             ),
           ),

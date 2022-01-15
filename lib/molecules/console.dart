@@ -1,7 +1,7 @@
+import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/molecules/progessCard.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:heroicons/heroicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Console extends ConsumerWidget {
@@ -48,8 +48,8 @@ class Console extends ConsumerWidget {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const HeroIcon(
-                          HeroIcons.sparkles,
+                        const Icon(
+                          FluentSystemIcons.ic_fluent_clipboard_code_regular,
                           color: Colors.grey,
                           size: 100,
                         ),
@@ -78,7 +78,7 @@ class Console extends ConsumerWidget {
                     ref.watch(commandProvider.state).state = [];
                   },
                   backgroundColor: Theme.of(context).primaryColor,
-                  child: const HeroIcon(HeroIcons.trash),
+                  child: const Icon(FluentSystemIcons.ic_fluent_delete_regular),
                 ),
               )
           ],
@@ -90,7 +90,7 @@ class Console extends ConsumerWidget {
 
 class ActionItem {
   String title;
-  HeroIcons icon;
+  IconData icon;
   ProgressCardState? state;
   Future<bool> Function(BuildContext, WidgetRef, StateProvider<List<String>>)
       doOnAction;

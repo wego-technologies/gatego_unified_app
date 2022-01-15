@@ -1,5 +1,5 @@
+import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:heroicons/heroicons.dart';
 
 class ComingSoonPage extends StatelessWidget {
   const ComingSoonPage({Key? key}) : super(key: key);
@@ -11,9 +11,8 @@ class ComingSoonPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          HeroIcon(
-            HeroIcons.lightningBolt,
-            solid: true,
+          Icon(
+            FluentSystemIcons.ic_fluent_flash_on_filled,
             color: Colors.yellow.shade800,
             size: 100,
           ),
