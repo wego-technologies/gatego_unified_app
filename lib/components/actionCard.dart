@@ -52,7 +52,7 @@ class _ActionCardState extends ConsumerState<ActionCard> {
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: Colors.grey.shade300,
+            color: Theme.of(context).cardColor,
           ),
         ),
         child: Row(
@@ -143,7 +143,10 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                               state: e.state ?? ProgressCardState.pending,
                               icon: Icon(
                                 e.icon,
-                                color: const Color(0xff353535),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? const Color.fromARGB(255, 240, 240, 240)
+                                    : const Color.fromARGB(255, 78, 78, 78),
                               ),
                               text: e.title,
                             );

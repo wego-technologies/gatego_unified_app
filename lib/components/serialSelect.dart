@@ -45,7 +45,7 @@ class _SerialCardState extends ConsumerState<SerialCard> {
             color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: Colors.grey.shade300,
+              color: Theme.of(context).cardColor,
             ),
           ),
           child: Row(

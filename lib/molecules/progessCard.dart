@@ -51,7 +51,9 @@ class _ProgressCardState extends State<ProgressCard> {
       });
     } else {
       boxDecor = BoxDecoration(
-        color: const Color.fromARGB(255, 240, 240, 240),
+        color: Theme.of(context).brightness == Brightness.light
+            ? const Color.fromARGB(255, 240, 240, 240)
+            : const Color.fromARGB(255, 46, 46, 46),
         borderRadius: BorderRadius.circular(5),
       );
     }
@@ -96,10 +98,12 @@ class _ProgressCardState extends State<ProgressCard> {
                 color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(100000),
               ),
-              child: const Icon(
+              child: Icon(
                 FluentSystemIcons.ic_fluent_clock_filled,
                 size: 15,
-                color: Color(0xff353535),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? const Color.fromARGB(255, 240, 240, 240)
+                    : const Color.fromARGB(255, 78, 78, 78),
               ),
             );
           }
@@ -151,9 +155,11 @@ class _ProgressCardState extends State<ProgressCard> {
               ),
               Text(
                 widget.text,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 20,
-                  color: Color(0xff353535),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? const Color.fromARGB(255, 240, 240, 240)
+                      : const Color.fromARGB(255, 78, 78, 78),
                 ),
               ),
             ],

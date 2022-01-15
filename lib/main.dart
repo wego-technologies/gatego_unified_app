@@ -16,10 +16,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Window.initialize();
-  await Window.setEffect(
-    effect: WindowEffect.mica,
-    dark: false,
-  );
   runApp(AppWrapper());
 }
 
@@ -50,6 +46,11 @@ class AppWrapper extends StatelessWidget {
             displayColor: const Color(0xff353535),
           ),
         ),
+        darkTheme: ThemeData.dark().copyWith(
+          cardColor: ThemeData.dark().cardColor.withAlpha(150),
+          primaryColor: const Color(0xFF00ADE2),
+        ),
+        themeMode: ThemeMode.system,
         routeInformationParser: BeamerParser(),
         routerDelegate: routerDelegate,
       ),
@@ -75,6 +76,15 @@ class _MenuWrapperState extends State<MenuWrapper>
     'Register': FluentSystemIcons.ic_fluent_add_circle_regular,
     'Test': FluentSystemIcons.ic_fluent_shield_regular,
   };
+
+  @override
+  void didChangeDependencies() {
+    Window.setEffect(
+      effect: WindowEffect.mica,
+      dark: Theme.of(context).brightness == Brightness.dark,
+    );
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {

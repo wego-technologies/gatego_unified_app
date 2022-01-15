@@ -22,7 +22,7 @@ class UserCard extends ConsumerWidget {
           borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).cardColor,
           border: Border.all(
-            color: Colors.grey.shade300,
+            color: Theme.of(context).cardColor,
           ),
         ),
         child: InkWell(
