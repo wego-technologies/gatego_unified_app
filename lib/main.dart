@@ -20,7 +20,6 @@ void main() async {
   await windowManager.ensureInitialized();
   windowManager.setMinimumSize(Size(970, 600));
   windowManager.setSize(Size(970, 600));
-  windowManager.setTitle("");
   runApp(AppWrapper());
 }
 
