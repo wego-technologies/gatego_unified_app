@@ -141,7 +141,8 @@ class _SerialCardState extends ConsumerState<SerialCard> {
                                 ),
                                 IconButton(
                                   onPressed: initPorts,
-                                  icon: const Icon(Icons.refresh_rounded),
+                                  icon: const Icon(FluentSystemIcons
+                                      .ic_fluent_arrow_sync_regular),
                                   color: Theme.of(context).primaryColor,
                                   splashRadius: 20,
                                 )
@@ -182,7 +183,7 @@ class _SerialCardState extends ConsumerState<SerialCard> {
                 ],
               ),
               const Padding(
-                padding: EdgeInsets.only(left: 8, right: 50),
+                padding: EdgeInsets.symmetric(horizontal: 8),
                 child: SerialInfo(),
               )
             ],

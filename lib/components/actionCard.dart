@@ -231,7 +231,10 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                                 ref.read(inProgProvider.state).state = true;
                                 setStateProtected(() {});
                               },
-                        label: const Icon(Icons.play_arrow_rounded),
+                        label: const Icon(
+                          FluentSystemIcons.ic_fluent_play_regular,
+                          size: 15,
+                        ),
                         icon: Text(widget.buttonText),
                       ),
                     );

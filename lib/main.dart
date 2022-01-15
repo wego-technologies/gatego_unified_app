@@ -12,10 +12,13 @@ import 'package:gatego_unified_app/pages/login.dart';
 import 'package:gatego_unified_app/providers/commandStreamProvider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Window.initialize();
+  await windowManager.ensureInitialized();
+  await windowManager.setMinimumSize(Size(970, 800));
   runApp(AppWrapper());
 }
 

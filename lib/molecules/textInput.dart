@@ -26,8 +26,6 @@ class TextInput extends StatefulWidget {
 class _TextInputState extends State<TextInput> {
   var colorIcon = const Color(0xffd8d8d8);
   var colorShadow = const Color(0xffe6e6e6);
-  double blurRadius = 5;
-  double spreadRadius = 1;
 
   @override
   void initState() {
@@ -35,17 +33,15 @@ class _TextInputState extends State<TextInput> {
     widget.fn.addListener(() {
       if (widget.fn.hasFocus) {
         setState(() {
-          colorIcon = const Color(0xff00a1d3);
-          colorShadow = const Color(0xffb2e3f2);
-          blurRadius = 0;
-          spreadRadius = 3;
+          colorIcon = Theme.of(context).primaryColor;
+          colorShadow = Theme.of(context).primaryColor;
         });
       } else {
         setState(() {
-          colorIcon = const Color(0xffd8d8d8);
+          colorIcon = Theme.of(context).brightness == Brightness.dark
+              ? const Color(0xffd8d8d8)
+              : Color.fromARGB(255, 0, 0, 0);
           colorShadow = const Color(0xffe6e6e6);
-          blurRadius = 0;
-          spreadRadius = 1;
         });
       }
     });
@@ -63,14 +59,11 @@ class _TextInputState extends State<TextInput> {
           width: size,
           height: 50,
           decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                  blurRadius: blurRadius,
-                  spreadRadius: spreadRadius,
-                  color: colorShadow)
-            ],
+            border: Border.all(color: colorShadow, width: 2),
             borderRadius: BorderRadius.circular(10),
-            color: const Color(0xfff5f5f5),
+            color: Theme.of(context).brightness == Brightness.light
+                ? const Color(0xfff5f5f5)
+                : Color.fromARGB(255, 99, 99, 99),
           ),
           child: Row(
             children: [
@@ -98,14 +91,24 @@ class _TextInputState extends State<TextInput> {
                     keyboardType: TextInputType.text,
                     onChanged: widget.setData,
                     decoration: InputDecoration(
-                      fillColor: const Color(0xfff5f5f5),
-                      focusColor: const Color(0xfff5f5f5),
-                      hoverColor: const Color(0xfff5f5f5),
+                      fillColor:
+                          Theme.of(context).brightness == Brightness.light
+                              ? const Color(0xfff5f5f5)
+                              : Color.fromARGB(255, 99, 99, 99),
+                      focusColor:
+                          Theme.of(context).brightness == Brightness.light
+                              ? const Color(0xfff5f5f5)
+                              : Color.fromARGB(255, 99, 99, 99),
+                      hoverColor:
+                          Theme.of(context).brightness == Brightness.light
+                              ? const Color(0xfff5f5f5)
+                              : Color.fromARGB(255, 99, 99, 99),
                       filled: true,
                       border: InputBorder.none,
                       hintText: widget.text,
-                      hintStyle: const TextStyle(
-                          color: Color(0xff727272),
+                      hintStyle: TextStyle(
+                          color:
+                              Theme.of(context).textTheme.displaySmall!.color,
                           fontWeight: FontWeight.w300),
                     ),
                   ),

@@ -1,6 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:gatego_unified_app/pages/login.dart';
 import 'package:gatego_unified_app/providers/userProvider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -17,7 +18,6 @@ class UserCard extends ConsumerWidget {
     var acc = ref.watch(accountProvider).acc;
     if (expanded) {
       return Container(
-        padding: const EdgeInsets.only(left: 4),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).cardColor,
@@ -29,7 +29,15 @@ class UserCard extends ConsumerWidget {
           borderRadius: BorderRadius.circular(10),
           onTap: acc == null
               ? () {
-                  Beamer.of(context).beamToNamed('/login');
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                          backgroundColor: Colors.transparent,
+                          //insetPadding: EdgeInsets.all(10),
+                          child: LoginPage(),
+                        );
+                      });
                 }
               : null,
           child: Padding(
@@ -39,6 +47,9 @@ class UserCard extends ConsumerWidget {
               children: [
                 Row(
                   children: [
+                    SizedBox(
+                      width: 4,
+                    ),
                     CircleAvatar(
                       backgroundColor: Colors.grey.shade300,
                       child: Icon(
@@ -81,7 +92,7 @@ class UserCard extends ConsumerWidget {
                   ),
                 if (acc != null)
                   Material(
-                    color: Colors.white,
+                    color: Colors.transparent,
                     child: Tooltip(
                       message: 'Log Out',
                       child: IconButton(
@@ -89,7 +100,7 @@ class UserCard extends ConsumerWidget {
                           ref.read(accountProvider).logout();
                         },
                         icon: const Icon(
-                          Icons.logout_rounded,
+                          FluentSystemIcons.ic_fluent_export_filled,
                         ),
                         splashRadius: 20,
                       ),
@@ -108,7 +119,15 @@ class UserCard extends ConsumerWidget {
         child: InkWell(
           onTap: acc == null
               ? () {
-                  Beamer.of(context).beamToNamed('/login');
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                          backgroundColor: Colors.transparent,
+                          //insetPadding: EdgeInsets.all(10),
+                          child: LoginPage(),
+                        );
+                      });
                 }
               : null,
           borderRadius: BorderRadius.circular(50000),
