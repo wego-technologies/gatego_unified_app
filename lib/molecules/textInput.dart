@@ -107,8 +107,8 @@ class _TextInputState extends State<TextInput> {
                       border: InputBorder.none,
                       hintText: widget.text,
                       hintStyle: TextStyle(
-                          color:
-                              Theme.of(context).textTheme.displaySmall!.color,
+                          color: Theme.of(context).textTheme.bodyText1?.color ??
+                              Colors.black,
                           fontWeight: FontWeight.w300),
                     ),
                   ),

@@ -18,7 +18,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Window.initialize();
   await windowManager.ensureInitialized();
-  await windowManager.setMinimumSize(Size(970, 800));
+  windowManager.setMinimumSize(Size(970, 600));
+  windowManager.setSize(Size(970, 600));
+  windowManager.setTitle("");
   runApp(AppWrapper());
 }
 
