@@ -171,8 +171,7 @@ class _SerialCardState extends ConsumerState<SerialCard> {
                                     },
                                     splashRadius: 20,
                                     icon: const Icon(
-                                      Icons.usb_off,
-                                      color: Color(0xff353535),
+                                      Icons.usb_off_rounded,
                                     ),
                                   ),
                                 )
