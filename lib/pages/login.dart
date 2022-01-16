@@ -44,14 +44,14 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(10),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            //borderRadius: BorderRadius.circular(10),
+            color: Theme.of(context).cardColor.withAlpha(240),
+            //borderRadius: BorderRadius.circular (10),
           ),
           padding: const EdgeInsets.all(20),
           constraints: const BoxConstraints(maxHeight: 700, maxWidth: 700),

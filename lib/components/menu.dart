@@ -44,19 +44,18 @@ class Menu extends ConsumerWidget {
                     ? menuItems.entries.map((item) {
                         var _itemSelcted = item.key == selectedItemKey;
                         return Tooltip(
-                          message: onItemPressed != null
-                              ? item.key
-                              : 'Disabled, please wait.',
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 3),
-                            child: IconButton(
-                              onPressed: onItemPressed != null
+                          message: onItemPressed != null ? item.key : null,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 11),
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(10),
+                              onTap: onItemPressed != null
                                   ? () {
                                       onItemPressed!(item.key);
                                     }
                                   : null,
-                              icon: Container(
+                              child: Container(
                                 padding: const EdgeInsets.all(0),
                                 decoration: BoxDecoration(
                                   color: _itemSelcted
@@ -64,7 +63,7 @@ class Menu extends ConsumerWidget {
                                           .disabledColor
                                           .withOpacity(0.1)
                                       : Colors.transparent,
-                                  shape: BoxShape.circle,
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Stack(
                                   alignment: AlignmentDirectional.centerStart,
@@ -72,12 +71,12 @@ class Menu extends ConsumerWidget {
                                     if (_itemSelcted)
                                       Container(
                                         width: 5,
-                                        height: 10,
+                                        height: 25,
                                         decoration: BoxDecoration(
                                             color:
                                                 Theme.of(context).primaryColor,
                                             borderRadius:
-                                                BorderRadius.circular(10000)),
+                                                BorderRadius.circular(10)),
                                       ),
                                     Padding(
                                       padding: const EdgeInsets.all(10),
@@ -91,8 +90,6 @@ class Menu extends ConsumerWidget {
                                   ],
                                 ),
                               ),
-                              iconSize: 50,
-                              splashRadius: 30,
                             ),
                           ),
                         );
@@ -172,7 +169,7 @@ class Menu extends ConsumerWidget {
               //constraints: const BoxConstraints(minWidth: double.infinity),
               margin: const EdgeInsets.symmetric(vertical: 13, horizontal: 8),
               child: InkWell(
-                borderRadius: BorderRadius.circular(5000),
+                borderRadius: BorderRadius.circular(10),
                 onTap: () {
                   onExpandedToggle();
                 },
@@ -181,7 +178,7 @@ class Menu extends ConsumerWidget {
                   //margin: EdgeInsets.all(10),
                   //width: 170,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5000),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
