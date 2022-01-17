@@ -44,7 +44,7 @@ class Menu extends ConsumerWidget {
                     ? menuItems.entries.map((item) {
                         var _itemSelcted = item.key == selectedItemKey;
                         return Tooltip(
-                          message: onItemPressed != null ? item.key : null,
+                          message: onItemPressed != null ? item.key : '',
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 11),
