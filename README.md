@@ -1,16 +1,6 @@
-# gatego_unified_app
+# Gatego Autonomous+ Tools
 
-A new Flutter project.
+Allows for installing and configuring Gatego Autonomous+ Rev1+ in a modern, esay to use interface built with Flutter.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![App 6(2)](https://user-images.githubusercontent.com/29983481/149806364-8db11bcb-62d7-440a-9497-5601f74038fa.png)
+![App 7(1)](https://user-images.githubusercontent.com/29983481/149806368-fd83ba48-24f9-4d17-b0e9-e56360be0806.png)
