@@ -30,8 +30,6 @@ dependencies:
   google_fonts: ^2.2.0
   hooks_riverpod: ^1.0.1
   http: ^0.13.4
-  beamer: ^1.2.0
-  loading_indicator: ^3.0.2
   flutter_libserialport: ^0.2.3
   path_provider: ^2.0.8
   process_run: ^0.12.3+1

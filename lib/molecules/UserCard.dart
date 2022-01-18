@@ -1,4 +1,3 @@
-import 'package:beamer/beamer.dart';
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/pages/login.dart';
@@ -32,7 +31,7 @@ class UserCard extends ConsumerWidget {
                   showDialog(
                       context: context,
                       builder: (context) {
-                        return Dialog(
+                        return const Dialog(
                           backgroundColor: Colors.transparent,
                           //insetPadding: EdgeInsets.all(10),
                           child: LoginPage(),
@@ -47,7 +46,7 @@ class UserCard extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 4,
                     ),
                     CircleAvatar(
@@ -122,7 +121,7 @@ class UserCard extends ConsumerWidget {
                   showDialog(
                       context: context,
                       builder: (context) {
-                        return Dialog(
+                        return const Dialog(
                           backgroundColor: Colors.transparent,
                           //insetPadding: EdgeInsets.all(10),
                           child: LoginPage(),

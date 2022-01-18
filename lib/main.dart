@@ -1,4 +1,6 @@
-import 'package:beamer/beamer.dart';
+// ignore_for_file: unawaited_futures
+
+import 'dart:io';
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
@@ -8,7 +10,6 @@ import 'package:gatego_unified_app/components/menu.dart';
 import 'package:gatego_unified_app/molecules/UserCard.dart';
 import 'package:gatego_unified_app/pages/comingSoon.dart';
 import 'package:gatego_unified_app/pages/flash.dart';
-import 'package:gatego_unified_app/pages/login.dart';
 import 'package:gatego_unified_app/providers/commandStreamProvider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -18,26 +19,16 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Window.initialize();
   await windowManager.ensureInitialized();
-  windowManager.setMinimumSize(Size(970, 600));
-  windowManager.setSize(Size(970, 600));
+  windowManager.setMinimumSize(const Size(970, 600));
+  windowManager.setSize(const Size(970, 600));
   runApp(AppWrapper());
 }
 
 class AppWrapper extends StatelessWidget {
-  final routerDelegate = BeamerDelegate(
-    locationBuilder: RoutesLocationBuilder(
-      routes: {
-        // Return either Widgets or BeamPages if more customization is needed
-        '/': (context, state, data) => const MenuWrapper(),
-        '/login': (context, state, data) => const LoginPage(),
-      },
-    ),
-  );
-
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      child: MaterialApp.router(
+      child: MaterialApp(
         title: 'Gatego Autonomous+ Tools',
         theme: ThemeData(
           cardColor: ThemeData().cardColor.withAlpha(180),
@@ -55,8 +46,7 @@ class AppWrapper extends StatelessWidget {
           primaryColor: const Color(0xFF00ADE2),
         ),
         themeMode: ThemeMode.system,
-        routeInformationParser: BeamerParser(),
-        routerDelegate: routerDelegate,
+        home: const MenuWrapper(),
       ),
     );
   }
@@ -83,10 +73,43 @@ class _MenuWrapperState extends State<MenuWrapper>
 
   @override
   void didChangeDependencies() {
-    Window.setEffect(
-      effect: WindowEffect.mica,
-      dark: Theme.of(context).brightness == Brightness.dark,
-    );
+    if (Platform.isWindows) {
+      print('Is W');
+
+      final buildNum = Platform.operatingSystemVersion
+          .split('(')
+          .last
+          .replaceAll('Build', '')
+          .replaceAll(')', '')
+          .trim();
+      if (int.parse(buildNum) >= 22000) {
+        //Windows 11
+        print('W11');
+        Window.setEffect(
+          effect: WindowEffect.mica,
+          dark: Theme.of(context).brightness == Brightness.dark,
+        );
+      } else {
+        print('W10');
+        Window.setEffect(
+          effect: WindowEffect.aero,
+          color: Theme.of(context).canvasColor.withOpacity(0.95),
+          //dark: Theme.of(context).brightness == Brightness.dark,
+        );
+      }
+    } else if (Platform.isLinux) {
+      Window.setEffect(
+        effect: WindowEffect.transparent,
+        color: Theme.of(context).canvasColor.withOpacity(0.95),
+        //dark: Theme.of(context).brightness == Brightness.dark,
+      );
+    } else if (Platform.isMacOS) {
+      Window.setEffect(
+        effect: WindowEffect.sidebar,
+        //color: Theme.of(context).canvasColor.withOpacity(0.95),
+        //dark: Theme.of(context).brightness == Brightness.dark,
+      );
+    }
     super.didChangeDependencies();
   }
 

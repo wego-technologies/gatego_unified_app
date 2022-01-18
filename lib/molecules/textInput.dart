@@ -40,7 +40,7 @@ class _TextInputState extends State<TextInput> {
         setState(() {
           colorIcon = Theme.of(context).brightness == Brightness.dark
               ? const Color(0xffd8d8d8)
-              : Color.fromARGB(255, 0, 0, 0);
+              : const Color.fromARGB(255, 0, 0, 0);
           colorShadow = const Color(0xffe6e6e6);
         });
       }
@@ -63,7 +63,7 @@ class _TextInputState extends State<TextInput> {
             borderRadius: BorderRadius.circular(10),
             color: Theme.of(context).brightness == Brightness.light
                 ? const Color(0xfff5f5f5)
-                : Color.fromARGB(255, 99, 99, 99),
+                : const Color.fromARGB(255, 99, 99, 99),
           ),
           child: Row(
             children: [
@@ -94,15 +94,15 @@ class _TextInputState extends State<TextInput> {
                       fillColor:
                           Theme.of(context).brightness == Brightness.light
                               ? const Color(0xfff5f5f5)
-                              : Color.fromARGB(255, 99, 99, 99),
+                              : const Color.fromARGB(255, 99, 99, 99),
                       focusColor:
                           Theme.of(context).brightness == Brightness.light
                               ? const Color(0xfff5f5f5)
-                              : Color.fromARGB(255, 99, 99, 99),
+                              : const Color.fromARGB(255, 99, 99, 99),
                       hoverColor:
                           Theme.of(context).brightness == Brightness.light
                               ? const Color(0xfff5f5f5)
-                              : Color.fromARGB(255, 99, 99, 99),
+                              : const Color.fromARGB(255, 99, 99, 99),
                       filled: true,
                       border: InputBorder.none,
                       hintText: widget.text,
