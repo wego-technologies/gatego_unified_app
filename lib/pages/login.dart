@@ -1,12 +1,10 @@
 import 'dart:ui';
 
-import 'package:beamer/beamer.dart';
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/molecules/textInput.dart';
 import 'package:gatego_unified_app/providers/userProvider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({
@@ -65,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                   var acc = ref.watch(accountProvider);
 
                   if (acc.isLoggedIn()) {
-                    Beamer.of(context).popRoute();
+                    Navigator.of(context).pop();
                     return const SizedBox();
                   }
                   return Column(
@@ -197,9 +195,8 @@ class _LoginPageState extends State<LoginPage> {
                             : const SizedBox(
                                 height: 25,
                                 width: 25,
-                                child: LoadingIndicator(
-                                  indicatorType: Indicator.ballRotateChase,
-                                  colors: [Colors.white],
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
                                 ),
                               ),
                         icon: !inP
