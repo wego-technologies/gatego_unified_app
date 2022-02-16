@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:fluentui_icons/fluentui_icons.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart';
 import 'package:gatego_unified_app/components/serialInfo.dart';
@@ -17,10 +20,17 @@ class _SerialCardState extends ConsumerState<SerialCard> {
   List<String> availablePorts = [];
 
   SerialPort? serialSelected;
+  Timer? timer;
+  bool manualDisconnect = false;
 
   @override
   void initState() {
     super.initState();
+    if (timer == null || !(timer?.isActive ?? true)) {
+      timer = Timer.periodic(const Duration(seconds: 1), ((_) {
+        checkSerial();
+      }));
+    }
     initPorts();
   }
 
@@ -28,6 +38,37 @@ class _SerialCardState extends ConsumerState<SerialCard> {
     setState(() => availablePorts = SerialPort.availablePorts
         .where((element) => SerialPort(element).vendorId == 6790)
         .toList());
+  }
+
+  void checkSerial() {
+    final serial = ref.read(serialProvider.state).state;
+    final availablePortsNew = SerialPort.availablePorts
+        .where((element) => SerialPort(element).vendorId == 6790)
+        .toList();
+
+    if (!listEquals(availablePortsNew, availablePorts)) {
+      setState(() {
+        availablePorts = availablePortsNew;
+        print('Update');
+      });
+    }
+    final res = availablePorts.contains(serial);
+    if (!res && serial != null) {
+      serialSelected = null;
+      ref.watch(serialProvider.state).state = null;
+      manualDisconnect = false;
+    }
+    if (availablePorts.length == 1 && serial == null && !manualDisconnect) {
+      serialSelected = SerialPort(availablePorts.first);
+      ref.watch(serialProvider.state).state = availablePorts.first;
+    }
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    timer == null;
+    super.dispose();
   }
 
   @override
@@ -113,6 +154,7 @@ class _SerialCardState extends ConsumerState<SerialCard> {
                                               .watch(serialProvider.state)
                                               .state = value;
                                           serialSelected = SerialPort(value!);
+                                          manualDisconnect = false;
                                         },
                                         value: serialExternal,
                                         borderRadius: BorderRadius.circular(10),
@@ -168,6 +210,7 @@ class _SerialCardState extends ConsumerState<SerialCard> {
                                       serialSelected = null;
                                       ref.watch(serialProvider.state).state =
                                           null;
+                                      manualDisconnect = true;
                                     },
                                     splashRadius: 20,
                                     icon: const Icon(
