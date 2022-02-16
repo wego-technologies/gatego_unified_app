@@ -116,7 +116,7 @@ class _ProgressCardState extends State<ProgressCard> {
                 borderRadius: BorderRadius.circular(100000),
               ),
               child: Icon(
-                FluentSystemIcons.ic_fluent_dismiss_filled,
+                FluentSystemIcons.ic_fluent_dismiss_circle_filled,
                 size: 15,
                 color: Theme.of(context).errorColor,
               ),

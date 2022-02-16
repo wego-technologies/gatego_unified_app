@@ -78,7 +78,10 @@ class Console extends ConsumerWidget {
                     ref.watch(commandProvider.state).state = [];
                   },
                   backgroundColor: Theme.of(context).primaryColor,
-                  child: const Icon(FluentSystemIcons.ic_fluent_delete_regular),
+                  child: Icon(
+                    FluentSystemIcons.ic_fluent_delete_regular,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
                 ),
               )
           ],
