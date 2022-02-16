@@ -132,12 +132,11 @@ final resetActions = [
       try {
         var client = http.Client();
         var fileName = 'flasher';
-        var url =
-            'https://firmware.gatego.io/utils/${Platform.operatingSystem.toLowerCase()}/$fileName';
         if (Platform.isWindows) {
-          url += '.exe';
           fileName += '.exe';
         }
+        var url =
+            'https://firmware.gatego.io/utils/${Platform.operatingSystem.toLowerCase()}/$fileName';
         var req = await client.get(Uri.parse(url));
         var bytes = req.bodyBytes;
         if (req.statusCode != 200) {
