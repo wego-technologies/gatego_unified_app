@@ -4,8 +4,8 @@ import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart';
-import 'package:gatego_unified_app/components/serialInfo.dart';
-import 'package:gatego_unified_app/providers/serialProvider.dart';
+import 'package:gatego_unified_app/components/serial_info.dart';
+import 'package:gatego_unified_app/providers/serial_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SerialCard extends ConsumerStatefulWidget {

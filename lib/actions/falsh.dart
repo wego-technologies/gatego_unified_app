@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart';
 import 'package:gatego_unified_app/molecules/console.dart';
-import 'package:gatego_unified_app/providers/serialProvider.dart';
+import 'package:gatego_unified_app/providers/serial_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:process_run/shell.dart';
@@ -185,7 +185,6 @@ var flashActions = [
           ...ref.read(commandProvider.state).state,
           event
         ];
-        print(event);
       });
       try {
         await shell.run(

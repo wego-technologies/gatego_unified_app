@@ -4,13 +4,13 @@ import 'dart:io';
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
-import 'package:gatego_unified_app/actions/factoryReset.dart';
+import 'package:gatego_unified_app/actions/factory_reset.dart';
 import 'package:gatego_unified_app/actions/falsh.dart';
 import 'package:gatego_unified_app/components/menu.dart';
-import 'package:gatego_unified_app/molecules/UserCard.dart';
-import 'package:gatego_unified_app/pages/comingSoon.dart';
+import 'package:gatego_unified_app/molecules/user_card.dart';
+import 'package:gatego_unified_app/pages/coming_soon.dart';
 import 'package:gatego_unified_app/pages/flash.dart';
-import 'package:gatego_unified_app/providers/commandStreamProvider.dart';
+import 'package:gatego_unified_app/providers/command_stream_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:window_manager/window_manager.dart';
@@ -21,10 +21,12 @@ void main() async {
   await windowManager.ensureInitialized();
   windowManager.setMinimumSize(const Size(970, 600));
   windowManager.setSize(const Size(970, 600));
-  runApp(AppWrapper());
+  runApp(const AppWrapper());
 }
 
 class AppWrapper extends StatelessWidget {
+  const AppWrapper({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
@@ -74,8 +76,6 @@ class _MenuWrapperState extends State<MenuWrapper>
   @override
   void didChangeDependencies() {
     if (Platform.isWindows) {
-      print('Is W');
-
       final buildNum = Platform.operatingSystemVersion
           .split('(')
           .last
@@ -84,13 +84,11 @@ class _MenuWrapperState extends State<MenuWrapper>
           .trim();
       if (int.parse(buildNum) >= 22000) {
         //Windows 11
-        print('W11');
         Window.setEffect(
           effect: WindowEffect.mica,
           dark: Theme.of(context).brightness == Brightness.dark,
         );
       } else {
-        print('W10');
         Window.setEffect(
           effect: WindowEffect.aero,
           color: Theme.of(context).canvasColor.withOpacity(0.95),
@@ -136,7 +134,7 @@ class _MenuWrapperState extends State<MenuWrapper>
       backgroundColor: Colors.transparent,
       body: Row(
         children: [
-          Container(
+          SizedBox(
             width: _extended ? 232 : null,
             child: Consumer(
               builder: (context, ref, child) {
@@ -163,9 +161,7 @@ class _MenuWrapperState extends State<MenuWrapper>
                   expanded: _extended,
                   onItemPressed: !ref.watch(inProgProvider)
                       ? (item) {
-                          if (ref.read(inProgProvider)) {
-                            print('In P');
-                          } else {
+                          if (!ref.read(inProgProvider)) {
                             _selectedItemKey = item;
                             setState(() {});
                           }

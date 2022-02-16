@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:gatego_unified_app/molecules/textInput.dart';
-import 'package:gatego_unified_app/providers/userProvider.dart';
+import 'package:gatego_unified_app/molecules/text_input.dart';
+import 'package:gatego_unified_app/providers/user_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LoginPage extends StatefulWidget {
@@ -174,7 +174,6 @@ class _LoginPageState extends State<LoginPage> {
                                   acc
                                       .login(userC.text, passC.text)
                                       .then((success) {
-                                    print(success);
                                     if (success) {
                                       inP = false;
                                     } else {

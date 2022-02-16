@@ -1,6 +1,6 @@
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:gatego_unified_app/molecules/progessCard.dart';
+import 'package:gatego_unified_app/molecules/progess_card.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -41,7 +41,7 @@ class Console extends ConsumerWidget {
                     },
                     itemCount: commands.state.length,
                   )
-                : Container(
+                : SizedBox(
                     width: double.infinity,
                     height: double.infinity,
                     child: Column(

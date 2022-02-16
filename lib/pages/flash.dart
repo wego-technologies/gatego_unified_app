@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gatego_unified_app/molecules/console.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../components/SerialSelect.dart';
-import '../components/actionCard.dart';
+import '../components/action_card.dart';
 
 class FlashPage extends StatelessWidget {
   final bool extended;

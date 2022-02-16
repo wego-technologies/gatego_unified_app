@@ -1,9 +1,9 @@
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/molecules/console.dart';
-import 'package:gatego_unified_app/molecules/progessCard.dart';
-import 'package:gatego_unified_app/providers/commandStreamProvider.dart';
-import 'package:gatego_unified_app/providers/serialProvider.dart';
+import 'package:gatego_unified_app/molecules/progess_card.dart';
+import 'package:gatego_unified_app/providers/command_stream_provider.dart';
+import 'package:gatego_unified_app/providers/serial_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ActionCard extends ConsumerStatefulWidget {
@@ -57,7 +57,7 @@ class _ActionCardState extends ConsumerState<ActionCard> {
         ),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 350,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -223,10 +223,10 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                                     progress != widget.actions.length)
                             ? null
                             : () {
-                                widget.actions.forEach((element) {
+                                for (var element in widget.actions) {
                                   progress = 0;
                                   element.state = ProgressCardState.pending;
-                                });
+                                }
                                 failedIndex = null;
                                 ref.read(inProgProvider.state).state = true;
                                 setStateProtected(() {});
@@ -256,8 +256,6 @@ class _ActionCardState extends ConsumerState<ActionCard> {
   void setStateProtected(void Function() fn) {
     if (mounted) {
       setState(fn);
-    } else {
-      print('Error!');
     }
   }
 }

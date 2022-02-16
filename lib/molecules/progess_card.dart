@@ -136,7 +136,7 @@ class _ProgressCardState extends State<ProgressCard> {
         children: [
           Row(
             children: [
-              Container(
+              SizedBox(
                 height: double.infinity,
                 width: 35,
                 child: Stack(

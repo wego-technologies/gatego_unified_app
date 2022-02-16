@@ -1,7 +1,7 @@
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gatego_unified_app/pages/login.dart';
-import 'package:gatego_unified_app/providers/userProvider.dart';
+import 'package:gatego_unified_app/providers/user_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class UserCard extends ConsumerWidget {

@@ -34,7 +34,6 @@ class AccountProvider extends ChangeNotifier {
       jwt = json['jwt_token'];
       return json['jwt_token'];
     } else {
-      print(res.statusCode);
       return null;
     }
   }
@@ -57,7 +56,6 @@ class AccountProvider extends ChangeNotifier {
       jwt = json['jwt_token'];
       return json['jwt_token'];
     } else {
-      print(res);
       return null;
     }
   }
@@ -83,7 +81,6 @@ class AccountProvider extends ChangeNotifier {
       acc = Account.fromJson(json);
       return Account.fromJson(json);
     } else {
-      print(res.body);
       return null;
     }
   }
