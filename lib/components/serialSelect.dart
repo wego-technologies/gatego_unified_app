@@ -49,7 +49,6 @@ class _SerialCardState extends ConsumerState<SerialCard> {
     if (!listEquals(availablePortsNew, availablePorts)) {
       setState(() {
         availablePorts = availablePortsNew;
-        print('Update');
       });
     }
     final res = availablePorts.contains(serial);
