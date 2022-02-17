@@ -128,18 +128,15 @@ class _SerialCardState extends ConsumerState<SerialCard> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        //width: 450,
-                        child: Text(
-                          serialExternal == null
-                              ? 'No Port Selected'
-                              : 'Connected to Device',
-                          style: const TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.start,
+                      Text(
+                        serialExternal == null
+                            ? 'No Port Selected'
+                            : 'Connected to Device',
+                        style: const TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
                         ),
+                        textAlign: TextAlign.start,
                       ),
                       serialExternal == null
                           ? Row(

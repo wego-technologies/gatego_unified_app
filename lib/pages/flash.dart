@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gatego_unified_app/molecules/console.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../components/SerialSelect.dart';
+import '../components/serial_select.dart';
 import '../components/action_card.dart';
 
 class FlashPage extends StatelessWidget {
