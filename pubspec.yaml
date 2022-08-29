@@ -30,7 +30,7 @@ dependencies:
   google_fonts: ^3.0.1
   hooks_riverpod: ^1.0.4
   http: ^0.13.5
-  flutter_libserialport: ^0.2.3
+  flutter_libserialport: ^0.3.0
   path_provider: ^2.0.11
   process_run: ^0.12.3+1
   desktop_window: ^0.4.0
