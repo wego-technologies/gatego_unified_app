@@ -472,7 +472,7 @@ packages:
       name: window_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.6"
+    version: "0.2.7"
   xdg_directories:
     dependency: transitive
     description:
