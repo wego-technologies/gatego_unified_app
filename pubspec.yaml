@@ -29,7 +29,7 @@ dependencies:
   cupertino_icons: ^1.0.5
   google_fonts: ^3.0.1
   hooks_riverpod: ^1.0.4
-  http: ^0.13.5
+  http: ^0.13.6
   flutter_libserialport: ^0.3.0
   path_provider: ^2.0.11
   process_run: ^0.12.3+1
