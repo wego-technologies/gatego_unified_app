@@ -38,7 +38,7 @@ dependencies:
     git: https://github.com/alexmercerind/flutter_acrylic.git
     version: ^1.0.0+2
   fluentui_icons: ^1.0.0
-  window_manager: ^0.2.7
+  window_manager: ^0.3.5
 
 dev_dependencies:
   flutter_lints: ^1.0.4
